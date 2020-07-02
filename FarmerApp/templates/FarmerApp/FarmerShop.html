@@ -75,55 +75,39 @@
   <h1 class="display-4">Pricing</h1>
   <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
 </div>
+<button type = "button" class = "order-price"> Order by Price </button> <br>
+<button type = "button" class = "order-quality"> Order by Quality </button> <br>
+<h2>Crop Seeds</h2>
+<hr \>
+<div id = "cropseeds"> 
+{% for c in cropseeds %}
+<h4>{{ c.name }}<h4>
+Price: <b>{{ c.price }}</b><br>
+Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
+<hr>
+{% endfor %}
+ </div>
+<h2>Fertilizer</h2>
+<hr \>
+<div id = "fertilizer"> 
+{% for c in ferts %}
+<h4>{{ c.name }}<h4>
+Price: <b>{{ c.price }}</b><br>
+Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
+<hr>
+{% endfor %}
+ </div>
+ <h2>Pesticide</h2>
+<hr \>
 
-<div class="container">
-  <div class="card-deck mb-3 text-center">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Free</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>10 users included</li>
-          <li>2 GB of storage</li>
-          <li>Email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Pro</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>20 users included</li>
-          <li>10 GB of storage</li>
-          <li>Priority email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
-      </div>
-    </div>
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Enterprise</h4>
-      </div>
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>30 users included</li>
-          <li>15 GB of storage</li>
-          <li>Phone and email support</li>
-          <li>Help center access</li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
-      </div>
-    </div>
-  </div>
+<div id = "pesticide"> 
+{% for c in pests %}
+<h4>{{ c.name }}<h4>
+Price: <b>{{ c.price }}</b><br>
+Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
+<hr>
+{% endfor %}
+ </div> 
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
@@ -163,11 +147,98 @@
     </div>
   </footer>
 </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      var output = '';
+    $('.order-price').on('click',function() {
+      console.log("Click")
+    $.ajax({
+	url: 'http://localhost:8000/order/cost',
+	dataType: 'json',
+	type: 'GET',
+	success: function(data){
+		$('#cropseeds').empty();
+    $('#fertilizer').empty();
+    $('#pesticide').empty(); //to clean the div
+		//console.log(typeof(data));
+		//var data = JSON.stringify(data);
+		//var data = JSON.parse(data);
+    arr = ['seeds','ferts','pests'];
+		//loop through data, output on the window
+		seed = data[0];
+    fert = data[1];
+    pest = data[2];
+    //console.log(typeof(seed));
+    output = '';
+    for(i=0; i<Object.keys(seed).length; i++){
+      var name = "<h4>"+seed[i].name + "</h4>";
+      var price = "Price: <b>" + seed[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+	$('#cropseeds').append(output);
+  output = '';
+    for(i=0; i<Object.keys(fert).length; i++){
+      var name = "<h4>"+fert[i].name + "</h4>";
+      var price = "Price: <b>" + fert[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+	$('#fertilizer').append(output);
+  output = '';
+    for(i=0; i<Object.keys(pest).length; i++){
+      var name = "<h4>"+pest[i].name + "</h4>";
+      var price = "Price: <b>" + pest[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+	$('#pesticide').append(output);	 
+  }
+  
+		});
+  	
+}); 
+$('.order-quality').on('click',function() {
+      console.log("Click")
+    $.ajax({
+	url: 'http://localhost:8000/order/quality',
+	dataType: 'json',
+	type: 'GET',
+	success: function(data){
+		$('#cropseeds').empty(); //to clean the div
+		//console.log(typeof(data));
+		//var data = JSON.stringify(data);
+		//var data = JSON.parse(data);
+    arr = ['seeds','ferts','pests'];
+		//loop through data, output on the window
+    a='seeds';
+		seed = data[0];
+  
+    //console.log(typeof(seed));
+    console.log(Object.keys(seed).length);
+
+    output = '';
+    for(i=0; i<Object.keys(seed).length; i++){
+      var name = "<h4>"+seed[i].name + "</h4>";
+      var price = "Price: <b>" + seed[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+   console.log(output);
+	$('#cropseeds').append(output);	 
+  }
+  
+		});
+  	
+});
+    });
+    </script>
+    
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
