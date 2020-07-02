@@ -7,6 +7,6 @@ from .models import *
 
 def list_crops(request):
     val=Crops.objects.all()
-    
 
-    return render(request,'cropdisplay.html',{'list':val})
+
+    return render(request,'FarmerApp/cropdisplay.html',{'list':val})

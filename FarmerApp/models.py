@@ -1,16 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 
-
 class AccountManager(BaseUserManager):
     def create_user(self,username,password=None,**extra_fields):
         if not username:
             raise ValueError("Username is required")
-        
+
 
         user=self.model(
             username=username,
-           
+
             **extra_fields
         )
         user.set_password(password)
@@ -20,9 +19,9 @@ class AccountManager(BaseUserManager):
     def create_superuser(self,username, password, **extra_fields):
         # Creating superuser having all the rights
 
-        
+
         user=self.create_user(
-                    
+
                     username,
                      password,
                       **extra_fields)
@@ -68,7 +67,7 @@ class Category(models.Model):
 		ordering = ('name',)
 		verbose_name = 'category'
 		verbose_name_plural = 'categories'
-	
+
 	def _str_(self):
 		return self.name
 
