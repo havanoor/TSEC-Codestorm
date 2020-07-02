@@ -57,7 +57,7 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
 class Farmer(Account):
-    region = models.CharField(max_length=200)
+    pan_no = models.CharField(max_length=10,blank=True,null=True)
     aadhar_no = models.IntegerField(null=True,blank=True)
 
 
