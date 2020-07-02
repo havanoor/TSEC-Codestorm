@@ -45,26 +45,49 @@
     </div>
     </nav>
 
-    
+
     <div class="myform container">
-      
+
       <div class='container'>
         <h3 style="text-align: center;">Welcome to <br>Farmers Portal</h3>
-        <form>
+
+
+
+        <form method="post">
+          {% csrf_token %}
+          {% for field in login_form %}
+
           <div class="form-group">
-            <label for="exampleInputEmail1">Username</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          
+
+
+            {{  field.label_tag  }}
+            {{ field }}
+        </div>
+            {% if field.help_text %}
+            <small style="color: grey;">{{field.help_text}}</small>
+            {% endif %}
+          {% endfor %}
+
+          {% for field in login_form %}
+          {% for error in field.errors %}
+          <p style="color: red;">{{error}}</p>
+            {% endfor %}
+            {% endfor %}
+
+            {% if login_form.non_field_errors %}
+            <div style= "color:red; ">
+              <p>{{login_form.non_field_errors}}</p>
             </div>
-            <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-        
-            <button type="submit"  class="btn btn-primary mybtn">Submit</button>
-        </form>
-      </div>    
-      
+            {% endif %}
+            <button type="submit" class="btn btn-primary mybtn">Log in</button>
+
+          </form>
+
+
+
+
+      </div>
+
 
       </div>
 
@@ -72,18 +95,18 @@
 
 
 
-      
-
-    
-
-     
 
 
-     
 
-    
 
-    
+
+
+
+
+
+
+
+
 
 
 
@@ -101,8 +124,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
       </body>
     </html>
-    
-
-
-
-
