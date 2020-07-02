@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
-
+from .cart import Cart
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
+from django.views.decorators.http import require_POST
+
+
 
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
@@ -15,13 +18,21 @@ def list_crops(request):
 
     return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
+
+
+
 def suggestion(request):
     return HttpResponse("suggestion")
+
+
 def farmersell(request):
     seeds = CropSeeds.objects.all()
     ferts = fertilizer.objects.all()
     pests = pesticide.objects.all()
     return render(request,'FarmerApp/FarmerShop.html',{'cropseeds':seeds, 'ferts':ferts, 'pests':pests})
+
+
+
 
 @api_view(('GET',))
 def order(request, pref):
@@ -86,7 +97,6 @@ def order(request, pref):
         ordered[2] = d
 
         return JsonResponse(ordered)
-        return HttpResponse("YO")
     else:
         return HttpResponse(pref)
 
@@ -212,9 +222,7 @@ def logout_view(request):
 	return redirect('home')
 
 
-
-
-'''Registration,login,logout start'''
+'''Registration,login,logout end'''
 
 
 
@@ -224,10 +232,5 @@ def farmerHome(request):
 
 
 def buyerHome(request):
-    return render(request,'FarmerApp/BuyerLand.html')
-
-   
-
-
-
+    return render(request,'FarmerApp/BuyerLand.html')   
 

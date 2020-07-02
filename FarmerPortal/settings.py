@@ -149,3 +149,5 @@ EMAIL_HOST_PASSWORD=''
 
 
 AUTH_USER_MODEL='FarmerApp.Account'
+
+CART_SESSION_ID = 'cart'

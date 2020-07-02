@@ -57,9 +57,9 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
 class Farmer(Account):
+
     pan_no = models.CharField(max_length=10,blank=True,null=True)
     aadhar_no = models.IntegerField(null=True,blank=True)
-
 
 
 class Buyer(Account):
@@ -102,6 +102,9 @@ class Product(models.Model):
 
 class Crops(models.Model):
     name=models.CharField(max_length=100)
+    farmer=models.ForeignKey(Farmer,
+                             related_name='Farmer'
+                             ,on_delete=models.CASCADE)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
@@ -117,6 +120,7 @@ class CropSeeds(models.Model):
 
 class fertilizer(models.Model):
     name = models.CharField(max_length = 100)
+    f_type = models.CharField(max_length=100,null=True,blank=True)
     quality = models.IntegerField()
     price =models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
@@ -125,7 +129,6 @@ class fertilizer(models.Model):
 class pesticide(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
-
+    p_type=models.CharField(max_length=100,null=True,blank=True)
     price = models.IntegerField()
-    image = models.ImageField(upload_to='cropImage/',blank=True) 
-
+    image = models.ImageField(upload_to='cropImage/',blank=True)
