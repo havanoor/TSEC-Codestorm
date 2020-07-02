@@ -12,13 +12,13 @@ class FarmerForm(ModelForm):
     confirm_password = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     class Meta:
         model=Farmer
-        fields=[ 'username', 'email','dob','is_farmer','aadhar_no','region','password', 'confirm_password']
+        fields=[ 'username', 'email','dob','is_farmer','aadhar_no','pan_no','password', 'confirm_password']
 
         labels = {
         "dob": "Date Of Birth",
         'is_farmer': 'Register as a farmer',
         'aadhar_no':'Enter Your Aadhar card number',
-        'region':'Region where your farm lies',
+        'pan_no':'Enter Your Pan Number',
         }
     def clean(self):
         cleaned_data = super(FarmerForm, self).clean()

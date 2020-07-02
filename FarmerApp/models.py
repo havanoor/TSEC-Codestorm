@@ -57,9 +57,8 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
 class Farmer(Account):
-    region = models.CharField(max_length=200)
+    pan_no = models.CharField(max_length=10,null=True,blank=True)
     aadhar_no = models.IntegerField(null=True,blank=True)
-
 
 
 class Buyer(Account):
@@ -102,6 +101,9 @@ class Product(models.Model):
 
 class Crops(models.Model):
     name=models.CharField(max_length=100)
+    farmer=models.ForeignKey(Farmer,
+                             related_name='Farmer'
+                             ,on_delete=models.CASCADE)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
