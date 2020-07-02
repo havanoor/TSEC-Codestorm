@@ -74,11 +74,23 @@ class BuyerForm(ModelForm):
 
 
 class AccountAuthenticationForm(forms.ModelForm):
-
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    username=forms.CharField(widget=forms.TextInput(attrs={'autofocus': True,'class':'form-control','id':'submit','placeholder':"Username"}))
+    password = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(attrs={'id':'exampleInputPassword1','class':'form-control','placeholder':'Password'}),
+    )
     class Meta:
         model = Account
         fields = ('username', 'password')
+
+        def __init__(self, *args, **kwargs):
+            super(Meta ,self.__init__(*args,**kwargs))
+            self.fields[
+                        'username'
+            ].widget.attrs['class'] = 'form-control'
+            self.fields[
+                        'username'
+            ].widget.attrs['id'] = 'submit'
 
     def clean(self):
         print(self.cleaned_data['username'])

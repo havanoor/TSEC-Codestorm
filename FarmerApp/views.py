@@ -38,14 +38,14 @@ def order(request, pref):
             a=vars(seeds[i])
             a.pop('_state')
             d[i]=a
-        
+
         ordered[0]=d
         d = {}
         for i in range(0,len(ferts)):
             a=vars(ferts[i])
             a.pop('_state')
             d[i]=a
-        
+
         ordered[1] = d
         d={}
         for i in range(0,len(pests)):
@@ -53,7 +53,7 @@ def order(request, pref):
             a.pop('_state')
             d[i]=a
         ordered[2] = d
-        
+
         return JsonResponse(ordered)
         return HttpResponse("YO")
     if pref =="quality":
@@ -69,14 +69,14 @@ def order(request, pref):
             a=vars(seeds[i])
             a.pop('_state')
             d[i]=a
-        
+
         ordered[0]=d
         d = {}
         for i in range(0,len(ferts)):
             a=vars(ferts[i])
             a.pop('_state')
             d[i]=a
-        
+
         ordered[1] = d
         d={}
         for i in range(0,len(pests)):
@@ -84,13 +84,13 @@ def order(request, pref):
             a.pop('_state')
             d[i]=a
         ordered[2] = d
-        
+
         return JsonResponse(ordered)
         return HttpResponse("YO")
     else:
         return HttpResponse(pref)
 
-  
+
     return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
 
