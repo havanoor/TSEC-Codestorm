@@ -18,7 +18,7 @@ class FarmerForm(ModelForm):
         "dob": "Date Of Birth",
         'is_farmer': 'Register as a farmer',
         'aadhar_no':'Enter Your Aadhar card number',
-        'pan_no':'Enter Your Pan Number',
+        'pan_no':'Enter  your PAN number',
         }
     def clean(self):
         cleaned_data = super(FarmerForm, self).clean()
@@ -26,6 +26,30 @@ class FarmerForm(ModelForm):
         confirm_password = cleaned_data.get("confirm_password")
         if password != confirm_password:
             raise forms.ValidationError("Passwords don't match")
+
+    def __init__(self,*args,**kwargs):
+        super(FarmerForm,self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['email'].widget.attrs['placeholder'] = 'E-mail'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+        self.fields['confirm_password'].widget.attrs['class'] = 'form-control'
+        self.fields['confirm_password'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['confirm_password'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['dob'].widget.attrs['class'] = 'form-control'
+        self.fields['dob'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['dob'].widget.attrs['placeholder'] = 'Username'
+        self.fields['aadhar_no'].widget.attrs['class'] = 'form-control'
+        self.fields['aadhar_no'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['aadhar_no'].widget.attrs['placeholder'] = 'Aadhar-no'
+        self.fields['pan_no'].widget.attrs['class'] = 'form-control'
+        self.fields['pan_no'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['pan_no'].widget.attrs['placeholder'] = 'Pan Number'
 
 
 class BuyerForm(ModelForm):
@@ -83,3 +107,15 @@ class CartAddProductForm(forms.Form):
     update = forms.BooleanField(required=False,
                                 initial=False,
                                 widget=forms.HiddenInput)
+
+    
+
+    def __init__(self,*args,**kwargs):
+        super(AccountAuthenticationForm,self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+
