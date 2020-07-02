@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate, logout
 def list_crops(request):
     val=Crops.objects.all()
 
-    return render(request,'cropdisplay.html',{'list':val})
+    return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
 def suggestion(request):
     return HttpResponse("suggestion")
@@ -186,7 +186,7 @@ def farmerHome(request):
 def buyerHome(request):
     return render(request,'FarmerApp/BuyerLand.html')
 
-    return render(request,'cropdisplay.html',{'list':val})
+   
 
 
 def login(request):
