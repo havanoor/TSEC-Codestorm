@@ -95,6 +95,21 @@ class Product(models.Model):
 
 class Crops(models.Model):
     name=models.CharField(max_length=100)
-    type=models.CharField(max_length=100)
+    c_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
+
+class CropSeeds(models.Model):
+    name=models.CharField(max_length=100)
+    s_type=models.CharField(max_length=100)
+    price=models.IntegerField()
+    photo=models.ImageField(upload_to='cropImage/',blank=True)
+    quality = models.IntegerField()
+class fertilizer(models.Model):
+    name = models.CharField(max_length = 100)
+    quality = models.IntegerField()
+    image = models.ImageField(upload_to='cropImage/',blank=True)
+class pesticide(models.Model):
+    name = models.CharField(max_length = 100)
+    quality = models.IntegerField()
+    image = models.ImageField(upload_to='cropImage/',blank=True) 
