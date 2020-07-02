@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,11 +47,22 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    # 'rest_framework.permissions.IsAuthenticated',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework.authentication.SessionAuthentication', #sesion authentication, may or may not be used
+    'rest_framework.authentication.TokenAuthentication' #token authentication
+    ]
+}
 
 ROOT_URLCONF = 'FarmerPortal.urls'
 

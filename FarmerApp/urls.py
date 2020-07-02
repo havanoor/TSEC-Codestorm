@@ -4,5 +4,9 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.list_crops,name="display")
+    path('',views.list_crops,name="display"),
+    path('suggestion/',views.suggestion, name = "suggestion"),
+    path('order/<str:pref>',views.order,name = "order"),
+    path('farmershop/',views.farmersell,name = "FS"),
+
 ]
