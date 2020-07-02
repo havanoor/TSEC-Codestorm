@@ -2,9 +2,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
 
+
+
 class AccountAdmin(UserAdmin):
     list_display=(
-        'email','username','is_staff','is_admin'
+        'email','username','is_staff','is_admin','is_farmer','is_buyer'
     )
 
     search_fields=(
@@ -18,7 +20,12 @@ class AccountAdmin(UserAdmin):
 
 
 
+
+
+
 admin.site.register(Account,AccountAdmin)
 admin.site.register(Category)
+admin.site.register(Farmer)
+admin.site.register(Buyer)
 admin.site.register(Crops)
 admin.site.register(Product)
