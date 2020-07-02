@@ -4,5 +4,6 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.list_crops,name="display")
+    path('',views.list_crops,name="display"),
+    path('login/',views.login,name="login")
 ]

@@ -10,3 +10,7 @@ def list_crops(request):
     
 
     return render(request,'cropdisplay.html',{'list':val})
+
+
+def login(request):
+    return render(request,'FarmerApp/login.html')
