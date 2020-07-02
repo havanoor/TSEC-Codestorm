@@ -56,6 +56,16 @@ class Account(AbstractBaseUser,PermissionsMixin):
     objects=AccountManager()
 
 
+class Farmer(Account):
+    region = models.CharField(max_length=200)
+    aadhar_no = models.IntegerField(null=True,blank=True)
+
+
+
+class Buyer(Account):
+    aadhar_no = models.IntegerField(blank=True, null=True)
+    pan_no = models.CharField(max_length= 10,blank=True, null=True)
+
 
 
 class Category(models.Model):
@@ -90,8 +100,6 @@ class Product(models.Model):
 	def _str_(self):
 		return self.name
 
-
-
 class Crops(models.Model):
     name=models.CharField(max_length=100)
     type=models.CharField(max_length=100)
@@ -105,10 +113,14 @@ class CropSeeds(models.Model):
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
     quality = models.IntegerField()
+
+
 class fertilizer(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
+
+
 class pesticide(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
