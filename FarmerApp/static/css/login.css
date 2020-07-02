@@ -8,12 +8,12 @@
     /* background-color: brown; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 10px 1px 1px 1px;
-    
-    /* left: 100px; */ 
+
+    /* left: 100px; */
     background: rgba(44,62,80,0.7);
     color: white;
-    
-  
+
+
 
 }
 
@@ -29,11 +29,6 @@ body
 {
     background-image: url("images/bkg3.jpg");
     background-repeat: no-repeat;
-    background-size:1550px 800px;
+    background-size:cover;
 
 }
-   
-   
-    
-
-

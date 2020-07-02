@@ -117,6 +117,7 @@ class CropSeeds(models.Model):
 
 class fertilizer(models.Model):
     name = models.CharField(max_length = 100)
+    f_type = models.CharField(max_length=100,null=True,blank=True)
     quality = models.IntegerField()
     price =models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
@@ -125,7 +126,6 @@ class fertilizer(models.Model):
 class pesticide(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
-
+    p_type=models.CharField(max_length=100,null=True,blank=True)
     price = models.IntegerField()
-    image = models.ImageField(upload_to='cropImage/',blank=True) 
-
+    image = models.ImageField(upload_to='cropImage/',blank=True)

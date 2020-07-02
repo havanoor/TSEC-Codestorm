@@ -59,14 +59,7 @@ class AccountAuthenticationForm(forms.ModelForm):
         model = Account
         fields = ('username', 'password')
 
-        def __init__(self, *args, **kwargs):
-            super(Meta ,self.__init__(*args,**kwargs))
-            self.fields[
-                        'username'
-            ].widget.attrs['class'] = 'form-control'
-            self.fields[
-                        'username'
-            ].widget.attrs['id'] = 'submit'
+
 
     def clean(self):
         print(self.cleaned_data['username'])
@@ -79,3 +72,14 @@ class AccountAuthenticationForm(forms.ModelForm):
             print(authenticate(password=password,username=username))
             if not authenticate(password=password,username=username):
                 raise forms.ValidationError("Invalid login")
+
+
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+
+class CartAddProductForm(forms.Form):
+    quantity = forms.TypedChoiceField(
+                                      choices=PRODUCT_QUANTITY_CHOICES,
+                                      coerce=int)
+    update = forms.BooleanField(required=False,
+                                initial=False,
+                                widget=forms.HiddenInput)
