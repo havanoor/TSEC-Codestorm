@@ -1,8 +1,8 @@
 .myform{
-    
+
+
     width:500px;
-    display:flex;
-    
+    display:flex  ;
     margin-top: 230px;
     /* box-shadow: 10px 10px gray; */
     /* background-color: brown; */
@@ -14,6 +14,7 @@
     color: white;
     
   
+
 }
 
 
@@ -29,8 +30,10 @@ body
     background-image: url("images/bkg3.jpg");
     background-repeat: no-repeat;
     background-size:1550px 800px;
+
+}
    
    
     
-}
+
 
