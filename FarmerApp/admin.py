@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Account
+from .models import *
 
 class AccountAdmin(UserAdmin):
     list_display=(
@@ -19,4 +19,6 @@ class AccountAdmin(UserAdmin):
 
 
 admin.site.register(Account,AccountAdmin)
-
+admin.site.register(Category)
+admin.site.register(Crops)
+admin.site.register(Product)

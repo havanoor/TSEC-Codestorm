@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from .models import *
 
-# Create your views here.
+
+
+
+
+def list_crops(request):
+    val=Crops.objects.all()
+    
+
+    return render(request,'cropdisplay.html',{'list':val})
