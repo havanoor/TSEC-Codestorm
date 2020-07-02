@@ -102,7 +102,7 @@ class Product(models.Model):
 
 class Crops(models.Model):
     name=models.CharField(max_length=100)
-    type=models.CharField(max_length=100)
+    c_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
 
