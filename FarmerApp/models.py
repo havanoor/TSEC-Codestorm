@@ -1,16 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 
-
 class AccountManager(BaseUserManager):
     def create_user(self,username,password=None,**extra_fields):
         if not username:
             raise ValueError("Username is required")
-        
+
 
         user=self.model(
             username=username,
-           
+
             **extra_fields
         )
         user.set_password(password)
@@ -20,9 +19,9 @@ class AccountManager(BaseUserManager):
     def create_superuser(self,username, password, **extra_fields):
         # Creating superuser having all the rights
 
-        
+
         user=self.create_user(
-                    
+
                     username,
                      password,
                       **extra_fields)
@@ -57,6 +56,16 @@ class Account(AbstractBaseUser,PermissionsMixin):
     objects=AccountManager()
 
 
+class Farmer(Account):
+    region = models.CharField(max_length=200)
+    aadhar_no = models.IntegerField(null=True,blank=True)
+
+
+
+class Buyer(Account):
+    aadhar_no = models.IntegerField(blank=True, null=True)
+    pan_no = models.CharField(max_length= 10,blank=True, null=True)
+
 
 
 class Category(models.Model):
@@ -68,7 +77,7 @@ class Category(models.Model):
 		ordering = ('name',)
 		verbose_name = 'category'
 		verbose_name_plural = 'categories'
-	
+
 	def _str_(self):
 		return self.name
 
@@ -91,13 +100,12 @@ class Product(models.Model):
 	def _str_(self):
 		return self.name
 
-
-
 class Crops(models.Model):
     name=models.CharField(max_length=100)
-    c_type=models.CharField(max_length=100)
+    type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
+
 
 class CropSeeds(models.Model):
     name=models.CharField(max_length=100)
@@ -105,13 +113,19 @@ class CropSeeds(models.Model):
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
     quality = models.IntegerField()
+
+
 class fertilizer(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
     price =models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
+
+
 class pesticide(models.Model):
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
+
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True) 
+
