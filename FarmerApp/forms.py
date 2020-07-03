@@ -43,13 +43,15 @@ class FarmerForm(ModelForm):
         self.fields['confirm_password'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['dob'].widget.attrs['class'] = 'form-control'
         self.fields['dob'].widget.attrs['id'] = 'exampleInputEmail1'
-        self.fields['dob'].widget.attrs['placeholder'] = 'Username'
+        self.fields['dob'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
         self.fields['aadhar_no'].widget.attrs['class'] = 'form-control'
         self.fields['aadhar_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['aadhar_no'].widget.attrs['placeholder'] = 'Aadhar-no'
         self.fields['pan_no'].widget.attrs['class'] = 'form-control'
         self.fields['pan_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['pan_no'].widget.attrs['placeholder'] = 'Pan Number'
+        self.fields['is_farmer'].widget.attrs['class'] = 'form-check-input'
+        self.fields['is_farmer'].widget.attrs['id'] = 'inlineRadio2'
 
 
 class BuyerForm(ModelForm):
