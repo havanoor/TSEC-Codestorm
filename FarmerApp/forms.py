@@ -73,7 +73,7 @@ class BuyerForm(ModelForm):
             raise forms.ValidationError("Passwords don't match")
 
     def __init__(self,*args,**kwargs):
-        super(AccountAuthenticationForm,self).__init__(*args,**kwargs)
+        super(BuyerForm,self).__init__(*args,**kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
