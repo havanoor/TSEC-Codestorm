@@ -621,6 +621,7 @@ class CropView(generics.ListCreateAPIView):
 
 
 def individual_product(request,model ,sc_id):
+
     ref_dict = {
         'c': Crops,
         'cs':CropSeeds,
