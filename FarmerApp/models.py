@@ -150,3 +150,4 @@ class pesticide(models.Model):
     p_type=models.CharField(max_length=100,null=True,blank=True)
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
+

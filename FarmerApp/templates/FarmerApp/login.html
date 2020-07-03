@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <div class="maincontainer">
+    <div class="maincontainer container">
         <div class="card">
             <div class="front">
                 <div class="myform container">
@@ -31,6 +31,7 @@
                     <div class='container'>
                       <h3 style="text-align: center;">Welcome to <br>Farmers Portal</h3>
                       <form method="POST">
+                        {{form.errors}}
                       {% csrf_token %}
                         <div class="form-group">
                           <label for="exampleInputEmail1">Username</label>
@@ -46,7 +47,19 @@
 
                           <button type="submit"  class="btn btn-primary mybtn">Submit</button>
                       </form>
+                      
+                      <div class="form-group">
+                        
+                        <p class="h6">Click to Register</p>
+
                       <button class="btn btn-primary mybtn" type="button" onClick="flip()" id='flip-button'>Register</button>
+                      </div>
+
+                      
+
+
+
+
                     </div>
 
 
@@ -58,7 +71,8 @@
               <div class="bradcam_area bradcam_bg_1">
                 <div class="container">
                     <div class="bradcam_text">
-                        <h3>Personal Details</h3>
+                        <!-- <h3>Personal Details</h3> -->
+                        <h3 style="text-align: center;">Personal Details</h3>
                         <div class="row">
                             <div class="col-sm-8">
                               <div class="form-actions">

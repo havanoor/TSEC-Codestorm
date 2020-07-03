@@ -43,7 +43,7 @@ class FarmerForm(ModelForm):
         self.fields['confirm_password'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['dob'].widget.attrs['class'] = 'form-control'
         self.fields['dob'].widget.attrs['id'] = 'exampleInputEmail1'
-        self.fields['dob'].widget.attrs['placeholder'] = 'Username'
+        self.fields['dob'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
         self.fields['aadhar_no'].widget.attrs['class'] = 'form-control'
         self.fields['aadhar_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['aadhar_no'].widget.attrs['placeholder'] = 'Aadhar-no'
@@ -73,7 +73,7 @@ class BuyerForm(ModelForm):
             raise forms.ValidationError("Passwords don't match")
 
     def __init__(self,*args,**kwargs):
-        super(AccountAuthenticationForm,self).__init__(*args,**kwargs)
+        super(BuyerForm,self).__init__(*args,**kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
