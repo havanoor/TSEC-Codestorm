@@ -26,4 +26,7 @@ urlpatterns=[
 
     path('buyer/cart/remove/<int:pid>',views.cart_remove,name='cart_remove'),
 
+    path('buyer/Order/create',views.order_create, name='order_create'),
+    
+
   ]
