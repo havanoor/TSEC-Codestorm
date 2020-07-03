@@ -35,15 +35,15 @@ def register(request):
             else:
                 print("no")
                 print("Its a buyer")
-                form3=BuyerForm(data=form2.data)
+                form3=FarmerForm(request.POST)
                 print(form3)
-                buyer=form3.save()
+                Buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                buyer.set_password(Buyer.password)
-                buyer.is_farmer = False
-                buyer.is_buyer=True
-                buyer.save()
+                Buyer.set_password(Buyer.password)
+                Buyer.is_farmer = False
+                Buyer.is_buyer=True
+                Buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -205,7 +205,26 @@ def CropCreate(request, id):
 def cropd(request):
     filter = CropFilter.objects
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
-  
+
+
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = CropFilter.objects.all()
+    products = Crops.objects.filter(available=True)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    return render(request, 'shop/product/list.html', {'category': category, 'categories': categories, 'products': products})
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Crops, id=id, slug=slug, available=True)
+    return render(request, 'FarmerApp/BuyerShop.html', {'product': product})
+
+
+
+
+
 @api_view(('GET',))
 def sugs(request,state):
     d= {'Gujarat': ['Sugarcane',
@@ -540,4 +559,3 @@ def sugs(request,state):
   'Groundnut']}
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
-

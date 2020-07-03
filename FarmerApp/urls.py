@@ -17,5 +17,7 @@ urlpatterns=[
     path('f',views.cropd, name='category'),
     path('dashboard/',views.dashboard,name = "dashboard"),
     path('sug/<str:state>',views.sugs, name= "getcrops"),
-
+    path('buyer/shop', views.product_list, name='product_list'),
+    path('buyer/shop/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
+    path('buyer/shop/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
  ]

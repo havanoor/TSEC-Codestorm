@@ -82,9 +82,7 @@ class Category(models.Model):
 		return self.name
 
 class Product(models.Model):
-    category = models.ForeignKey(Category,
-    				related_name='products',
-    				on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,related_name='products',on_delete=models.CASCADE)
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     #buyer =  models.ForeignKey(Farmer, related_name='Farmer_buy',on_delete=models.CASCADE)
@@ -104,16 +102,19 @@ class Product(models.Model):
 
 
 class CropFilter(models.Model):
-	name = models.CharField(max_length=200,db_index=True)
-	slug = models.SlugField(max_length=200,
-				unique=True)
-	class Meta:
-		ordering = ('name',)
-		verbose_name = 'filter'
-		verbose_name_plural = 'filters'
+    name = models.CharField(max_length=200,db_index=True)
+    slug = models.SlugField(max_length=200,unique=True)
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'filter'
+        verbose_name_plural = 'filters'
 
-	def _str_(self):
-		return self.name
+    def _str_(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('url:product_list_by_category', args=[self.slug])
+
 
 
 
@@ -126,6 +127,9 @@ class Crops(models.Model):
     price=models.IntegerField()
     quantity=models.IntegerField(default =0)
     photo=models.ImageField(upload_to='cropImage/',blank=True)
+
+    def get_absolute_url(self):
+        return reverse("url(regex=r'^URLPARENT/$', view=VIEW, name='URLNAME'),:product_detail", args=[self.id, self.slug])
 
 
 class CropSeeds(models.Model):
