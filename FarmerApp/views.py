@@ -19,7 +19,6 @@ from django.contrib.auth import login, authenticate, logout
 
 
 
-
 def register(request):
     if request.method == 'POST':
         form2 = FarmerForm(request.POST)
@@ -43,13 +42,13 @@ def register(request):
                 print("Its a buyer")
                 form3=BuyerForm(data=form2.data)
                 print(form3)
-                Buyer=form3.save()
+                buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                Buyer.set_password(Buyer.password)
-                Buyer.is_farmer = False
-                Buyer.is_buyer=True
-                Buyer.save()
+                buyer.set_password(Buyer.password)
+                buyer.is_farmer = False
+                buyer.is_buyer=True
+                buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -67,7 +66,7 @@ def register(request):
                 if user.is_farmer:
                     return redirect('farmer_home')
                 else:
-                    return redirect('product_list')
+                    return redirect('buyer_home')
     else:
         form=AccountAuthenticationForm()
         form2 = FarmerForm()
@@ -99,7 +98,6 @@ def dashboard(request):
     return render(request, 'FarmerApp/FarmerLand.html')
 
 def suggestion(request):
-
     return render(request,'FarmerApp/suggestion.html')
 
 @api_view(('GET',))
@@ -173,8 +171,13 @@ def order(request, pref):
 
 
 def farmerHome(request):
+
     userr = request.user
     return render(request,'FarmerApp/FarmerLand.html',{'user':userr})
+
+
+def buyerHome(request):
+    return render(request,'FarmerApp/BuyerLand.html')
 
 
 
@@ -182,6 +185,7 @@ def farmerHome(request):
 def CropCreate(request, id):
     filter1 = CropFilter.objects.get(pk=id)
     userr = request.user
+    filter = CropFilter.objects
     print(filter1.name)
     print(type(userr))
     if request.method == 'POST':
@@ -200,84 +204,14 @@ def CropCreate(request, id):
             return redirect('farmer_home')
     else:
         form=CropForm()
-    return render(request,'FarmerApp/FarmerCrop.html',{'filters':filter1,'form':form})
+    return render(request,'FarmerApp/Farmerf.html',{'filters':filter1,'form':form,'filter':filter})
 
 
 
 def cropd(request):
-    userr = request.user
     filter = CropFilter.objects
-    return render(request,'FarmerApp/Farmerf.html',{'filter':filter,'user':userr})
-
-
-
-def product_list(request, category_slug=None):
-    userr = request.user
-    category = None
-    categories = CropFilter.objects.all()
-    products = Crops.objects.filter(available=True)
-    if category_slug:
-        category = get_object_or_404(CropFilter, slug=category_slug)
-        products = products.filter(category=category)
-    return render(request, 'FarmerApp/BuyerLand.html', {'category': category, 'categories': categories, 'products': products,'user':userr})
-
-def product_detail(request, id, slug):
-    userr = request.user
-    product = get_object_or_404(Crops, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
-    return render(request, 'FarmerApp/BuyerDetail.html', {'product': product,'user':userr,'cart_product_form': cart_product_form})
-
-
-
-
-
-@require_POST
-def cart_add(request, product_id):
-    cart = Cart(request)
-    product = get_object_or_404(Crops, id=product_id)
-    form = CartAddProductForm(request.POST)
-    if form.is_valid():
-        cd = form.cleaned_data
-        cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
-
-    return redirect('cart_detail')
-
-
-
-
-def cart_remove(request, pid):
-    cart = Cart(request)
-    product = get_object_or_404(Crops, id=pid)
-    cart.remove(product)
-    return redirect('cart_detail')
-
-def cart_clear(request):
-    cart = Cart(request)
-    cart.clear()
-    return redirect('cart_detail')
-
-
-def cart_detail(request):
-    cart = Cart(request)
-    for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],'override': True})
-    return render(request, 'FarmerApp/CartDetail.html', {'cart': cart})
-
-
-def order_create(request):
-    cart = Cart(request)
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST)
-        if form.is_valid():
-            order = form.save()
-            for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
-            cart.clear()
-            return render(request, 'FarmerApp/OrderCreated.html',{'order': order})
-    else:
-        form = OrderCreateForm()
-    return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
-
+    return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
+  
 @api_view(('GET',))
 def sugs(request,state):
     d= {'Gujarat': ['Sugarcane',
@@ -618,8 +552,7 @@ class CropView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = CropSeeds.objects.all()
     serializer_class = CropSeedSerializer
-
-
+    
 def individual_product(request,model ,sc_id):
     
     ref_dict = {
