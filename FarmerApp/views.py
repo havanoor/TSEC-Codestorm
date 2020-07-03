@@ -5,12 +5,17 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
 import json
-
-
+from .serializers import CropSeedSerializer
+from rest_framework import generics
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 
 '''Registration,login,logout start'''
+
 
 
 
@@ -270,13 +275,6 @@ def order_create(request):
     else:
         form = OrderCreateForm()
     return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
-
-
-
-
-
-
-
 
 @api_view(('GET',))
 def sugs(request,state):
@@ -612,3 +610,15 @@ def sugs(request,state):
   'Groundnut']}
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
+
+
+class CropView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = CropSeeds.objects.all()
+    serializer_class = CropSeedSerializer
+
+
+def individual_product(request, sc_id):
+    item = get_object_or_404(CropSeeds,pk=sc_id)
+    return render(request,'FarmerApp/IndividualList.html',{'item':item})

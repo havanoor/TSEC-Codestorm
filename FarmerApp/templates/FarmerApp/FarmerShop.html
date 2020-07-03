@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -79,9 +78,9 @@
 <button type = "button" class = "order-quality"> Order by Quality </button> <br>
 <h2>Crop Seeds</h2>
 <hr \>
-<div id = "cropseeds"> 
+<div id = "cropseeds">
 {% for c in cropseeds %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
@@ -89,9 +88,9 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
  </div>
 <h2>Fertilizer</h2>
 <hr \>
-<div id = "fertilizer"> 
+<div id = "fertilizer">
 {% for c in ferts %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
@@ -100,14 +99,14 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
  <h2>Pesticide</h2>
 <hr \>
 
-<div id = "pesticide"> 
+<div id = "pesticide">
 {% for c in pests %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
 {% endfor %}
- </div> 
+ </div>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
@@ -158,6 +157,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	dataType: 'json',
 	type: 'GET',
 	success: function(data){
+    console.log(data)
 		$('#cropseeds').empty();
     $('#fertilizer').empty();
     $('#pesticide').empty(); //to clean the div
@@ -172,7 +172,8 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var name = "<h4>"+seed[i].name + "</h4>";
+      var k = i+1;
+      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
       var price = "Price: <b>" + seed[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -180,7 +181,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<h4>"+fert[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";;
       var price = "Price: <b>" + fert[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -188,17 +189,17 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<h4>"+pest[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";
       var price = "Price: <b>" + pest[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
     }
-	$('#pesticide').append(output);	 
+	$('#pesticide').append(output);
   }
-  
+
 		});
-  	
-}); 
+
+});
 $('.order-quality').on('click',function() {
       console.log("Click")
     $.ajax({
@@ -220,7 +221,7 @@ $('.order-quality').on('click',function() {
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var name = "<h4>"+seed[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
       var price = "Price: <b>" + seed[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -228,7 +229,7 @@ $('.order-quality').on('click',function() {
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<h4>"+fert[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";
       var price = "Price: <b>" + fert[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -236,20 +237,20 @@ $('.order-quality').on('click',function() {
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<h4>"+pest[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";;
       var price = "Price: <b>" + pest[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
     }
-	$('#pesticide').append(output);	 
+	$('#pesticide').append(output);
   }
-  
+
 		});
-  	
+
 });
     });
     </script>
-    
+
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
     <!-- JS, Popper.js, and jQuery -->

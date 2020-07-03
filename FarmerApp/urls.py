@@ -16,7 +16,7 @@ urlpatterns=[
     path('f',views.cropd, name='category'),
     path('dashboard/',views.dashboard,name = "dashboard"),
     path('sug/<str:state>',views.sugs, name= "getcrops"),
-
+    path('indi/<int:sc_id>',views.individual_product,name="individual"),
 
     path('buyer', views.product_list, name='product_list'),
     path('buyer/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
@@ -27,6 +27,6 @@ urlpatterns=[
     path('buyer/cart/remove/<int:pid>',views.cart_remove,name='cart_remove'),
 
     path('buyer/Order/create',views.order_create, name='order_create'),
-    
+
 
   ]
