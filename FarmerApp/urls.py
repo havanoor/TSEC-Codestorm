@@ -15,5 +15,7 @@ urlpatterns=[
     path('buyer',views.buyerHome, name='buyer_home'),
     path('farmer/<int:id>/crop',views.CropCreate, name="crop_add"),
     path('f',views.cropd, name='category'),
+    path('dashboard/',views.dashboard,name = "dashboard"),
+    path('sug/<str:state>',views.sugs, name= "getcrops"),
 
  ]

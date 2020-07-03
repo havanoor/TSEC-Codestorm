@@ -206,18 +206,18 @@ $('.order-quality').on('click',function() {
 	dataType: 'json',
 	type: 'GET',
 	success: function(data){
-		$('#cropseeds').empty(); //to clean the div
+		$('#cropseeds').empty();
+    $('#fertilizer').empty();
+    $('#pesticide').empty(); //to clean the div
 		//console.log(typeof(data));
 		//var data = JSON.stringify(data);
 		//var data = JSON.parse(data);
     arr = ['seeds','ferts','pests'];
 		//loop through data, output on the window
-    a='seeds';
 		seed = data[0];
-  
+    fert = data[1];
+    pest = data[2];
     //console.log(typeof(seed));
-    console.log(Object.keys(seed).length);
-
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
       var name = "<h4>"+seed[i].name + "</h4>";
@@ -225,8 +225,23 @@ $('.order-quality').on('click',function() {
       var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
     }
-   console.log(output);
-	$('#cropseeds').append(output);	 
+	$('#cropseeds').append(output);
+  output = '';
+    for(i=0; i<Object.keys(fert).length; i++){
+      var name = "<h4>"+fert[i].name + "</h4>";
+      var price = "Price: <b>" + fert[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+	$('#fertilizer').append(output);
+  output = '';
+    for(i=0; i<Object.keys(pest).length; i++){
+      var name = "<h4>"+pest[i].name + "</h4>";
+      var price = "Price: <b>" + pest[i].price + "</b> <br>";
+      var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
+      output += name + price + quality + "<hr>";
+    }
+	$('#pesticide').append(output);	 
   }
   
 		});

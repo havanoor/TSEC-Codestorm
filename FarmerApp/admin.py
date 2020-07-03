@@ -73,7 +73,8 @@ class CropFilterAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class CropAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price','farmer' ]
+    list_display = ['name', 'slug', 'price' ,'farmer']
+    
     list_filter = ['name',]
     list_editable = ['price', ]
     prepopulated_fields = {'slug': ('name',)}
