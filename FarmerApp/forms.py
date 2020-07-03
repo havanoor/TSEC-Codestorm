@@ -18,7 +18,7 @@ class FarmerForm(ModelForm):
         "dob": "Date Of Birth",
         'is_farmer': 'Register as a farmer',
         'aadhar_no':'Enter Your Aadhar card number',
-        'pan_no':'Enter your Pan Number',
+        'pan_no':'Enter  your PAN number',
         }
     def clean(self):
         cleaned_data = super(FarmerForm, self).clean()
@@ -50,6 +50,7 @@ class FarmerForm(ModelForm):
         self.fields['pan_no'].widget.attrs['class'] = 'form-control'
         self.fields['pan_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['pan_no'].widget.attrs['placeholder'] = 'Pan Number'
+
 
 class BuyerForm(ModelForm):
     	password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -114,3 +115,14 @@ class CartAddProductForm(forms.Form):
     update = forms.BooleanField(required=False,
                                 initial=False,
                                 widget=forms.HiddenInput)
+
+
+
+    def __init__(self,*args,**kwargs):
+        super(AccountAuthenticationForm,self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
