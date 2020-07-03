@@ -20,7 +20,7 @@ def register(request):
         form=AccountAuthenticationForm(request.POST)
         print("1",form.is_valid())
         print("2",form2.is_valid())
-
+        print("HIII",form.errors)
         if form2.is_valid():
             print("-------->",form2.data)
             if ("is_farmer" in form2.data.keys()):
@@ -55,6 +55,7 @@ def register(request):
         elif form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
+            print("HIII",form.errors)
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
@@ -66,7 +67,7 @@ def register(request):
         form=AccountAuthenticationForm()
         form2 = FarmerForm()
 
-    return render(request, 'FarmerApp/login.html', {'form2': form2,'form':form})
+    return render(request, 'FarmerApp/login.html', {'form2': form2,'form':form,'error':form.errors})
 
 
 def logout_view(request):

@@ -50,6 +50,8 @@ class FarmerForm(ModelForm):
         self.fields['pan_no'].widget.attrs['class'] = 'form-control'
         self.fields['pan_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['pan_no'].widget.attrs['placeholder'] = 'Pan Number'
+        self.fields['is_farmer'].widget.attrs['class'] = 'form-check-input'
+        self.fields['is_farmer'].widget.attrs['id'] = 'inlineRadio2'
 
 
 class BuyerForm(ModelForm):
