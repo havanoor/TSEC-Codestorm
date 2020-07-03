@@ -176,22 +176,14 @@ $(document).ready(function(){
 			var long = currentPosition.coords.longitude
 			// console.log(lat, long);
 			// console.log(currentPosition);
-			var url = 'https://geocode.xyz/'+lat+','+ long +'?geoit=json&auth=91161824098710359867x6506'
+			var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='+lat+','+ long;
 			$.getJSON(url, function(data){
-				//console.log(data)
+				console.log(data)
 				var data = JSON.stringify(data);
 				var json = JSON.parse(data);
 				
 				console.log(json);
-                if (json.poi.addr_state == null)
-                {
-                    var state = json.state;
-                }
-                else
-                {
-                    var state = json.poi.addr_state;
-                }
-                
+                var state = json['location']['region']
 				$('#state').append(state);
 			url = "http://localhost:8000/sug/"+state;
             $.getJSON(url, function(data){
@@ -208,7 +200,7 @@ $(document).ready(function(){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<a href = "http://localhost:8000/indi/' + sdata[j].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/indi/cs/' + sdata[j].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
                                 var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';
