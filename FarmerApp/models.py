@@ -82,29 +82,46 @@ class Category(models.Model):
 		return self.name
 
 class Product(models.Model):
-	category = models.ForeignKey(Category,
-					related_name='products',
-					on_delete=models.CASCADE)
-	name = models.CharField(max_length=200, db_index=True)
-	slug = models.SlugField(max_length=200, db_index=True)
-	image = models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
-	description = models.TextField(blank=True)
-	price = models.DecimalField(max_digits=10, decimal_places=2)
-	available = models.BooleanField(default=True)
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
+    category = models.ForeignKey(Category,
+    				related_name='products',
+    				on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
+    #buyer =  models.ForeignKey(Farmer, related_name='Farmer_buy',on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    available = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    class Meta:
+    	ordering = ('name',)
+    	index_together = (('id', 'slug'),)
+
+    def _str_(self):
+    	return self.name
+
+
+
+class CropFilter(models.Model):
+	name = models.CharField(max_length=200,db_index=True)
+	slug = models.SlugField(max_length=200,
+				unique=True)
 	class Meta:
 		ordering = ('name',)
-		index_together = (('id', 'slug'),)
+		verbose_name = 'filter'
+		verbose_name_plural = 'filters'
 
 	def _str_(self):
 		return self.name
 
+
+
 class Crops(models.Model):
     name=models.CharField(max_length=100)
-    farmer=models.ForeignKey(Farmer,
-                             related_name='Farmer'
-                             ,on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=200, db_index=True)
+    farmer=models.ForeignKey(Farmer,related_name='Farmer',on_delete=models.CASCADE)
+    category = models.ForeignKey(CropFilter,related_name='Crop_Filter',on_delete=models.CASCADE,null=True)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
