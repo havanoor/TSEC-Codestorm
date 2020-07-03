@@ -29,7 +29,7 @@ body
 {
     background-image: url("images/bkg3.jpg");
     background-repeat: no-repeat;
-    background-size:1550px 800px;
+    background-size:cover;
 
 }
    

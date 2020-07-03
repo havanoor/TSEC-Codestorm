@@ -104,6 +104,7 @@ class Crops(models.Model):
     name=models.CharField(max_length=100)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
+    quality=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
 
 

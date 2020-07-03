@@ -7,13 +7,14 @@ from rest_framework.decorators import api_view
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 
-
+def dashboard(request):
+    return render(request, 'FarmerApp/FarmerLand.html')
 
 
 def list_crops(request):
     val=Crops.objects.all()
 
-    return render(request,'cropdisplay.html',{'list':val})
+    return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
 def suggestion(request):
     return HttpResponse("suggestion")

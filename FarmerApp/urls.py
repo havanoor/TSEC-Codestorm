@@ -9,7 +9,7 @@ urlpatterns=[
     path('suggestion/',views.suggestion, name = "suggestion"),
     path('order/<str:pref>',views.order,name = "order"),
     path('farmershop/',views.farmersell,name = "FS"),
-
+    path('dashboard/',views.dashboard,name = "dashboard"),
 
 
 

@@ -41,26 +41,66 @@
           font-size: 3.5rem;
         }
       }
+      /*index.css*/
+
+.grey-jumbo {
+	margin-top: -30px;
+	border-radius: 0px !important;
+	height: 500px;
+	color: #fff;
+	background-size: cover;
+	background-color: #42a5f5;
+}
+
+hr.short {
+	width: 100px;
+	border-bottom: 2px solid #fff;
+}
+hr.below {
+	width: 50px;
+	border-bottom: 1px solid #fff;
+}
+.cityin{
+	color: #000;
+}
+.Cin {
+	color: #000;
+}
+
+.top{
+	background: linear-gradient(145deg, #0d47a1, #42a5f5);
+	color: #fff;
+	border-radius: 0px !important;
+	height: 300px; 
+}  
+
+#info1,
+#info2 {
+	font-size: 30px;
+}
+#info3{
+	font-size: 60px;
+}
     </style>
     <!-- Custom styles for this template -->
     <link href="navbar-top.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">Top navbar</a>
+  <a class="navbar-brand" href="#">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">My crops</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="#">Sell Crops</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link" href={% url 'FS' %}>Buy Raw Materials</a>
       </li>
     </ul>
     <form class="form-inline mt-2 mt-md-0">
@@ -75,159 +115,52 @@
 
 <section class="jumbotron text-center">
   <div class="container">
-    <h1>Album example</h1>
+    <h1>Dashboard</h1>
     <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
     <p>
-      <a href="#" class="btn btn-primary my-2">Main call to action</a>
-      <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      <a href="#" class="btn btn-primary my-2">Grieviances</a>
+      <a href="#" class="btn btn-secondary my-2">Top Crops Sold</a>
     </p>
   </div>
 </section>
 
-<div class="album py-5 bg-light">
+<section class="jumbotron text-center">
   <div class="container">
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
+  <div class="container-fluid">
+    <div class = "row">
+          <div class="col-sm-12 text-center jumbotron top">  
+          <h1>Today's Weather</h1>
+          <hr class = "short">
+          <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
+          <button class = "cityin" type="button" onclick="loadForCity() " style="font-color: #000000"> Call on this city</button>
+          <hr class = "short">
+          <h2 id = "weather">Loading....</h2>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+    </div>
+      <div class="row" align = "center">
+        <div class="col-sm-12 text-center grey-jumbo">
+          <div class="col-sm-4">
+            <h3 id = "info1"></h3>
+            <hr class = "short">
+            <h3 id = "info2"></h3>
           </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+          <div class="col-sm-4">
+            <h3 id = "info3"></h3>
+            <button id = "switch" class = 'btn btn-primary'>Show in Farenheite</button>
           </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-          <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 mins</small>
-            </div>
+          <div class="col-sm-4">
+            <h3 id = "info5"></h3>
+            <hr class = "short">
+            <h3 id = "info6"></h3>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+    
+  </div>
+</section>
 
 </main>
 
@@ -236,15 +169,130 @@
   <p class="float-right">
     <a href="#">Back to top</a>
   </p>
-  <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-  <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.5/getting-started/introduction/">getting started guide</a>.</p>
 </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script >
+      function loadForCity(){
+  var cit = document.getElementById("city").value
+  var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='
+      $.getJSON(url+cit, function(data){
+        //console.log(data)
+        var data = JSON.stringify(data);
+        var json = JSON.parse(data);
+        var country = json.location.country;
+        var city = json.location.name;
+        var state = json.location.region;
+        var temp = json.current.temperature;
+        var tempf = 1.8*temp + 32;
+        //var last_up = json.current.last_updated.replace("-". " ");
+        var wind = json.current.wind_speed
+        var humid = json.current.humidity;
+        var time = json.location.localtime.split(' ')[1];
+        var cloud = json.current.cloudcover;
+        console.log(data);
+        $('#weather').html(city + ", " + state + ", " + country);
+        $('#info1').html(time);
+        $('#info2').html(wind + "km/hour");
+        $('#info3').html(temp + '&#8451');
+        var yes = true;
+        $('#switch').on("click",function(){
+          if(yes){
+            $("#info3").html(tempf + '&#8457');
+            yes = false;
+            $("#switch").html("Show in degree Celcuis");
+          }
+          else{
+            $('#info3').html(temp + '&#8451');
+            yes = true;
+            $("#switch").html("Show in degree Farenheit");    
+          }
+
+        });
+        if (cloud <= 30){
+            $('#info5').html('Clear Sky');
+          }
+          else
+          {
+            $('#info5').html('Cloudy Sky');
+          }
+          $('#info6').html("Humidity: " + humid + "%");
+
+      });
+
+}
+
+$(document).ready(function(){
+	$('.short').hide()
+	if (navigator.geolocation)
+	{
+		var currentPosition = '';
+		navigator.geolocation.getCurrentPosition(function(position){
+			currentPosition = position;
+			var lat = currentPosition.coords.latitude
+			var long = currentPosition.coords.longitude
+			// console.log(lat, long);
+			// console.log(currentPosition);
+			var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='
+			$.getJSON(url+lat+','+long, function(data){
+				$('.short').show();
+				//console.log(data)
+				var data = JSON.stringify(data);
+				var json = JSON.parse(data);
+				var country = json.location.country;
+				var city = json.location.name;
+				var state = json.location.region;
+				var temp = json.current.temperature;
+				var tempf = 1.8*temp + 32;
+				//var last_up = json.current.last_updated.replace("-". " ");
+				var wind = json.current.wind_speed
+				var humid = json.current.humidity;
+				var time = json.location.localtime.split(' ')[1];
+				var cloud = json.current.cloudcover;
+				console.log(data);
+				$('#weather').html(city + ", " + state + ", " + country);
+				$('#info1').html(time);
+				$('#info2').html(wind + "km/hour");
+				$('#info3').html(temp + '&#8451');
+				var yes = true;
+				$('#switch').on("click",function(){
+					if(yes){
+						$("#info3").html(tempf + '&#8457');
+						yes = false;
+						$("#switch").html("Show in degree Celcuis");
+					}
+					else{
+						$('#info3').html(temp + '&#8451');
+						yes = true;
+						$("#switch").html("Show in degree Farenheit");		
+					}
+
+				});
+				if (cloud <= 30){
+						$('#info5').html('Clear Sky');
+					}
+					else
+					{
+						$('#info5').html('Cloudy Sky');
+					}
+					$('#info6').html("Humidity: " + humid + "%");
+
+			});
+
+		});
+	}
+});
+
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
