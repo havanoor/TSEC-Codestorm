@@ -234,3 +234,4 @@ def farmerHome(request):
 def buyerHome(request):
     return render(request,'FarmerApp/BuyerLand.html')   
 
+ 
