@@ -10,7 +10,8 @@ from django.views.decorators.http import require_POST
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 
-
+def dashboard(request):
+    return render(request, 'FarmerApp/FarmerLand.html')
 
 
 def list_crops(request):
