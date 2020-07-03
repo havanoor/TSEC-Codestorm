@@ -61,7 +61,7 @@ def register(request):
                 if user.is_farmer:
                     return redirect('farmer_home')
                 else:
-                    return redirect('buyer_home')
+                    return redirect('product_list')
     else:
         form=AccountAuthenticationForm()
         form2 = FarmerForm()
@@ -166,13 +166,8 @@ def order(request, pref):
 
 
 def farmerHome(request):
-
     userr = request.user
     return render(request,'FarmerApp/FarmerLand.html',{'user':userr})
-
-
-def buyerHome(request):
-    return render(request,'FarmerApp/BuyerLand.html')
 
 
 
@@ -203,23 +198,81 @@ def CropCreate(request, id):
 
 
 def cropd(request):
+    userr = request.user
     filter = CropFilter.objects
-    return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
+    return render(request,'FarmerApp/Farmerf.html',{'filter':filter,'user':userr})
 
 
 
 def product_list(request, category_slug=None):
+    userr = request.user
     category = None
     categories = CropFilter.objects.all()
     products = Crops.objects.filter(available=True)
     if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
+        category = get_object_or_404(CropFilter, slug=category_slug)
         products = products.filter(category=category)
-    return render(request, 'shop/product/list.html', {'category': category, 'categories': categories, 'products': products})
+    return render(request, 'FarmerApp/BuyerLand.html', {'category': category, 'categories': categories, 'products': products,'user':userr})
 
 def product_detail(request, id, slug):
+    userr = request.user
     product = get_object_or_404(Crops, id=id, slug=slug, available=True)
-    return render(request, 'FarmerApp/BuyerShop.html', {'product': product})
+    cart_product_form = CartAddProductForm()
+    return render(request, 'FarmerApp/BuyerDetail.html', {'product': product,'user':userr,'cart_product_form': cart_product_form})
+
+
+
+
+
+@require_POST
+def cart_add(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Crops, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
+
+    return redirect('cart_detail')
+
+
+
+
+def cart_remove(request, pid):
+    cart = Cart(request)
+    product = get_object_or_404(Crops, id=pid)
+    cart.remove(product)
+    return redirect('cart_detail')
+
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect('cart_detail')
+
+
+def cart_detail(request):
+    cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],'override': True})
+    return render(request, 'FarmerApp/CartDetail.html', {'cart': cart})
+
+
+def order_create(request):
+    cart = Cart(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            cart.clear()
+            return render(request, 'FarmerApp/OrderCreated.html',{'order': order})
+    else:
+        form = OrderCreateForm()
+    return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
+
+
+
 
 
 
