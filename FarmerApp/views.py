@@ -97,6 +97,7 @@ def dashboard(request):
     return render(request, 'FarmerApp/FarmerLand.html')
 
 def suggestion(request):
+        
     return render(request,'FarmerApp/suggestion.html')
 
 @api_view(('GET',))
@@ -550,3 +551,8 @@ class CropView(generics.ListCreateAPIView):
     filter_backends = (filters.SearchFilter,)
     queryset = CropSeeds.objects.all()
     serializer_class = CropSeedSerializer
+
+
+def individual_product(request, sc_id):
+    item = get_object_or_404(CropSeeds,pk=sc_id)
+    return render(request,'FarmerApp/IndividualList.html',{'item':item})

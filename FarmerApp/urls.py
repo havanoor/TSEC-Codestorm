@@ -17,5 +17,6 @@ urlpatterns=[
     path('f',views.cropd, name='category'),
     #path('dashboard/',views.dashboard,name = "dashboard"),
     path('sug/<str:state>',views.sugs, name= "getcrops"),
+    path('indi/<int:sc_id>',views.individual_product,name="individual"),
 
  ]
