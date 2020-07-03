@@ -85,11 +85,27 @@ class CropSeedAdmin(ModelAdmin):
         fieldsets=()
 '''
 
+
+
+class CropFilterAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
+
+
+class CropAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug', 'price','farmer' ]
+    list_filter = ['name',]
+    list_editable = ['price', ]
+    prepopulated_fields = {'slug': ('name',)}
+
+
+
 admin.site.register(Account,AccountAdmin)
 admin.site.register(Farmer)
 admin.site.register(Buyer)
-admin.site.register(Crops)
-admin.site.register(Product)
+admin.site.register(Crops,CropAdmin)
+#admin.site.register(Product)
+admin.site.register(CropFilter,CropFilterAdmin)
 admin.site.register(CropSeeds,CropSeedAdmin)
 admin.site.register(fertilizer,FertilizerAdmin)
 admin.site.register(pesticide,PesticideAdmin)

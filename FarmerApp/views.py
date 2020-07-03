@@ -148,7 +148,7 @@ def register_farmer(request):
                 form3=BuyerForm(data=form2.data)
                 print(form3)
                 buyer=form3.save()
-                
+
                 # buyer=Buyer.objects.create(form2.data)
                 buyer.set_password(Buyer.password)
                 buyer.is_farmer = False
@@ -161,7 +161,7 @@ def register_farmer(request):
             # Farmer.is_buyer=False
             # Farmer.save()
             # return redirect('login')
-        
+
         elif form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -233,5 +233,4 @@ def farmerHome(request):
 
 
 def buyerHome(request):
-    return render(request,'FarmerApp/BuyerLand.html')   
-
+    return render(request,'FarmerApp/BuyerLand.html')
