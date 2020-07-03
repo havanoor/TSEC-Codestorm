@@ -119,19 +119,9 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
-<<<<<<< HEAD
 class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int)
     update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
-=======
-# class CartAddProductForm(forms.Form):
-#     quantity = forms.TypedChoiceField(
-#                                       choices=PRODUCT_QUANTITY_CHOICES,
-#                                       coerce=int)
-#     update = forms.BooleanField(required=False,
-#                                 initial=False,
-#                                 widget=forms.HiddenInput)
->>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b
 
 class CropForm(ModelForm):
     class Meta:

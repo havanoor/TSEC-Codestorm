@@ -18,7 +18,6 @@ urlpatterns=[
     path('sug/<str:state>',views.sugs, name= "getcrops"),
     path('indi/<int:sc_id>',views.individual_product,name="individual"),
 
-<<<<<<< HEAD
     path('buyer', views.product_list, name='product_list'),
     path('buyer/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
     path('buyer/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
@@ -31,9 +30,3 @@ urlpatterns=[
 
 
   ]
-=======
-    # path('buyer/shop', views.product_list, name='product_list'),
-    # path('buyer/shop/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
-    # path('buyer/shop/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
- ]
->>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b

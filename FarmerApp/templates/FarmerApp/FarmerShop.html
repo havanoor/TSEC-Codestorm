@@ -54,7 +54,7 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url "farmer_home" %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -96,7 +96,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
 {% endfor %}
  </div>
- <h2>Pesticide</h2> 
+ <h2>Pesticide</h2>
 <hr \>
 
 <div id = "pesticide">
