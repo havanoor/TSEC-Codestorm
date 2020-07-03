@@ -81,7 +81,7 @@
 <hr \>
 <div id = "cropseeds"> 
 {% for c in cropseeds %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
@@ -91,18 +91,18 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr \>
 <div id = "fertilizer"> 
 {% for c in ferts %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
 {% endfor %}
  </div>
- <h2>Pesticide</h2>
+ <h2>Pesticide</h2> 
 <hr \>
 
 <div id = "pesticide"> 
 {% for c in pests %}
-<h4>{{ c.name }}<h4>
+<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
 Price: <b>{{ c.price }}</b><br>
 Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 <hr>
@@ -158,6 +158,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	dataType: 'json',
 	type: 'GET',
 	success: function(data){
+    console.log(data)
 		$('#cropseeds').empty();
     $('#fertilizer').empty();
     $('#pesticide').empty(); //to clean the div
@@ -172,7 +173,8 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var name = "<h4>"+seed[i].name + "</h4>";
+      var k = i+1;
+      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
       var price = "Price: <b>" + seed[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -180,7 +182,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<h4>"+fert[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";;
       var price = "Price: <b>" + fert[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -188,7 +190,7 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<h4>"+pest[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";
       var price = "Price: <b>" + pest[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -220,7 +222,7 @@ $('.order-quality').on('click',function() {
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var name = "<h4>"+seed[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
       var price = "Price: <b>" + seed[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -228,7 +230,7 @@ $('.order-quality').on('click',function() {
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<h4>"+fert[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";
       var price = "Price: <b>" + fert[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";
@@ -236,7 +238,7 @@ $('.order-quality').on('click',function() {
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<h4>"+pest[i].name + "</h4>";
+      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";;
       var price = "Price: <b>" + pest[i].price + "</b> <br>";
       var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
       output += name + price + quality + "<hr>";

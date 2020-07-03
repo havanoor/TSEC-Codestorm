@@ -183,7 +183,15 @@ $(document).ready(function(){
 				var json = JSON.parse(data);
 				
 				console.log(json);
-                var state = json.poi.addr_state
+                if (json.poi.addr_state == null)
+                {
+                    var state = json.state;
+                }
+                else
+                {
+                    var state = json.poi.addr_state;
+                }
+                
 				$('#state').append(state);
 			url = "http://localhost:8000/sug/"+state;
             $.getJSON(url, function(data){
@@ -193,17 +201,17 @@ $(document).ready(function(){
                 var miniurl ='http://localhost:8000/cropseeds/?search='
                 for (i=0; i<10;i++)
                 {
-                    out += "<b>"+data[i]+"</b><br>";
+                    out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data[i]+"</button>";
                     var s = data[i]
                     $.getJSON(miniurl+s,function(sdata){
                         if (sdata.length>0){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/indi/' + sdata[j].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
-                                var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div>';
+                                var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';
                                 miniout += a+b+c+d;
                             }
                         $('#cards').html(miniout);
