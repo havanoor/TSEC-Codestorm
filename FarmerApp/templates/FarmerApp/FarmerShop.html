@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -55,7 +54,7 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url "farmer_home" %}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
@@ -79,7 +78,7 @@
 <button type = "button" class = "order-quality"> Order by Quality </button> <br>
 <h2>Crop Seeds</h2>
 <hr \>
-<div id = "cropseeds"> 
+<div id = "cropseeds">
 {% for c in cropseeds %}
 <a href = "http://localhost:8000/indi/' + seed[i].id +'">
 <div class="card" style="width:100% ;">
@@ -98,7 +97,7 @@
  </div>
 <h2>Fertilizer</h2>
 <hr \>
-<div id = "fertilizer"> 
+<div id = "fertilizer">
 {% for c in ferts %}
 <a href = "http://localhost:8000/indi/' + seed[i].id +'">
 <div class="card" style="width:100% ;">
@@ -113,7 +112,14 @@
 </div>
   </a>
 {% endfor %}
-<div id = "pesticide"> 
+
+ </div>
+ <h2>Pesticide</h2>
+<hr \>
+
+<div id = "pesticide">
+
+
 {% for c in pests %}
 <a href = "http://localhost:8000/indi/' + seed[i].id +'">
 <div class="card" style="width:100% ;">
@@ -128,7 +134,7 @@
 </div>
   </a>
 {% endfor %}
- </div> 
+ </div>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
@@ -220,12 +226,12 @@
       var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
       output += a+b+c+d;
     }
-	$('#pesticide').append(output);	 
+	$('#pesticide').append(output);
   }
-  
+
 		});
-  	
-}); 
+
+});
 $('.order-quality').on('click',function() {
       console.log("Click")
     $.ajax({
@@ -274,15 +280,15 @@ $('.order-quality').on('click',function() {
       var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
       output += a+b+c+d;
     }
-	$('#pesticide').append(output);	 
+	$('#pesticide').append(output);
   }
-  
+
 		});
-  	
+
 });
     });
     </script>
-    
+
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
     <!-- JS, Popper.js, and jQuery -->
