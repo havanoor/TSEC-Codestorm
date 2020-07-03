@@ -4,4 +4,4 @@ from .models import *
 class CropSeedSerializer(serializers.ModelSerializer):
     class Meta:
         model = CropSeeds
-        fields = ('name','s_type','price','quality','photo')
+        fields = ('id','name','s_type','price','quality','photo')

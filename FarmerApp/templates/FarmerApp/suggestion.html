@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +42,7 @@
           font-size: 3.5rem;
         }
       }
-      /*index.css*/
+      /index.css/
 
 .grey-jumbo {
 	margin-top: -30px;
@@ -84,7 +84,7 @@ hr.below {
 }
     </style>
     <!-- Custom styles for this template -->
-    <link href="navbar-top.css" rel="stylesheet">
+    <link href="{% static 'css/suggestion.css' %}" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -114,10 +114,10 @@ hr.below {
 
 <main role="main">
 
-<section class="jumbotron text-center">
-  <div class="container">
+<section class="jumbotron text-center my-header">
+  <div class="container bkg">
     <h1>Need Help Selecting?</h1>
-    <p class="lead text-muted" id = "state">Lets find the top 10 best selling crops in your state: </p>
+    <p  id = "state">Lets find the top 10 best selling crops in your state: </p>
     <p id = "cropdets">
         
     </p>
@@ -176,14 +176,19 @@ $(document).ready(function(){
 			var long = currentPosition.coords.longitude
 			// console.log(lat, long);
 			// console.log(currentPosition);
-			var url = 'https://geocode.xyz/'+lat+','+ long +'?geoit=json&auth=91161824098710359867x6506'
+      var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='+lat+','+ long;
+      
+      
+
 			$.getJSON(url, function(data){
 				//console.log(data)
 				var data = JSON.stringify(data);
 				var json = JSON.parse(data);
 				
-				console.log(json);
-                var state = json.poi.addr_state
+        console.log(json);
+        var state = json['location']['region']
+                
+                
 				$('#state').append(state);
 			url = "http://localhost:8000/sug/"+state;
             $.getJSON(url, function(data){
@@ -193,17 +198,17 @@ $(document).ready(function(){
                 var miniurl ='http://localhost:8000/cropseeds/?search='
                 for (i=0; i<10;i++)
                 {
-                    out += "<b>"+data[i]+"</b><br>";
+                    out += '<button type="button" class="btn btn-outline-light provide mx-3">'+data[i]+"</button>";
                     var s = data[i]
                     $.getJSON(miniurl+s,function(sdata){
                         if (sdata.length>0){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/indi/cs/' + sdata[j].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
-                                var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div>';
+                                var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';
                                 miniout += a+b+c+d;
                             }
                         $('#cards').html(miniout);

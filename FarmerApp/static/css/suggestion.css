@@ -1,0 +1,15 @@
+/* .provide{
+    padding: 20px 20px 20px 20px;
+} */
+
+.my-header{
+    background-image: url("images/head2.jpg");
+    /* background-color: lightseagreen; */
+
+}
+
+.bkg{
+    color: white;
+background: rgba(44,62,80,0.7);
+height: 250px; 
+}

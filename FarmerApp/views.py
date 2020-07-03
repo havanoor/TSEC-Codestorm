@@ -185,6 +185,7 @@ def buyerHome(request):
 def CropCreate(request, id):
     filter1 = CropFilter.objects.get(pk=id)
     userr = request.user
+    filter = CropFilter.objects
     print(filter1.name)
     print(type(userr))
     if request.method == 'POST':
@@ -203,7 +204,7 @@ def CropCreate(request, id):
             return redirect('farmer_home')
     else:
         form=CropForm()
-    return render(request,'FarmerApp/FarmerCrop.html',{'filters':filter1,'form':form})
+    return render(request,'FarmerApp/Farmerf.html',{'filters':filter1,'form':form,'filter':filter})
 
 
 
@@ -552,3 +553,16 @@ class CropView(generics.ListCreateAPIView):
     queryset = CropSeeds.objects.all()
     serializer_class = CropSeedSerializer
     
+def individual_product(request,model ,sc_id):
+    
+    ref_dict = {
+        'c': Crops,
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(ref_dict[model],pk=sc_id)
+    except:
+        return HttpResponse("Error")
+    return render(request,'FarmerApp/IndividualList.html',{'item':item})

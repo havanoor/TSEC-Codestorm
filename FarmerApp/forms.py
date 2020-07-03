@@ -139,3 +139,21 @@ class CropForm(ModelForm):
                   'quantity':'Quintals of Crop for sale',
                   'photo':'Image of the ready crop (Optional)',
                   }
+
+        
+    def __init__(self,*args,**kwargs):
+        super(CropForm,self).__init__(*args,**kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['name'].widget.attrs['id'] = 'exampleInputEmail1'
+        self.fields['name'].widget.attrs['placeholder'] = 'Crop name'
+        self.fields['c_type'].widget.attrs['class'] = 'form-control'
+        self.fields['c_type'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['c_type'].widget.attrs['placeholder'] = 'Category'
+        self.fields['price'].widget.attrs['class'] = 'form-control'
+        self.fields['price'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['price'].widget.attrs['placeholder'] = 'Price'
+        self.fields['quantity'].widget.attrs['class'] = 'form-control'
+        self.fields['quantity'].widget.attrs['id'] = 'exampleInputPassword1'
+        self.fields['quantity'].widget.attrs['placeholder'] = 'Quantity'
+        # self.fields['photo'].widget.attrs['class'] = 'btn btn-primary'
+
