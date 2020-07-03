@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from .cart import Cart
@@ -5,8 +6,12 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
 import json
-
-
+from .serializers import CropSeedSerializer
+from rest_framework import generics
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 
@@ -20,7 +25,7 @@ def register(request):
         form=AccountAuthenticationForm(request.POST)
         print("1",form.is_valid())
         print("2",form2.is_valid())
-        print("HIII",form.errors)
+
         if form2.is_valid():
             print("-------->",form2.data)
             if ("is_farmer" in form2.data.keys()):
@@ -35,15 +40,15 @@ def register(request):
             else:
                 print("no")
                 print("Its a buyer")
-                form3=FarmerForm(request.POST)
+                form3=BuyerForm(data=form2.data)
                 print(form3)
-                Buyer=form3.save()
+                buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                Buyer.set_password(Buyer.password)
-                Buyer.is_farmer = False
-                Buyer.is_buyer=True
-                Buyer.save()
+                buyer.set_password(Buyer.password)
+                buyer.is_farmer = False
+                buyer.is_buyer=True
+                buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -55,7 +60,6 @@ def register(request):
         elif form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
-            print("HIII",form.errors)
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
@@ -67,7 +71,7 @@ def register(request):
         form=AccountAuthenticationForm()
         form2 = FarmerForm()
 
-    return render(request, 'FarmerApp/login.html', {'form2': form2,'form':form,'error':form.errors})
+    return render(request, 'FarmerApp/login.html', {'form2': form2,'form':form})
 
 
 def logout_view(request):
@@ -206,26 +210,7 @@ def CropCreate(request, id):
 def cropd(request):
     filter = CropFilter.objects
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
-
-
-
-def product_list(request, category_slug=None):
-    category = None
-    categories = CropFilter.objects.all()
-    products = Crops.objects.filter(available=True)
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
-    return render(request, 'shop/product/list.html', {'category': category, 'categories': categories, 'products': products})
-
-def product_detail(request, id, slug):
-    product = get_object_or_404(Crops, id=id, slug=slug, available=True)
-    return render(request, 'FarmerApp/BuyerShop.html', {'product': product})
-
-
-
-
-
+  
 @api_view(('GET',))
 def sugs(request,state):
     d= {'Gujarat': ['Sugarcane',
@@ -560,3 +545,10 @@ def sugs(request,state):
   'Groundnut']}
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
+
+class CropView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = CropSeeds.objects.all()
+    serializer_class = CropSeedSerializer
+    

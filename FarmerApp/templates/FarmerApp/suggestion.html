@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,7 +117,7 @@ hr.below {
 <section class="jumbotron text-center">
   <div class="container">
     <h1>Need Help Selecting?</h1>
-    <p class="lead text-muted" id = "state">Lets find the top 10 crops produced in your state: </p>
+    <p class="lead text-muted" id = "state">Lets find the top 10 best selling crops in your state: </p>
     <p id = "cropdets">
         
     </p>
@@ -129,7 +130,25 @@ hr.below {
 </section>
 
 </main>
+<div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card-deck content"> 
+          <h2> Out of these, we have the following available: </h2>
+          <div class = "row"  id = "cards">
+            
+            
 
+
+        
+
+
+            
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
 <footer class="text-muted">
 <div class="container">
   <p class="float-right">
@@ -170,9 +189,29 @@ $(document).ready(function(){
             $.getJSON(url, function(data){
                 console.log(data)
                 var out = ''
+                var miniout=''
+                var miniurl ='http://localhost:8000/cropseeds/?search='
                 for (i=0; i<10;i++)
                 {
                     out += "<b>"+data[i]+"</b><br>";
+                    var s = data[i]
+                    $.getJSON(miniurl+s,function(sdata){
+                        if (sdata.length>0){
+                            console.log(sdata);
+                            for(j=0;j<sdata.length;j++)
+                            {
+                                var a = '<div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
+                                var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
+                                var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div>';
+                                miniout += a+b+c+d;
+                            }
+                        $('#cards').html(miniout);
+
+                        }
+
+                    });
+
                 }
                 $('#cropdets').append(out); 
             });
