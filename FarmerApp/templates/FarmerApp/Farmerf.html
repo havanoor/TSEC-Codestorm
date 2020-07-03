@@ -1,0 +1,4 @@
+{% for f in filter.all  %}
+    <p><{{ f.name }}/p>
+    <a href="{% url 'crop_add' f.id %}" class="btn btn-primary">{{ f.name }}</a>
+{% endfor %}

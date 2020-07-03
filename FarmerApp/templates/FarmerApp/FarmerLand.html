@@ -71,8 +71,8 @@ hr.below {
 	background: linear-gradient(145deg, #0d47a1, #42a5f5);
 	color: #fff;
 	border-radius: 0px !important;
-	height: 300px; 
-}  
+	height: 300px;
+}
 
 #info1,
 #info2 {
@@ -97,10 +97,13 @@ hr.below {
         <a class="nav-link" href="#">My crops</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Sell Crops</a>
+        <a class="nav-link" href="{% url 'category' %}">Sell Crops</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href={% url 'FS' %}>Buy Raw Materials</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href='#'>{{ user.username }}</a>
       </li>
     </ul>
     <form class="form-inline mt-2 mt-md-0">
@@ -128,7 +131,7 @@ hr.below {
   <div class="container">
   <div class="container-fluid">
     <div class = "row">
-          <div class="col-sm-12 text-center jumbotron top">  
+          <div class="col-sm-12 text-center jumbotron top">
           <h1>Today's Weather</h1>
           <hr class = "short">
           <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
@@ -158,7 +161,7 @@ hr.below {
     </div>
   </div>
 
-    
+
   </div>
 </section>
 
@@ -213,7 +216,7 @@ hr.below {
           else{
             $('#info3').html(temp + '&#8451');
             yes = true;
-            $("#switch").html("Show in degree Farenheit");    
+            $("#switch").html("Show in degree Farenheit");
           }
 
         });
@@ -272,7 +275,7 @@ $(document).ready(function(){
 					else{
 						$('#info3').html(temp + '&#8451');
 						yes = true;
-						$("#switch").html("Show in degree Farenheit");		
+						$("#switch").html("Show in degree Farenheit");
 					}
 
 				});

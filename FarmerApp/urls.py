@@ -13,4 +13,7 @@ urlpatterns=[
     path('signup',views.register, name='signup'),
     path('farmer',views.farmerHome, name='farmer_home'),
     path('buyer',views.buyerHome, name='buyer_home'),
-]
+    path('farmer/<int:id>/crop',views.CropCreate, name="crop_add"),
+    path('f',views.cropd, name='category'),
+
+ ]
