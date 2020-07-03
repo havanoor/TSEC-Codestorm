@@ -24,7 +24,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('FarmerApp.urls'))
+    path('',include('FarmerApp.urls')),
 ]
 
 

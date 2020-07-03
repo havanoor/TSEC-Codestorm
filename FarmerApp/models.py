@@ -124,6 +124,7 @@ class Crops(models.Model):
     category = models.ForeignKey(CropFilter,related_name='Crop_Filter',on_delete=models.CASCADE,null=True)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
+    quality=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
 
 
