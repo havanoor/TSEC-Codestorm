@@ -20,4 +20,3 @@ urlpatterns=[
     path('farmer',views.farmerHome, name='farmer_home'),
     path('buyer',views.buyerHome, name='buyer_home'),
 ]
-
