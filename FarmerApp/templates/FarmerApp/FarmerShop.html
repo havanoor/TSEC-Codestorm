@@ -80,13 +80,13 @@
 <hr \>
 <div id = "cropseeds">
 {% for c in cropseeds %}
-<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<a href ="http://localhost:8000/indi/cs/{{c.id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}
       </a>
     </div>
   </div>
@@ -99,19 +99,19 @@
 <hr \>
 <div id = "fertilizer">
 {% for c in ferts %}
-<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<a href ="http://localhost:8000/indi/f/{{c.id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}
       </a>
     </div>
   </div>
 </div>
   </a>
-{% endfor %}
+  {% endfor %}
 
  </div>
  <h2>Pesticide</h2>
@@ -121,13 +121,13 @@
 
 
 {% for c in pests %}
-<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<a href ="http://localhost:8000/indi/p/{{c.id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}
       </a>
     </div>
   </div>
@@ -200,7 +200,7 @@
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-    
+
       var a = '<a href = "http://localhost:8000/indi/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
@@ -254,7 +254,7 @@ $('.order-quality').on('click',function() {
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-    
+
       var a = '<a href = "http://localhost:8000/indi/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
