@@ -68,29 +68,9 @@ class PesticideAdmin(ModelAdmin):
         fieldsets=()
 
 
-
-'''
-class CropSeedAdmin(ModelAdmin):
-        list_display=(
-                      'name','s_type'
-        )
-
-        search_fields=(
-            'name',
-            's_type'
-        )
-
-        filter_horizontal=()
-        list_filter=()
-        fieldsets=()
-'''
-
-
-
 class CropFilterAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
-
 
 class CropAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'price' ,'farmer']
@@ -98,7 +78,6 @@ class CropAdmin(admin.ModelAdmin):
     list_filter = ['name',]
     list_editable = ['price', ]
     prepopulated_fields = {'slug': ('name',)}
-
 
 
 admin.site.register(Account,AccountAdmin)

@@ -121,10 +121,10 @@ class Crops(models.Model):
     name=models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, db_index=True)
     farmer=models.ForeignKey(Farmer,related_name='Farmer',on_delete=models.CASCADE)
-    category = models.ForeignKey(CropFilter,related_name='Crop_Filter',on_delete=models.CASCADE,null=True)
+    category = models.ForeignKey(CropFilter,related_name='Crop_Filter',on_delete=models.CASCADE)
     c_type=models.CharField(max_length=100)
     price=models.IntegerField()
-    quality=models.IntegerField()
+    quantity=models.IntegerField(default =0)
     photo=models.ImageField(upload_to='cropImage/',blank=True)
 
 

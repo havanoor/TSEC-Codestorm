@@ -83,7 +83,6 @@ def list_crops(request):
     return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
 
-
 def farmersell(request):
     seeds = CropSeeds.objects.all()
     ferts = fertilizer.objects.all()
@@ -167,12 +166,46 @@ def order(request, pref):
 
 
 def farmerHome(request):
-    return render(request,'FarmerApp/FarmerLand.html')
+
+    userr = request.user
+    return render(request,'FarmerApp/FarmerLand.html',{'user':userr})
 
 
 def buyerHome(request):
     return render(request,'FarmerApp/BuyerLand.html')
 
+
+
+
+def CropCreate(request, id):
+    filter1 = CropFilter.objects.get(pk=id)
+    userr = request.user
+    print(filter1.name)
+    print(type(userr))
+    if request.method == 'POST':
+        form = CropForm(request.POST)
+        if form.is_valid():
+            crops = Crops()
+            crops.farmer = Farmer.objects.get(username=userr.username)
+            crops.category=filter1
+            crops.slug = form.cleaned_data['name']
+            crops.name = form.cleaned_data['name']
+            crops.c_type = form.cleaned_data['c_type']
+            crops.price = form.cleaned_data['price']
+            crops.quantity = form.cleaned_data['quantity']
+            crops.photo = form.cleaned_data['photo']
+            crops.save()
+            return redirect('farmer_home')
+    else:
+        form=CropForm()
+    return render(request,'FarmerApp/FarmerCrop.html',{'filters':filter1,'form':form})
+
+
+
+def cropd(request):
+    filter = CropFilter.objects
+    return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
+  
 @api_view(('GET',))
 def sugs(request,state):
     d= {'Gujarat': ['Sugarcane',
@@ -507,3 +540,4 @@ def sugs(request,state):
   'Groundnut']}
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
+

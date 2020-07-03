@@ -124,3 +124,16 @@ class CartAddProductForm(forms.Form):
     update = forms.BooleanField(required=False,
                                 initial=False,
                                 widget=forms.HiddenInput)
+
+class CropForm(ModelForm):
+    class Meta:
+        model = Crops
+        fields= [ 'name', 'c_type','price','photo','quantity']
+
+        labels = {
+                  'name':'Name of Your crop',
+                  'c_type':'Variety of your crop',
+                  'price':'Price per quintal you want to sell',
+                  'quantity':'Quintals of Crop for sale',
+                  'photo':'Image of the ready crop (Optional)',
+                  }
