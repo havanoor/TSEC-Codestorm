@@ -35,23 +35,23 @@
                         <!-- Error messaging -->
                         <div id="errors">
                           <div class="inner">
-                            
-                           
+
+
                             <div class="alert alert-danger" role="alert">
                               {{ form.non_field_errors }}
                             </div>
-                            
+
                               {% for field in form %}
                                 {% if field.errors %}
-                                
-                                
+
+
                                 <div class="alert alert-danger" role="alert">
                                   {{ field.label }}: {{ field.errors|striptags }}
                                 </div>
-                                
+
                                 {% endif %}
                               {% endfor %}
-                            
+
                           </div>
                         </div>
                         <!-- /Error messaging -->
@@ -71,15 +71,15 @@
 
                           <button type="submit"  class="btn btn-success btn-lg btn-block">Submit</button>
                       </form>
-                      
+
                       <div class="form-group">
-                        
+
                         <p class="h6">Click to Register</p>
 
                       <button class="btn btn-primary btn-lg btn-block" type="button" onClick="flip()" id='flip-button'>Register</button>
                       </div>
 
-                      
+
 
 
 
@@ -92,12 +92,13 @@
             </div>
 
             <div class="back">
-              
+
                 <div class="container">
-                   
+
                         <!-- <h3>Personal Details</h3> -->
                         <h3 style="text-align: center;">Personal Details</h3>
-                        <form method="POST">
+
+                        <form method ="POST">
                           <div class="form-row">
                             <div class="col">
                               <!-- <input type="text" class="form-control" placeholder="First name"> -->
@@ -118,12 +119,12 @@
                               {{ form2.confirm_password|as_crispy_field }}
                             </div>
                           </div>
-                          
+
                           <div class="form-row">
                             <div class="col">
                               {{ form2.dob|as_crispy_field }}
                             </div>
-                            
+
                             </div>
 
 
@@ -135,9 +136,9 @@
                               {{ form2.aadhar_no|as_crispy_field }}
                             </div>
 
-                            
+
                           </div>
-                          
+
 
                           <div class="form-row">
                             <div class="col">
@@ -153,21 +154,21 @@
                             <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
                           </div>
                           </div>
-                          
+
                         </form>
                         <div class="form-group">
-                        
+
                           <p class="h6">Have an account</p>
-  
+
                         <button class="btn btn-primary btn-lg btn-block" type="button" onClick="flip()" id='flip-button'>Login</button>
                         </div>
-                        
+
 
                 </div>
             </div>
 
-                              
-                                
+
+
 
 <script src="{% static 'js/login.js' %}" />
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
