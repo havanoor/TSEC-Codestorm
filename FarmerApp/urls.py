@@ -10,7 +10,9 @@ urlpatterns=[
     path('order/<str:pref>',views.order,name = "order"),
     path('farmershop/',views.farmersell,name = "FS"),
     path('dashboard/',views.dashboard,name = "dashboard"),
+    path('sug/<str:state>',views.sugs, name= "getcrops"),
 
+    
 
 
     path('signup',views.register, name='signup'),
@@ -20,3 +22,4 @@ urlpatterns=[
     path('farmer',views.farmerHome, name='farmer_home'),
     path('buyer',views.buyerHome, name='buyer_home'),
 ]
+
