@@ -81,31 +81,52 @@
 <hr \>
 <div id = "cropseeds"> 
 {% for c in cropseeds %}
-<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
-Price: <b>{{ c.price }}</b><br>
-Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
-<hr>
+<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<div class="card" style="width:100% ;">
+<div class = "col">
+<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
+<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
+<p class="card-text">{{c.quality}}/5</p><p class ="card">
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      </a>
+    </div>
+  </div>
+</div>
+  </a>
+
 {% endfor %}
  </div>
 <h2>Fertilizer</h2>
 <hr \>
 <div id = "fertilizer"> 
 {% for c in ferts %}
-<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
-Price: <b>{{ c.price }}</b><br>
-Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
-<hr>
+<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<div class="card" style="width:100% ;">
+<div class = "col">
+<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
+<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
+<p class="card-text">{{c.quality}}/5</p><p class ="card">
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      </a>
+    </div>
+  </div>
+</div>
+  </a>
 {% endfor %}
- </div>
- <h2>Pesticide</h2> 
-<hr \>
-
 <div id = "pesticide"> 
 {% for c in pests %}
-<a href= {% url 'individual' c.id %}><h4>{{ c.name }}<h4></a>
-Price: <b>{{ c.price }}</b><br>
-Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
-<hr>
+<a href = "http://localhost:8000/indi/' + seed[i].id +'">
+<div class="card" style="width:100% ;">
+<div class = "col">
+<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
+<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
+<p class="card-text">{{c.quality}}/5</p><p class ="card">
+      var d = '<a href="#" class="btn btn-primary">Rs {{c.price}}  
+      </a>
+    </div>
+  </div>
+</div>
+  </a>
 {% endfor %}
  </div> 
 
@@ -173,27 +194,31 @@ Qualtiy Rating (out of 5): <b>{{ c.quality }}</b><br>
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var k = i+1;
-      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
-      var price = "Price: <b>" + seed[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+    
+      var a = '<a href = "http://localhost:8000/indi/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
+      var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
+
     }
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";;
-      var price = "Price: <b>" + fert[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+      var a = '<a href = "http://localhost:8000/indi/' + fert[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ fert[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
+      var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
     }
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";
-      var price = "Price: <b>" + pest[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+      var a = '<a href = "http://localhost:8000/indi/' + pest[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ pest[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
+      var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
     }
 	$('#pesticide').append(output);	 
   }
@@ -208,6 +233,7 @@ $('.order-quality').on('click',function() {
 	dataType: 'json',
 	type: 'GET',
 	success: function(data){
+    console.log(data)
 		$('#cropseeds').empty();
     $('#fertilizer').empty();
     $('#pesticide').empty(); //to clean the div
@@ -222,26 +248,31 @@ $('.order-quality').on('click',function() {
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-      var name = "<a href = http://localhost:8000/indi/"+ seed[i].id +"><h4>"+seed[i].name + "</h4></a>";
-      var price = "Price: <b>" + seed[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  seed[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+    
+      var a = '<a href = "http://localhost:8000/indi/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
+      var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
+
     }
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var name = "<a href = http://localhost:8000/indi/"+ fert[i].id +"><h4>"+fert[i].name + "</h4></a>";
-      var price = "Price: <b>" + fert[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  fert[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+      var a = '<a href = "http://localhost:8000/indi/' + fert[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ fert[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
+      var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
     }
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var name = "<a href = http://localhost:8000/indi/"+pest[i].id+"><h4>"+pest[i].name + "</h4></a>";;
-      var price = "Price: <b>" + pest[i].price + "</b> <br>";
-      var quality = "Qualtiy Rating (out of 5): <b>" +  pest[i].quality+ "</b><br>";
-      output += name + price + quality + "<hr>";
+      var a = '<a href = "http://localhost:8000/indi/' + pest[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ pest[i].photo +'" alt="Card image cap">';
+      var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
+      var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
+      var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
+      output += a+b+c+d;
     }
 	$('#pesticide').append(output);	 
   }
