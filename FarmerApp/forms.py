@@ -136,7 +136,6 @@ class CropForm(ModelForm):
                   'photo':'Image of the ready crop (Optional)',
                   }
 
-<<<<<<< HEAD
         
     def __init__(self,*args,**kwargs):
         super(CropForm,self).__init__(*args,**kwargs)
@@ -154,10 +153,8 @@ class CropForm(ModelForm):
         self.fields['quantity'].widget.attrs['placeholder'] = 'Quantity'
         # self.fields['photo'].widget.attrs['class'] = 'btn btn-primary'
 
-=======
 
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['first_name', 'last_name', 'email', 'address','postal_code', 'city']
->>>>>>> bcc54e9f47c0b444148c8487b1b68bf7a09fc3f8
