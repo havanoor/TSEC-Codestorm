@@ -5,8 +5,12 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
 import json
-
-
+from .serializers import CropSeedSerializer
+from rest_framework import generics
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 
@@ -541,3 +545,8 @@ def sugs(request,state):
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
 
+class CropView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = CropSeeds.objects.all()
+    serializer_class = CropSeedSerializer

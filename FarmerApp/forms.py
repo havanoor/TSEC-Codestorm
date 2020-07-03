@@ -73,7 +73,7 @@ class BuyerForm(ModelForm):
             raise forms.ValidationError("Passwords don't match")
 
     def __init__(self,*args,**kwargs):
-        super(AccountAuthenticationForm,self).__init__(*args,**kwargs)
+        super(BuyerForm,self).__init__(*args,**kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
@@ -117,13 +117,13 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
-class CartAddProductForm(forms.Form):
-    quantity = forms.TypedChoiceField(
-                                      choices=PRODUCT_QUANTITY_CHOICES,
-                                      coerce=int)
-    update = forms.BooleanField(required=False,
-                                initial=False,
-                                widget=forms.HiddenInput)
+# class CartAddProductForm(forms.Form):
+#     quantity = forms.TypedChoiceField(
+#                                       choices=PRODUCT_QUANTITY_CHOICES,
+#                                       coerce=int)
+#     update = forms.BooleanField(required=False,
+#                                 initial=False,
+#                                 widget=forms.HiddenInput)
 
 class CropForm(ModelForm):
     class Meta:
