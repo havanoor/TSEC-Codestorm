@@ -620,6 +620,16 @@ class CropView(generics.ListCreateAPIView):
     serializer_class = CropSeedSerializer
 
 
-def individual_product(request, sc_id):
-    item = get_object_or_404(CropSeeds,pk=sc_id)
+def individual_product(request,model ,sc_id):
+    
+    ref_dict = {
+        'c': Crops,
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(ref_dict[model],pk=sc_id)
+    except:
+        return HttpResponse("Error")
     return render(request,'FarmerApp/IndividualList.html',{'item':item})
