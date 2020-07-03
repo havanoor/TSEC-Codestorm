@@ -43,13 +43,15 @@ class FarmerForm(ModelForm):
         self.fields['confirm_password'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['dob'].widget.attrs['class'] = 'form-control'
         self.fields['dob'].widget.attrs['id'] = 'exampleInputEmail1'
-        self.fields['dob'].widget.attrs['placeholder'] = 'Username'
+        self.fields['dob'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
         self.fields['aadhar_no'].widget.attrs['class'] = 'form-control'
         self.fields['aadhar_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['aadhar_no'].widget.attrs['placeholder'] = 'Aadhar-no'
         self.fields['pan_no'].widget.attrs['class'] = 'form-control'
         self.fields['pan_no'].widget.attrs['id'] = 'exampleInputEmail1'
         self.fields['pan_no'].widget.attrs['placeholder'] = 'Pan Number'
+        self.fields['is_farmer'].widget.attrs['class'] = 'form-check-input'
+        self.fields['is_farmer'].widget.attrs['id'] = 'inlineRadio2'
 
 
 class BuyerForm(ModelForm):
@@ -117,9 +119,19 @@ class AccountAuthenticationForm(forms.ModelForm):
 
 PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
 
+<<<<<<< HEAD
 class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int)
     update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+=======
+# class CartAddProductForm(forms.Form):
+#     quantity = forms.TypedChoiceField(
+#                                       choices=PRODUCT_QUANTITY_CHOICES,
+#                                       coerce=int)
+#     update = forms.BooleanField(required=False,
+#                                 initial=False,
+#                                 widget=forms.HiddenInput)
+>>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b
 
 class CropForm(ModelForm):
     class Meta:

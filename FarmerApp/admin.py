@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
@@ -100,3 +101,4 @@ admin.site.register(CropFilter,CropFilterAdmin)
 admin.site.register(CropSeeds)
 admin.site.register(fertilizer,FertilizerAdmin)
 admin.site.register(pesticide,PesticideAdmin)
+

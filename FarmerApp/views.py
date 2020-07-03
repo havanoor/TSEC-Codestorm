@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from .cart import Cart
@@ -40,15 +41,15 @@ def register(request):
             else:
                 print("no")
                 print("Its a buyer")
-                form3=FarmerForm(request.POST)
+                form3=BuyerForm(data=form2.data)
                 print(form3)
-                Buyer=form3.save()
+                buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                Buyer.set_password(Buyer.password)
-                Buyer.is_farmer = False
-                Buyer.is_buyer=True
-                Buyer.save()
+                buyer.set_password(Buyer.password)
+                buyer.is_farmer = False
+                buyer.is_buyer=True
+                buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -98,6 +99,7 @@ def dashboard(request):
     return render(request, 'FarmerApp/FarmerLand.html')
 
 def suggestion(request):
+        
     return render(request,'FarmerApp/suggestion.html')
 
 @api_view(('GET',))
@@ -205,6 +207,7 @@ def CropCreate(request, id):
 def cropd(request):
     userr = request.user
     filter = CropFilter.objects
+<<<<<<< HEAD
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter,'user':userr})
 
 
@@ -276,6 +279,10 @@ def order_create(request):
         form = OrderCreateForm()
     return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
 
+=======
+    return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
+  
+>>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b
 @api_view(('GET',))
 def sugs(request,state):
     d= {'Gujarat': ['Sugarcane',
@@ -611,7 +618,10 @@ def sugs(request,state):
     crops = d.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b
 class CropView(generics.ListCreateAPIView):
     search_fields = ['name']
     filter_backends = (filters.SearchFilter,)

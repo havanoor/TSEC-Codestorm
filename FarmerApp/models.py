@@ -158,6 +158,7 @@ class pesticide(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
 
+<<<<<<< HEAD
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -189,3 +190,5 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+=======
+>>>>>>> e0097b4b9c618fd29f500de87f4fbe77b062d91b
