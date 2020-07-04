@@ -121,8 +121,8 @@ hr.below {
 
     <p class="lead text-muted">Lets find the top 10 best selling crops in your state: </p><p id = "state"></p>
     <input class = "Cin" type="text" id="stateip" placeholder="Somewhere else?">
-    <button class = "btn btn-outline-success " id = "searchwiththis" type="button" style="font-color: #000000"> Call on this city</button> 
-    <br> <br> 
+    <button class = "btn btn-outline-success " id = "searchwiththis" type="button" style="font-color: #000000"> Call on this city</button>
+    <br> <br>
     <p id = "cropdets">
 
     </p>
@@ -213,7 +213,7 @@ $(document).ready(function(){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<a href = "http://localhost:8000/indi/'+ sdata[j].cs_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/farmer/shop/'+ sdata[j].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
                                 var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';
@@ -286,7 +286,7 @@ $(document).ready(function(){
     var state = $('#stateip').val();
     console.log()
 				$('#state').append(state);
-        
+
 			url = "http://localhost:8000/sug/"+state;
             $.getJSON(url, function(data){
                 console.log(data)
@@ -298,12 +298,13 @@ $(document).ready(function(){
                 {
                     out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data['crops'][i]+"</button>";
                     s = data['crops'][i]
+                    console.log(s)
                     $.getJSON(miniurl+s,function(sdata){
                         if (sdata.length>0){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<a href = "http://localhost:8000/indi/'+ sdata[j].cs_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/farmer/shop/'+ sdata[j].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
                                 var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';

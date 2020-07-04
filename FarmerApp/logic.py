@@ -17,5 +17,3 @@ def sendmail(name,email,id,tot):
     s.login(msg['From'],password)
     s.sendmail(msg['From'],msg['To'],msg.as_string())
     s.quit()
-
-

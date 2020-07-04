@@ -107,7 +107,7 @@ class Cart1(object):
             products.append(item)
         #item = get_object_or_404(tot[self.model],pk=product_id)
 
-        
+
 
 
         cart = self.cart.copy()

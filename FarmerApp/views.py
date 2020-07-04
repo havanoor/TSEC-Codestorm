@@ -2,7 +2,7 @@ from .logic import *
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from .cart import *
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse,Http404
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
 import json
@@ -16,6 +16,11 @@ from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from .refdata import *
 import re
+from .decorators import *
+from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 '''Registration,login,logout start'''
 
@@ -78,7 +83,7 @@ def register(request):
 
 def logout_view(request):
 	logout(request)
-	return redirect('home')
+	return redirect('signup')
 
 '''Registration,login,logout end'''
 
@@ -191,7 +196,7 @@ def CropCreate(request, id):
     print(filter1.name)
     print(type(userr))
     if request.method == 'POST':
-        form = CropForm(request.POST)
+        form = CropForm(request.POST,request.FILES)
         if form.is_valid():
             crops = Crops()
             crops.farmer = Farmer.objects.get(username=userr.username)
@@ -210,11 +215,42 @@ def CropCreate(request, id):
 
 
 
+
+
+
+
+def Crop_View(request):
+    print("hello")
+    crops = Crops.objects.filter(farmer=request.user)
+    print(crops)
+    return render(request, 'FarmerApp/CropView.html', {'crops':crops})
+
+
+class UpdateCrop(LoginRequiredMixin, generic.UpdateView):
+    model = Crops
+    template_name = 'FarmerApp/CropUpdate.html'
+    fields = ['quantity','price']
+    success_url = reverse_lazy('crop_view')
+
+    def get_object(self):
+        crop = super(UpdateCrop, self).get_object()
+        return crop
+
+
+class DeleteCrop(LoginRequiredMixin, generic.DeleteView):
+    model = Crops
+    template_name = 'FarmerApp/CropDelete.html'
+    success_url = reverse_lazy('crop_view')
+
+    def get_object(self):
+        crop = super(DeleteCrop, self).get_object()
+        return crop
+
 def cropd(request):
     filter = CropFilter.objects
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
 
-
+'''Buyer E-commerce start'''
 def product_list(request, category_slug=None):
     userr = request.user
     category = None
@@ -231,19 +267,16 @@ def product_detail(request, id, slug):
     cart_product_form = CartAddProductForm()
     return render(request, 'FarmerApp/BuyerDetail.html', {'product': product,'user':userr,'cart_product_form': cart_product_form})
 
-
 @require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
-    product = get_object_or_404(Crops, pk=product_id)
+    product = get_object_or_404(Crops, id=product_id)
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
 
     return redirect('cart_detail')
-
-
 
 
 def cart_remove(request, pid):
@@ -269,13 +302,11 @@ def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
-        print("---------------->>>>",form.errors)
         if form.is_valid():
             order = form.save()
             print(order.email)
             for item in cart:
-                print(item['product'].name)
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity']) 
+                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
             sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
             return render(request, 'FarmerApp/OrderCreated.html',{'order': order})
@@ -299,33 +330,13 @@ class CropView(generics.ListCreateAPIView):
     queryset = CropSeeds.objects.all()
     serializer_class = CropSeedSerializer
 
+'''Buyer E-commerce End'''
 
-def individual_product(request,sc_id):
-
-    if re.match("^cs[0-9]*[0-9]$",sc_id):
-        model = 'cs'
-    elif re.match("^f[0-9]*[0-9]$",sc_id):
-        model = 'f'
-    elif re.match("^p[0-9]*[0-9]$",sc_id):
-        model = 'p'
-    else:
-        model = ''
-    ref_dict = {
-        'cs':CropSeeds,
-        'f':fertilizer,
-        'p':pesticide
-    }
-    try:
-        item = get_object_or_404(ref_dict[model],pk=sc_id)
-    except:
-        return HttpResponse("Error")
-    return render(request,'FarmerApp/IndividualList.html',{'item':item})
 
 
 
 
 '''Farmer E-commerce Start'''
-
 
 def farm_product_list(request):
     userr = request.user
@@ -373,7 +384,7 @@ def farm_cart_add(request, sc_id):
         model = 'p'
     else:
         model = ''
-    
+
     ref_dict = {
         'cs':CropSeeds,
         'f':fertilizer,
@@ -397,7 +408,7 @@ def farm_cart_remove(request, pid):
         model = 'p'
     else:
         model = ''
-    
+
     ref_dict = {
         'cs':CropSeeds,
         'f':fertilizer,
@@ -438,3 +449,27 @@ def farm_order_create(request):
 def hin_view(request):
     userr = request.user
     return render(request,'FarmerApp/FarmerLand Hindi.html',{'user':userr})
+
+
+
+'''Farmer E-commerce End'''
+
+
+
+
+
+
+
+def individual_product(request,model ,sc_id):
+
+    ref_dict = {
+        'c': Crops,
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(ref_dict[model],pk=sc_id)
+    except:
+        return HttpResponse("Error")
+    return render(request,'FarmerApp/IndividualList.html',{'item':item})
