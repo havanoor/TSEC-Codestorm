@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +17,7 @@
 <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- Favicons -->
+      <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 <link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
@@ -44,72 +45,94 @@
       }
       /*index.css*/
 
-.grey-jumbo {
-	margin-top: -30px;
-	border-radius: 0px !important;
-	height: 500px;
-	color: #fff;
-	background-size: cover;
-	background-color: #42a5f5;
-}
+      .grey-jumbo {
+      	margin-top: -30px;
+      	border-radius: 0px !important;
+      	height: 500px;
+      	color: #fff;
+      	background-size: cover;
+      	background-color: #42a5f5;
+      }
 
-hr.short {
-	width: 100px;
-	border-bottom: 2px solid #fff;
-}
-hr.below {
-	width: 50px;
-	border-bottom: 1px solid #fff;
-}
-.cityin{
-	color: #000;
-}
-.Cin {
-	color: #000;
-}
+      hr.short {
+      	width: 100px;
+      	border-bottom: 2px solid #fff;
+      }
+      hr.below {
+      	width: 50px;
+      	border-bottom: 1px solid #fff;
+      }
+      .cityin{
+      	color: #000;
+      }
+      .Cin {
+      	color: #000;
+      }
 
-.top{
-	background: linear-gradient(145deg, #0d47a1, #42a5f5);
-	color: #fff;
-	border-radius: 0px !important;
-	height: 300px;
-}
+      .top{
+      	background: linear-gradient(145deg, #0d47a1, #42a5f5);
+      	color: #fff;
+      	border-radius: 0px !important;
+      	height: 300px;
+      }
 
-#info1,
-#info2 {
-	font-size: 30px;
-}
-#info3{
-	font-size: 60px;
-}
+      .topa{
+        color:white
+      }
+
+      #info1,
+      #info2 {
+      	font-size: 30px;
+      }
+      #info3{
+      	font-size: 60px;
+      }
+      .nav-item a{
+        color: white;
+
+      }
+      .my{
+        color:white
+      }
+      .test{
+                  display: flex;
+         /* justify-content: center;  */
+         /* align-content: flex-end; */
+         margin-left: auto;
+         margin-right: auto;
+              }
     </style>
     <!-- Custom styles for this template -->
     <link href="navbar-top.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">My crops</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sell Crops</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href={% url 'FS' %}>Buy Raw Materials</a>
-      </li>
-    </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg" style="background-color: black;">
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+
+      </a>
+
+      <ul class="navbar-nav mr-auto ">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'crop_view' %}"><i class="fas fa-seedling fa-2x"></i>My crops</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'category' %}"><i class="fas fa-rupee-sign fa-2x"></i>Sell Crops</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='{% url 'farmer_product_list' %}'><i class="fas fa-handshake fa-2x"></i>Buy Raw Materials</a>
+        </li>
+
+      </ul>
+      <ul class="list-inline">
+        <li class="list-inline-item topa">
+
+          <a  class="topa" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+          <a  class="topa" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+       </li>
+
+      </ul>
+    </nav>
 
 
 <main role="main">
@@ -117,7 +140,7 @@ hr.below {
 <section class="jumbotron text-center">
   <div class="container">
     <h1>Need Help Selecting?</h1>
-    
+
 
     <p class="lead text-muted">Lets find the top 10 best selling crops in your state: </p><p id = "state"></p>
     <input class = "Cin" type="text" id="stateip" placeholder="Somewhere else?">
@@ -180,7 +203,7 @@ hr.below {
 $(document).ready(function(){
 	if (navigator.geolocation)
 	{
-    
+
 		var currentPosition = '';
 		navigator.geolocation.getCurrentPosition(function(position){
 			currentPosition = position;
