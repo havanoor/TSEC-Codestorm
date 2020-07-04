@@ -1,0 +1,15 @@
+.mycont{
+    background-color: rgba(44,62,80,0.7);
+}
+
+body{
+    /* background-color: yellow; */
+    background-image: url("images/summary.jpg");
+    background-size:cover;
+    /* background-repeat: none; */
+    
+  }
+
+*{
+    color:white;
+}

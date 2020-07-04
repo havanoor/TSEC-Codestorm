@@ -22,35 +22,43 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link href="navbar-top.css" rel="stylesheet">
-    <link href="{% static 'css/login.css' %}" rel="stylesheet">
+    <link href="{% static 'css/indi.css' %}" rel="stylesheet">
 </head>
 <body>
-
-    <div class="container shadow p-3 mb-5 bg-white rounded">
+    <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+          
+        </a>
+        
+      </nav>
+      
+    <div class="container shadow p-3 mb-5  rounded mycont">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col">
               <div class="product-detail">
-                <img src="{% if product.photo %}{{ product.photo.url }}{% endif %}">
+                <img src="{% if product.photo %}{{ product.photo.url }}{% endif %}" style="width:300px ; height:300px">
                 <h1>{{ product.name }}</h1>
 
                 <p class="price"> </p>
                 {{ product.description|linebreaks }}
-              </div>
+              
 
             </div>
-            <div class="col-md-7">
-                <span class="badge badge-primary">NEw </span>
-                <h1 class="display-4"><a href="{{ product.category.get_absolute_url }}"> {{ product.category.name }} </a></h1>
+            </div>
+            <div class="col">
+                <span class="badge badge-primary">NEW</span>
+                <h1><a href="{{ product.category.get_absolute_url }}" style="color: white;">{{ product.category.name }} </a></h1>
                 <h4>Price <b style="color: red;">₹{{ product.price }}</b> </h4>
 
                 <form action='{% url "cart_add" product.id %}' method="post">
                   {{ cart_product_form }}
                   {% csrf_token %}
-                    <button type="button" class="btn btn-info"><input type="submit" value="Add to cart">Add to Cart</button>
+                    <input type="submit" value="Add to cart" class="btn btn-info">
                 </form>
 
 
-            </div>
+            
         </div>
     </div>
 
