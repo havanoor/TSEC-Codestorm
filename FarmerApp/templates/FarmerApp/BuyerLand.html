@@ -62,16 +62,17 @@
 </nav>
 
 </header> -->
-<nav class="navbar fixed-top navbar-dark" style="background-color: black;">
+<!-- <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
   <a class="navbar-brand" href="#">
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
     <li class="nav-item">
       <a class="nav-link" href='#'>{{ user.username }}</a>
     </li>
     <li>
-    <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">LogOut</a>
+
+    <a class="navbar-brand" href="javascript:{document.getElementById('logout').submit()}"></a>
       <form id="logout" method="POST" action="{% url 'logout' %}">
-      <a class='navbar-brand' >Log Out</a>
+      </a>
         {% csrf_token %}
         <input type="hidden" name="" />
       </form>
@@ -79,12 +80,12 @@
     <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
   </a>
   <ul class="list-inline">
-    <!-- <li class="list-inline-item"><i class="fas fa-shopping-cart top"></i></li> -->
+
     {% with total_items=cart|length %}
     {% if total_items > 0 %}
     <li class="list-inline-item top">
       <a href="{% url "cart_detail" %}" class="top">
-        <i class="fas fa-shopping-cart size:7x top"></i>
+
         <i class="fas fa-shopping-cart top"></i>
       {{ total_items }} item,
       ₹{{ cart.get_total_price }}
@@ -93,9 +94,46 @@
     Your cart is empty.
     {% endif %}
     {% endwith %}</li>
-    <!-- <li class="list-inline-item">Nulla volutpat</li> -->
+
   </ul>
+</nav> -->
+<nav class="navbar navbar-expand-lg" style="background-color: black;">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+  </a>
+  <ul class="navbar-nav mr-auto ">
+    <li>
+      <!-- <a class="nav-link" href="#"><i class="fas fa-seedling fa-2x"></i>My crops</a> -->
+      <a class="top" href=""><i class="fas fa-home fa-2x"></i>Home </a>
+    </li>
+  </ul>
+    <ul class="list-inline">
+      <li class="list-inline-item top">
+
+        <a  class="top" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+        <a  class="top" href="{% url 'logout' %}" style="margin-right: 25px;">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+     </li>
+
+    </ul>
+    <ul class="list-inline">
+
+      {% with total_items=cart|length %}
+      {% if total_items > 0 %}
+      <li class="list-inline-item top" >
+        <a href="{% url "cart_detail" %}" class="top">
+
+          <i class="fas fa-shopping-cart top fa-2x"></i>
+        {{ total_items }} item,
+        ₹{{ cart.get_total_price }}
+      </a>
+      {% else %}
+      Your cart is empty.
+      {% endif %}
+      {% endwith %}</li>
+
+    </ul>
 </nav>
+
 <div class="wrapper">
   <div class="sidebar">
       <!-- <h2>Sidebar</h2> -->
