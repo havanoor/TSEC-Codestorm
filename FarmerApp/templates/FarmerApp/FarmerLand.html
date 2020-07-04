@@ -157,7 +157,7 @@ hr.below {
 <section class="jumbotron text-center">
   <div class="container">
     <h1>Dashboard</h1>
-    <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+    <p class="lead text-muted">Welcome to your Dashboard</p>
     <p>
       <a href="#" class="btn btn-primary my-2">Grieviances</a>
       <a href="{% url 'suggestion' %}" class="btn btn-secondary my-2">Top Crops Sold</a>
@@ -169,25 +169,40 @@ hr.below {
   <div class="container">
   <div class="container-fluid">
     <div class = "row">
-          <div class="col-sm-12 text-center jumbotron top">
+          
+      <div class="card float-right" >
+        <h5  id="info10"></h5>
+        <div class="card-body">
+          <h5 class="card-title" id="info3"><div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+          </div></h5>
+          <p class="card-text" id="weather">Finding Weather</p>
+          <h3 class="card-text" id="info1">lol</h3>
+          <p class="card-text" id="info2">Finding</p>
+          <a href="#" id="switch" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      
+      
+      <div class="col-sm-12 text-center jumbotron top">
           <h1>Today's Weather</h1>
           <hr class = "short">
           <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
           <button class = "cityin" type="button" onclick="loadForCity() " style="font-color: #000000"> Call on this city</button>
           <hr class = "short">
-          <h2 id = "weather">Loading....</h2>
+          <!-- <h2 id = "weather">Loading....</h2> -->
         </div>
     </div>
       <div class="row" align = "center">
         <div class="col-sm-12 text-center grey-jumbo">
           <div class="col-sm-4">
-            <h3 id = "info1"></h3>
+            <!-- <h3 id = "info1"></h3> -->
             <hr class = "short">
-            <h3 id = "info2"></h3>
+            <!-- <h3 id = "info2"></h3> -->
           </div>
           <div class="col-sm-4">
-            <h3 id = "info3"></h3>
-            <button id = "switch" class = 'btn btn-primary'>Show in Farenheite</button>
+            <!-- <h3 id = "info3"></h3> -->
+            <!-- <button id = "switch" class = 'btn btn-primary'>Show in Farenheite</button> -->
           </div>
           <div class="col-sm-4">
             <h3 id = "info5"></h3>
@@ -241,7 +256,7 @@ hr.below {
         var cloud = json.current.cloudcover;
         console.log(data);
         $('#weather').html(city + ", " + state + ", " + country);
-        $('#info1').html(time);
+        $('#info1').html(time+"HIjlijlkjlkj");
         $('#info2').html(wind + "km/hour");
         $('#info3').html(temp + '&#8451');
         var yes = true;
@@ -318,11 +333,13 @@ $(document).ready(function(){
 
 				});
 				if (cloud <= 30){
-						$('#info5').html('Clear Sky');
+            $('#info5').html('Clear Sky');
+            $('#info10').html('<i class="fas fa-sun fa-4x"></i>')
 					}
 					else
 					{
-						$('#info5').html('Cloudy Sky');
+            $('#info5').html('Cloudy Sky');
+            $('#info10').html('<i class="fas fa-cloud fa-4x"></i>')
 					}
 					$('#info6').html("Humidity: " + humid + "%");
 
