@@ -9,8 +9,12 @@
         .container{
             margin-top: 100px;
         }
+        .topa{
+          color:white;
+        }
     </style>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -24,12 +28,41 @@
 </head>
 <body>
 
-  <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
+  <nav class="navbar navbar-expand-lg" style="background-color: black;">
     <a class="navbar-brand" href="#">
-      <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-
+      <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
     </a>
+    <ul class="navbar-nav mr-auto ">
+      <li>
+        <!-- <a class="nav-link" href="#"><i class="fas fa-seedling fa-2x"></i>My crops</a> -->
+        <a class="topa" href=""><i class="fas fa-home fa-2x"></i>Home </a>
+      </li>
+    </ul>
+      <ul class="list-inline">
+        <li class="list-inline-item top">
 
+          <a  class="topa" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+          <a  class="topa" href="{% url 'logout' %}" style="margin-right: 25px;">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+       </li>
+
+      </ul>
+      <ul class="list-inline">
+
+        {% with total_items=cart|length %}
+        {% if total_items > 0 %}
+        <li class="list-inline-item topa" >
+          <a href="{% url "cart_detail" %}" class="topa">
+
+            <i class="fas fa-shopping-cart topa fa-2x"></i>
+          {{ total_items }} item,
+          ₹{{ cart.get_total_price }}
+        </a>
+        {% else %}
+        Your cart is empty.
+        {% endif %}
+        {% endwith %}</li>
+
+      </ul>
   </nav>
 
 
@@ -50,7 +83,7 @@
         <img src="{{ product.photo.url }}" style="width: 200px; height: 200px; padding:10px " >
       </a></li>
 
-      <li> 
+      <li>
         <ul>
           <li>
             <h3><b>{{ product.name }}</b></h3>
@@ -99,7 +132,7 @@
       <a href="{% url "order_create" %}" class="btn btn-success btn-lg btn-block">Proceed to Checkout</a>
 
       <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg btn-block">Continue shopping</a>
-      
+
     </div>
 
   </div>

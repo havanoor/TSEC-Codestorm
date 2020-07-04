@@ -35,7 +35,7 @@
         <p> {{ crop.name }} </p>
         <p> {{ crop.c_type }} </p>
         <p> {{ crop.price }} </p>
-        <p> {{ crop.quantity }} </p>
+        <p> ₹{{ crop.quantity }} </p>
         <img  src={% if crop.photo %}{{ crop.photo.url }}{% endif %} alt="Card image cap">
         <a href="{% url 'delete_crop' crop.id %}" class="btn btn-danger">Delete Hall of fame</a>
         <a href="{% url 'update_crop' crop.id %}" class="btn btn-primary">Edit Hall of fame</a>

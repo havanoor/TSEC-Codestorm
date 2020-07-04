@@ -177,14 +177,16 @@ def order(request, pref):
     return render(request,'FarmerApp/cropdisplay.html',{'list':val})
 
 
+
+
+
+@login_required
 def farmerHome(request):
 
     userr = request.user
     return render(request,'FarmerApp/FarmerLand.html',{'user':userr})
 
 
-def buyerHome(request):
-    return render(request,'FarmerApp/BuyerLand.html')
 
 
 
@@ -251,6 +253,9 @@ def cropd(request):
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
 
 '''Buyer E-commerce start'''
+
+
+@login_required
 def product_list(request, category_slug=None):
     userr = request.user
     category = None
@@ -312,7 +317,7 @@ def order_create(request):
 
                 if crop.quantity >=item['quantity']:
                     crop.quantity = crop.quantity- item['quantity']
-                crop.save()                  
+                crop.save()
 
                 OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
             sendmail(request.user.username,order.email,order.id,cart.get_total_price())

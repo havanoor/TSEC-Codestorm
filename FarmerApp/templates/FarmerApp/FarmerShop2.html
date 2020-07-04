@@ -63,7 +63,7 @@
             color:#fff
         }
 
-        
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -81,7 +81,7 @@
       .top{
         color:white
       }
-    
+
     </style>
     <!-- Bootstrap core CSS -->
 <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -99,13 +99,13 @@
 <meta name="theme-color" content="#563d7c">
 
 
-    
+
     <!-- Custom styles for this template -->
     <link href="pricing.css" rel="stylesheet">
     <link href="navbar-top.css" rel="stylesheet">
   </head>
   <body>
-    
+
   <nav class="navbar navbar-expand-lg" style="background-color: black;">
     <a  href="#">
       <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
@@ -114,18 +114,18 @@
       <li>
         <!-- <a class="nav-link" href="#"><i class="fas fa-seedling fa-2x"></i>My crops</a> -->
         <a class="top" href="{% url "farmer_home" %}"><i class="fas fa-home fa-2x"></i>Home </a>
-      </li>    
+      </li>
     </ul>
       <ul class="list-inline">
         <li class="list-inline-item top">
-          
+
           <a  class="top" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
           <a  class="top" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
        </li>
-        
+
       </ul>
   </nav>
-  
+
 <!-- <div>
   {% with total_items=cart1|length %}
   {% if total_items > 0 %}
@@ -148,12 +148,12 @@
           <!-- <button type = "button" class = "order-price"> Order by Price </button> <br> -->
           <li class="order-quality top"> <i class="fas fa-stamp"></i>Order By Quality</li>
           <li class="top" ><a href="{% url 'suggestion' %}">  <i class="fas fa-question"></i>Confused ?</a></li>
-          
-          
+
+
       </ul>
   </div>
   <div class="main_content">
-      
+
       <div class="container" >
                    <h2>Cropseeds</h2>
           <div class="row" id = "cropseeds">
@@ -175,7 +175,7 @@
 
             <h2>Fertilizers</h2>
             <div class="row" id = "fertilizer">
-              
+
               {% for c in ferts %}
             <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
             <div class="card m-3" style="width: 20rem;">
@@ -184,7 +184,7 @@
                 <h5 class="card-title">{{c.name}}</h5>
                 <p class="card-text">₹{{c.price}}</p>
                 <a href="#" class="btn btn-primary">yaha </a>
-  
+
               </div>
             </div>
           </a>
@@ -192,7 +192,7 @@
               </div>
               <h2>Pesticides</h2>
               <div class="row" id = "pesticide">
-                
+
                 {% for c in pests %}
               <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
               <div class="card m-3" style="width: 20rem;">
@@ -201,18 +201,18 @@
                   <h5 class="card-title">{{c.name}}</h5>
                   <p class="card-text">₹{{c.price}}</p>
                   <a href="#" class="btn btn-primary">yaha </a>
-    
+
                 </div>
               </div>
             </a>
               {% endfor %}
                 </div>
-    
-  
+
+
 
       </div>
   </div>
-</div>  
+</div>
 
 
 
@@ -261,7 +261,7 @@
     console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-                                                                                                                  
+
       var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
@@ -272,7 +272,7 @@
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-              
+
       var a = '<a href = "http://localhost:8000/farmer/shop/' + fert[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
       var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
@@ -282,7 +282,7 @@
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-              
+
       var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
