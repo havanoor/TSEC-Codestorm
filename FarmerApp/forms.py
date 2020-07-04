@@ -123,6 +123,11 @@ class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES, coerce=int)
     update = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
+    def __init__(self,*args,**kwargs):
+        super(CartAddProductForm,self).__init__(*args,**kwargs)
+        self.fields['quantity'].widget.attrs['class'] = 'btn btn-warning'
+        self.fields['update'].widget.attrs['class'] = 'btn btn-warning'
+
 class CropForm(ModelForm):
     class Meta:
         model = Crops

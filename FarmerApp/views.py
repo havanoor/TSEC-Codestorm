@@ -16,7 +16,6 @@ from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from .refdata import state_crop_dict
 
-
 '''Registration,login,logout start'''
 
 

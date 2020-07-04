@@ -29,31 +29,15 @@
 <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
 <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#563d7c">
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 
-
-<style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
   <!-- Custom styles for this template -->
-  <link href="album.css" rel="stylesheet">
+  <link href="{% static 'css/ecom.css' %}" rel="stylesheet">
    <link href="navbar-top.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <!-- <header >
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" >
   <a class="navbar-brand" href="#">Top navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -76,81 +60,81 @@
     </form>
   </div>
 </nav>
-</header>
-<div>
-  {% with total_items=cart|length %}
-  {% if total_items > 0 %}
-  Your cart:
-  <a href="{% url "cart_detail" %}">
-    {{ total_items }} item{{ total_items|pluralize }},
-    ₹{{ cart.get_total_price }}
+
+</header> -->
+<nav class="navbar fixed-top navbar-dark" style="background-color: black;">
+  <a class="navbar-brand" href="#">
+    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+
   </a>
-  {% else %}
-  Your cart is empty.
-  {% endif %}
-  {% endwith %}
-</div>
-<div id="sidebar">
-  <h3>Categories</h3>
-  <ul>
-    <li {% if not category %}class="selected"{% endif %}>
-      <a href="{% url "product_list" %}">All</a>
-    </li>
-    {% for c in categories %}
-      <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-        <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
-<main role="main">
-  <h1>
-    {% if category %}
-      {{ category.name }}
+  <ul class="list-inline">
+    <!-- <li class="list-inline-item"><i class="fas fa-shopping-cart top"></i></li> -->
+    {% with total_items=cart|length %}
+    {% if total_items > 0 %}
+    <li class="list-inline-item top">
+      <a href="{% url "cart_detail" %}" class="top">
+        <i class="fas fa-shopping-cart size:7x top""></i>
+      {{ total_items }} item,
+      ₹{{ cart.get_total_price }}
+    </a>
     {% else %}
-      Crops
-  {% endif %}
-</h1>
-<div class="album py-5 bg-light">
-  <div class="container">
-    <div class="row">
+    Your cart is empty.
+    {% endif %}
+    {% endwith %}</li>
+    <!-- <li class="list-inline-item">Nulla volutpat</li> -->
+  </ul>
+</nav>
+<div class="wrapper">
+  <div class="sidebar">
+      <!-- <h2>Sidebar</h2> -->
+      <h2 style="color: white;">Categories</h2>
+
+      <ul>
+        <li {% if not category %}class="selected"{% endif %}><a href='{% url "product_list" %}'> <i class="fas fa-tractor"></i>All</a></li>
 
 
-      {% for product in products %}
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
+      </li>
+      {% for c in categories %}
+      <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+        <a href="{{ c.get_absolute_url }}"><i class="fas fa-tractor"></i>{{ c.name }}</a>
+      </li>
+      {% endfor %}
+      </ul>
+
+
+
+
+  </div>
+  <div class="main_content">
+      <div class="header"> HIIIIIIIIIIIII</div>
+      <div class="container" >
+          <h2 style="margin-top: 100px; align-content:center; color: white;">These are all the available
+          {% if category %}
+           {{ category.name }}
+            {% else %}
+             Crops
+            </h2>
+             {% endif %}
+
+
+          <div class="row">
+          {% for product in products %}
           <a href="{{ product.get_absolute_url }}">
-            <img class='card-img-top' src="{% if product.photo %}{{ product.photo.url }}{% endif %}" alternate='Image not supplied'>
-          </a>
-          <div class="card-body">
-            <p class="card-text">
-              <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-              <br />
-              ₹{{ product.price }}
-            </p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
+          <div class="card m-3" style="width: 20rem;">
+            <img class="card-img-top" src={{product.photo.url}} alternate='Image not supplied'>
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">₹{{ product.price }}</p>
+              <a href="#" class="btn btn-primary">yaha </a>
+
             </div>
           </div>
-        </div>
+        </a>
+          {% endfor %}
+            </div>
+
       </div>
-    {% endfor %}
-    </div>
   </div>
-</div>
-
-</main>
-
-<footer class="text-muted">
-<div class="container">
-  <p class="float-right">
-    <a href="#">Back to top</a>
-  </p>
-  <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-  <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="/docs/4.5/getting-started/introduction/">getting started guide</a>.</p>
 </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
