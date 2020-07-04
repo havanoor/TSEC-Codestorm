@@ -75,6 +75,10 @@ hr.below {
 	height: 300px;
 }
 
+.topa{
+  color:white
+}
+
 #info1,
 #info2 {
 	font-size: 30px;
@@ -157,12 +161,13 @@ hr.below {
 
   </ul>
   <ul class="list-inline">
-
-    <li class="list-inline-item">
-      <a class="nav-link my" href='#'><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
-
-      </li>
-    </ul>
+    <li class="list-inline-item topa">
+      
+      <a  class="topa" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+      <a  class="topa" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+   </li>
+    
+  </ul>
 </nav>
 
 
@@ -174,7 +179,7 @@ hr.below {
     <h1>Dashboard</h1>
     <p class="lead text-muted">Welcome to your Dashboard</p>
     <p>
-      <a href="#" class="btn btn-primary my-2">Grieviances</a>
+      <!-- <a href="#" class="btn btn-primary my-2">Grieviances</a> -->
       <a href="{% url 'suggestion' %}" class="btn btn-secondary my-2">Top Crops Sold</a>
     </p>
   </div>
