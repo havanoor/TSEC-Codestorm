@@ -33,7 +33,7 @@
 
   <!-- Custom styles for this template -->
   <link href="{% static 'css/ecom.css' %}" rel="stylesheet">
-   
+
 </head>
 <body>
   <!-- <header >
@@ -64,7 +64,6 @@
 </header> -->
 <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
   <a class="navbar-brand" href="#">
-<<<<<<< HEAD
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
     <li class="nav-item">
       <a class="nav-link" href='#'>{{ user.username }}</a>
@@ -77,10 +76,7 @@
         <input type="hidden" name="" />
       </form>
     </li>
-=======
     <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-    
->>>>>>> 8dff0283ddc3f9d6994c43ffa5abd9f4c8ef97f2
   </a>
   <ul class="list-inline">
     <!-- <li class="list-inline-item"><i class="fas fa-shopping-cart top"></i></li> -->
@@ -88,16 +84,12 @@
     {% if total_items > 0 %}
     <li class="list-inline-item top">
       <a href="{% url "cart_detail" %}" class="top">
-<<<<<<< HEAD
         <i class="fas fa-shopping-cart size:7x top"></i>
-=======
-        <i class="fas fa-shopping-cart top""></i>
->>>>>>> 8dff0283ddc3f9d6994c43ffa5abd9f4c8ef97f2
+        <i class="fas fa-shopping-cart top"></i>
       {{ total_items }} item,
       ₹{{ cart.get_total_price }}
     </a>
     {% else %}
-    <i class="fas fa-shopping-cart  top""></i>
     Your cart is empty.
     {% endif %}
     {% endwith %}</li>
