@@ -1,10 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
 from .models import *
-
 import re
 from django.shortcuts import render, redirect,get_object_or_404
-
 
 class Cart(object):
     def __init__(self, request):
@@ -54,9 +52,6 @@ class Cart(object):
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.save()
-
-
-
 
 class Cart1(object):
     def __init__(self, request):
@@ -111,6 +106,9 @@ class Cart1(object):
 
             products.append(item)
         #item = get_object_or_404(tot[self.model],pk=product_id)
+
+
+
 
         cart = self.cart.copy()
         for product in products:
