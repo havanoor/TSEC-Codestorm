@@ -79,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'FarmerApp.context_processors.cart',
+                'FarmerApp.context_processors.cart1',
             ],
         },
     },
@@ -152,3 +153,4 @@ EMAIL_HOST_PASSWORD=''
 AUTH_USER_MODEL='FarmerApp.Account'
 
 CART_SESSION_ID = 'cart'
+
