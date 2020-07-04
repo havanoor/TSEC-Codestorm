@@ -120,7 +120,7 @@
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
           <a href="{{ product.get_absolute_url }}">
-            <img class='card-img-top' src="{% if product.image %}{{ product.image.url }}{% endif %}" alternate='Image not supplied'>
+            <img class='card-img-top' src="{% if product.photo %}{{ product.photo.url }}{% endif %}" alternate='Image not supplied'>
           </a>
           <div class="card-body">
             <p class="card-text">

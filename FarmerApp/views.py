@@ -1,7 +1,7 @@
-
+from .logic import *
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
-from .cart import Cart
+from .cart import *
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.http import require_POST
@@ -14,6 +14,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
+from .refdata import state_crop_dict
+
 
 '''Registration,login,logout start'''
 
@@ -42,13 +44,13 @@ def register(request):
                 print("Its a buyer")
                 form3=BuyerForm(data=form2.data)
                 print(form3)
-                buyer=form3.save()
+                Buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                buyer.set_password(Buyer.password)
-                buyer.is_farmer = False
-                buyer.is_buyer=True
-                buyer.save()
+                Buyer.set_password(Buyer.password)
+                Buyer.is_farmer = False
+                Buyer.is_buyer=True
+                Buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -189,7 +191,7 @@ def CropCreate(request, id):
     print(filter1.name)
     print(type(userr))
     if request.method == 'POST':
-        form = CropForm(request.POST)
+        form = CropForm(request.POST,request.FILES)
         if form.is_valid():
             crops = Crops()
             crops.farmer = Farmer.objects.get(username=userr.username)
@@ -213,6 +215,8 @@ def cropd(request):
     return render(request,'FarmerApp/Farmerf.html',{'filter':filter})
 
 
+
+'''Buyer E-commerce start'''
 def product_list(request, category_slug=None):
     userr = request.user
     category = None
@@ -229,7 +233,6 @@ def product_detail(request, id, slug):
     cart_product_form = CartAddProductForm()
     return render(request, 'FarmerApp/BuyerDetail.html', {'product': product,'user':userr,'cart_product_form': cart_product_form})
 
-
 @require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
@@ -240,8 +243,6 @@ def cart_add(request, product_id):
         cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
 
     return redirect('cart_detail')
-
-
 
 
 def cart_remove(request, pid):
@@ -269,8 +270,11 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
+            print(order.email)
             for item in cart:
+                print(item['product'].name)
                 OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
             return render(request, 'FarmerApp/OrderCreated.html',{'order': order})
     else:
@@ -278,343 +282,111 @@ def order_create(request):
     return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
 
 
+'''Buyer E-commerce End'''
 
 
 
+
+
+'''Farmer E-commerce Start'''
+
+'''
+def farm_product_list(request):
+    userr = request.user
+    seeds = CropSeeds.objects.all()
+    ferts = fertilizer.objects.all()
+    pests = pesticide.objects.all()
+    #products = fertilizer.objects + CropSeeds.objects +pesticide.objects
+    return render(request, 'FarmerApp/FarmerShop2.html', {'user':userr,'cropseeds':seeds, 'ferts':ferts, 'pests':pests})
+
+def farm_product_detail(request, model ,sc_id):
+    userr = request.user
+    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
+    mod=model
+    ref_dict = {
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(tot[model],pk=sc_id)
+    except:
+        return HttpResponse("Error")
+    #product = get_object_or_404(item, id=sc_id,  available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request, 'FarmerApp/FarmE/FarmerDetail.html', {'product': item,'user':userr,'cart_product_form': cart_product_form,'model':model})
+
+@require_POST
+def farm_cart_add(request, model, product_id):
+    cart = Cart1(request)
+    mod = model
+    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
+    ref_dict = {
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(tot[model],pk=product_id)
+    except:
+        return HttpResponse("Error")
+    #product = get_object_or_404(item, id=product_id)
+    form = CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd = form.cleaned_data
+        cart.add(product=item, quantity=cd['quantity'], update_quantity=cd['update'])
+
+    return redirect('farmer_cart_detail')
+
+def farm_cart_remove(request,model, pid):
+    cart = Cart1(request)
+    mod=model
+    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
+    ref_dict = {
+        'cs':CropSeeds,
+        'f':fertilizer,
+        'p':pesticide
+    }
+    try:
+        item = get_object_or_404(tot[model],pk=pid)
+    except:
+        return HttpResponse("Error")
+    #product = get_object_or_404(tot, id=pid)
+    cart.remove(item)
+    return redirect('farmer_cart_detail')
+
+def farm_cart_clear(request):
+    cart = Cart1(request)
+    cart.clear()
+    return redirect('farmer_cart_detail')
+
+def farm_cart_detail(request):
+    cart = Cart1(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],'override': True})
+    return render(request, 'FarmerApp/FarmE/FarmerCartDetail.html', {'cart': cart})
+
+def farm_order_create(request):
+    cart = Cart1(request)
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            cart.clear()
+            return render(request, 'FarmerApp/FarmE/FarmerOrderCreated.html',{'order': order})
+    else:
+        form = OrderCreateForm()
+    return render(request, 'FarmerApp/FarmE/FarmerOrderCreate.html', {'cart': cart, 'form': form})
+
+
+'''
+'''Farmer E-commerce End'''
 
 @api_view(('GET',))
 def sugs(request,state):
-    d= {'Gujarat': ['Sugarcane',
-  'Cotton(lint)',
-  'Onion',
-  'Groundnut',
-  'Potato',
-  'Wheat',
-  'Oilseeds total',
-  'Banana',
-  'Maize',
-  'Bajra'],
- 'Goa': ['Coconut ',
-  'Rice',
-  'Sugarcane',
-  'Other Vegetables',
-  'Other Fresh Fruits',
-  'Cashewnut',
-  'Banana',
-  'Other  Rabi pulses',
-  'Groundnut',
-  'Mango'],
- 'Nagaland': ['Sugarcane',
-  'Rice',
-  'Niger seed',
-  'Potato',
-  'Jute',
-  'Maize',
-  'Rapeseed &Mustard',
-  'Tapioca',
-  'Soyabean',
-  'Oilseeds total'],
- 'Tripura': ['Rice',
-  'Potato',
-  'Sugarcane',
-  'Jute & mesta',
-  'Mesta',
-  'Jute',
-  'Oilseeds total',
-  'Maize',
-  'Other Kharif pulses',
-  'other oilseeds'],
- 'Jammu and Kashmir ': ['Wheat',
-  'Maize',
-  'Rice',
-  'Rapeseed &Mustard',
-  'Bajra',
-  'Potato',
-  'Other Vegetables',
-  'Jowar',
-  'Barley',
-  'Urad'],
- 'Karnataka': ['Sugarcane',
-  'Coconut ',
-  'Dry ginger',
-  'Maize',
-  'Paddy',
-  'Arecanut',
-  'Arhar/Tur',
-  'Cotton(lint)',
-  'Banana',
-  'Rice'],
- 'Jharkhand': ['Rice',
-  'Potato',
-  'Wheat',
-  'Maize',
-  'Ragi',
-  'Sugarcane',
-  'Arhar/Tur',
-  'Onion',
-  'Masoor',
-  'Gram'],
- 'Himachal Pradesh': ['Wheat',
-  'Maize',
-  'Rice',
-  'Potato',
-  'Sugarcane',
-  'Dry ginger',
-  'Peas & beans (Pulses)',
-  'Ginger',
-  'Barley',
-  'Small millets'],
- 'Rajasthan': ['Wheat',
-  'Bajra',
-  'Rapeseed &Mustard',
-  'Maize',
-  'Guar seed',
-  'Sugarcane',
-  'Cotton(lint)',
-  'Soyabean',
-  'Gram',
-  'Barley'],
- 'Uttarakhand': ['Sugarcane',
-  'Total foodgrain',
-  'Wheat',
-  'Rice',
-  'Onion',
-  'Potato',
-  'Ragi',
-  'Other Cereals & Millets',
-  'Small millets',
-  'Maize'],
- 'Dadra and Nagar Haveli': ['Sugarcane',
-  'Coconut ',
-  'Rice',
-  'Other  Rabi pulses',
-  'Ragi',
-  'Other Kharif pulses',
-  'Arhar/Tur',
-  'Urad',
-  'Wheat',
-  'Banana'],
- 'Odisha': ['Rice',
-  'Paddy',
-  'Sugarcane',
-  'Maize',
-  'Sweet potato',
-  'Onion',
-  'Groundnut',
-  'Jute',
-  'Moong(Green Gram)',
-  'Ragi'],
- 'Manipur': ['Rice',
-  'Banana',
-  'Pineapple',
-  'Potato',
-  'Sugarcane',
-  'Maize',
-  'Other Fresh Fruits',
-  'Dry ginger',
-  'Cabbage',
-  'Dry chillies'],
- 'Chandigarh': ['Wheat',
-  'Potato',
-  'Maize',
-  'Rice',
-  'Onion',
-  'Rapeseed &Mustard',
-  'Arhar/Tur',
-  'Masoor',
-  'Urad',
-  'Sunflower'],
- 'Mizoram': ['Rice',
-  'Sugarcane',
-  'Maize',
-  'Tapioca',
-  'Other Kharif pulses',
-  'other oilseeds',
-  'Other  Rabi pulses',
-  'Potato',
-  'Sesamum',
-  'Rapeseed &Mustard'],
- 'Assam': ['Coconut ',
-  'Sugarcane',
-  'Rice',
-  'Paddy',
-  'Jute',
-  'Potato',
-  'Banana',
-  'Pineapple',
-  'Orange',
-  'Ginger'],
- 'Tamil Nadu': ['Coconut ',
-  'Sugarcane',
-  'Tapioca',
-  'Banana',
-  'Rice',
-  'Total foodgrain',
-  'Guar seed',
-  'Maize',
-  'Mango',
-  'Groundnut'],
- 'Kerala': ['Coconut ',
-  'Tapioca',
-  'Sugarcane',
-  'Banana',
-  'Rice',
-  'Rubber',
-  'Mango',
-  'Pineapple',
-  'Coffee',
-  'Black pepper'],
- 'Haryana': ['Sugarcane',
-  'Wheat',
-  'Cotton(lint)',
-  'Rice',
-  'Bajra',
-  'Rapeseed &Mustard',
-  'Potato',
-  'Gram',
-  'Guar seed',
-  'Other Vegetables'],
- 'Meghalaya': ['Potato',
-  'Rice',
-  'Jute',
-  'Pineapple',
-  'Total foodgrain',
-  'Banana',
-  'Dry ginger',
-  'Citrus Fruit',
-  'Mesta',
-  'Cashewnut'],
- 'West Bengal': ['Coconut ',
-  'Oilseeds total',
-  'Pulses total',
-  'Potato',
-  'Jute',
-  'Rice',
-  'Sugarcane',
-  'Wheat',
-  'Maize',
-  'Rapeseed &Mustard'],
- 'Arunachal Pradesh': ['Rice',
-  'Oilseeds total',
-  'Dry ginger',
-  'Maize',
-  'Sugarcane',
-  'Potato',
-  'Rapeseed &Mustard',
-  'Small millets',
-  'Wheat',
-  'Dry chillies'],
- 'Madhya Pradesh': ['Sugarcane',
-  'Banana',
-  'Wheat',
-  'Soyabean',
-  'Maize',
-  'Rice',
-  'Cotton(lint)',
-  'Paddy',
-  'Rapeseed &Mustard',
-  'Potato'],
- 'Punjab': ['Wheat',
-  'Sugarcane',
-  'Rice',
-  'Cotton(lint)',
-  'Maize',
-  'Barley',
-  'Groundnut',
-  'Guar seed',
-  'Rapeseed &Mustard',
-  'Peas & beans (Pulses)'],
- 'Andaman and Nicobar Islands': ['Coconut ',
-  'Rice',
-  'Banana',
-  'Sugarcane',
-  'Arecanut',
-  'Tapioca',
-  'Dry ginger',
-  'Dry chillies',
-  'Sweet potato',
-  'Turmeric'],
- 'Maharashtra': ['Sugarcane',
-  'Banana',
-  'Cotton(lint)',
-  'Onion',
-  'Maize',
-  'Grapes',
-  'Soyabean',
-  'Jowar',
-  'Bajra',
-  'Rice'],
- 'Puducherry': ['Coconut ',
-  'Sugarcane',
-  'Rice',
-  'Paddy',
-  'Tapioca',
-  'Banana',
-  'Mango',
-  'Groundnut',
-  'Urad',
-  'Brinjal'],
- 'Andhra Pradesh': ['Coconut ',
-  'Sugarcane',
-  'Rice',
-  'Groundnut',
-  'Cotton(lint)',
-  'Maize',
-  'other oilseeds',
-  'Mango',
-  'Mesta',
-  'Banana'],
- 'Uttar Pradesh': ['Sugarcane',
-  'Potato',
-  'Wheat',
-  'Total foodgrain',
-  'Rice',
-  'Bajra',
-  'Maize',
-  'Urad',
-  'Peas & beans (Pulses)',
-  'Gram'],
- 'Sikkim': ['Maize',
-  'Total foodgrain',
-  'Other Vegetables',
-  'Potato',
-  'Rice',
-  'Small millets',
-  'Other Kharif pulses',
-  'Other Fresh Fruits',
-  'Wheat',
-  'Pulses total'],
- 'Bihar': ['Sugarcane',
-  'Rice',
-  'Jute',
-  'Wheat',
-  'Maize',
-  'Banana',
-  'Potato',
-  'Mesta',
-  'Other  Rabi pulses',
-  'Masoor'],
- 'Telangana ': ['Coconut ',
-  'Sugarcane',
-  'Rice',
-  'Cotton(lint)',
-  'Maize',
-  'Orange',
-  'Soyabean',
-  'Groundnut',
-  'Turmeric',
-  'Onion'],
- 'Chhattisgarh': ['Sugarcane',
-  'Rice',
-  'Khesari',
-  'Gram',
-  'Maize',
-  'Soyabean',
-  'Potato',
-  'Wheat',
-  'Small millets',
-  'Groundnut']}
-    crops = d.get(state,{'none':'none'})
+    crops = state_crop_dict.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
 
 class CropView(generics.ListCreateAPIView):

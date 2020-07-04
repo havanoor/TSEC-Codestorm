@@ -18,7 +18,7 @@
       <tr>
         <td>
           <a href="{{ product.get_absolute_url }}">
-            <img src="{% if product.photo %}{{ product.photo.url }} {% endif %}">
+            <img src="{% if product.image %}{{ product.image.url }} {% endif %}">
           </a>
         </td>
         <td>{{ product.name }}</td>

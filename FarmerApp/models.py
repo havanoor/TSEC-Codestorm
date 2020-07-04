@@ -145,6 +145,9 @@ class CropSeeds(models.Model):
     photo=models.ImageField(upload_to='cropImage/',blank=True)
     quality = models.IntegerField()
 
+    def get_absolute_url(self):
+        return reverse('farmer_product_detail', args=[self.id, self.name])
+
 
 class fertilizer(models.Model):
     name = models.CharField(max_length = 100)
@@ -153,6 +156,9 @@ class fertilizer(models.Model):
     price =models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
 
+    def get_absolute_url(self):
+        return reverse('farmer_product_detail', args=[self.id, self.name])
+
 
 class pesticide(models.Model):
     name = models.CharField(max_length = 100)
@@ -160,6 +166,9 @@ class pesticide(models.Model):
     p_type=models.CharField(max_length=100,null=True,blank=True)
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
+
+    def get_absolute_url(self):
+        return reverse('farmer_product_detail', args=[self.id, self.name])
 
 
 

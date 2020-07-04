@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-5">
               <div class="product-detail">
-                <img src="{% if product.photo %}{{ product.photo.url }}{% endif %}">
+                <img src="{% if product.image %}{{ product.image.url }}{% endif %}">
                 <h1>{{ product.name }}</h1>
 
                 <p class="price"> </p>
@@ -39,11 +39,10 @@
 
             </div>
             <div class="col-md-7">
-                <span class="badge badge-primary">NEw </span>
-                <h1 class="display-4"><a href="{{ product.category.get_absolute_url }}"> {{ product.category.name }} </a></h1>
+                <span class="badge badge-primary">New </span>
                 <h4>Price <b style="color: red;">₹{{ product.price }}</b> </h4>
 
-                <form action='{% url "cart_add" product.id %}' method="post">
+                <form action='{% url "farmer_cart_add"  model  product.id %}' method="post">
                   {{ cart_product_form }}
                   {% csrf_token %}
                     <button type="button" class="btn btn-info"><input type="submit" value="Add to cart">Add to Cart</button>
