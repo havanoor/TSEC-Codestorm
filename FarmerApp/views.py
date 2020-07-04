@@ -1,4 +1,4 @@
-
+from .logic import *
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from .cart import Cart
@@ -43,13 +43,13 @@ def register(request):
                 print("Its a buyer")
                 form3=BuyerForm(data=form2.data)
                 print(form3)
-                buyer=form3.save()
+                Buyer=form3.save()
 
                 # buyer=Buyer.objects.create(form2.data)
-                buyer.set_password(Buyer.password)
-                buyer.is_farmer = False
-                buyer.is_buyer=True
-                buyer.save()
+                Buyer.set_password(Buyer.password)
+                Buyer.is_farmer = False
+                Buyer.is_buyer=True
+                Buyer.save()
                 return redirect('signup')
             # Farmer=form.save()
             # Farmer.set_password(Farmer.password)
@@ -270,18 +270,16 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
+            print(order.email)
             for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+                print(item['product'].name)
+                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity']) 
+            sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
             return render(request, 'FarmerApp/OrderCreated.html',{'order': order})
     else:
         form = OrderCreateForm()
     return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
-
-
-
-
-
 
 @api_view(('GET',))
 def sugs(request,state):

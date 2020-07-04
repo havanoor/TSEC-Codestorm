@@ -4,13 +4,13 @@ from . import views
 
 
 urlpatterns=[
-    path('',views.list_crops,name="display"),
+    #path('',views.list_crops,name="display"),
 
     path('suggestion/',views.suggestion, name = "suggestion"),
     path('order/<str:pref>',views.order,name = "order"),
     path('farmershop/',views.farmersell,name = "FS"),
     path('cropseeds/',views.CropView.as_view()),
-    path('signup',views.register, name='signup'),
+    path('',views.register, name='signup'),
     path('farmer',views.farmerHome, name='farmer_home'),
     path('farmer/<int:id>/crop',views.CropCreate, name="crop_add"),
     path('f',views.cropd, name='category'),
