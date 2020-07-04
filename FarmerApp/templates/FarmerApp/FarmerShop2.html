@@ -155,7 +155,7 @@
                    <h2>Cropseeds</h2>
           <div class="row" id = "cropseeds">
             {% for c in cropseeds %}
-          <a href="{{ product.get_absolute_url }}">
+          <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
           <div class="card m-3" style="width: 20rem;">
             <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
             <div class="card-body">
@@ -174,7 +174,7 @@
             <div class="row" id = "fertilizer">
               
               {% for c in ferts %}
-            <a href="{{ product.get_absolute_url }}">
+            <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
             <div class="card m-3" style="width: 20rem;">
               <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
               <div class="card-body">
@@ -191,7 +191,7 @@
               <div class="row" id = "pesticide">
                 
                 {% for c in pests %}
-              <a href="{{ product.get_absolute_url }}">
+              <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
               <div class="card m-3" style="width: 20rem;">
                 <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
                 <div class="card-body">
