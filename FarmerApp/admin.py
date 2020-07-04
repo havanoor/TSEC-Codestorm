@@ -24,7 +24,7 @@ class AccountAdmin(UserAdmin):
 
 class CropSeedAdmin(ModelAdmin):
         list_display=(
-                      'name','s_type','id'
+                      'name','s_type','p_id'
         )
 
         search_fields=(
@@ -96,7 +96,6 @@ admin.site.register(Account,AccountAdmin)
 admin.site.register(Farmer)
 admin.site.register(Buyer)
 admin.site.register(Crops,CropAdmin)
-#admin.site.register(Product)
 admin.site.register(CropFilter,CropFilterAdmin)
 admin.site.register(CropSeeds,CropSeedAdmin)
 admin.site.register(fertilizer,FertilizerAdmin)

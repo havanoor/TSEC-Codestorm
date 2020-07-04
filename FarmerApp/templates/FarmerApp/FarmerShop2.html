@@ -100,13 +100,13 @@
 <hr \>
 <div id = "cropseeds">
 {% for c in cropseeds %}
-<a href ="http://localhost:8000/farmer/shop/cs/{{c.id}}">
+<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/cs/{{c.id}}" class="btn btn-primary">₹ {{c.price}}
+      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
       </a>
     </div>
   </div>
@@ -119,13 +119,13 @@
 <hr \>
 <div id = "fertilizer">
 {% for c in ferts %}
-<a href ="http://localhost:8000/farmer/shop/f/{{c.id}}">
+<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/f/{{c.id}}" class="btn btn-primary">₹ {{c.price}}
+      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
       </a>
     </div>
   </div>
@@ -141,13 +141,13 @@
 
 
 {% for c in pests %}
-<a href ="http://localhost:8000/farmer/shop/p/{{c.id}}">
+<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
 <div class="card" style="width:100% ;">
 <div class = "col">
 <img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
 <div class="card-body"><h5 class="card-title">{{c.name}}</h5>
 <p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/p/{{c.id}}" class="btn btn-primary">₹ {{c.price}}
+      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
       </a>
     </div>
   </div>

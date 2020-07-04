@@ -70,37 +70,6 @@ class Buyer(Account):
 
 '''AUTH MODELS END'''
 
-class Category(models.Model):
-	name = models.CharField(max_length=200,
-				db_index=True)
-	slug = models.SlugField(max_length=200,
-				unique=True)
-	class Meta:
-		ordering = ('name',)
-		verbose_name = 'category'
-		verbose_name_plural = 'categories'
-
-	def _str_(self):
-		return self.name
-
-# class Product(models.Model):
-#     category = models.ForeignKey(Category,related_name='products',on_delete=models.CASCADE)
-#     name = models.CharField(max_length=200, db_index=True)
-#     slug = models.SlugField(max_length=200, db_index=True)
-#     buyer =  models.ForeignKey(Farmer, related_name='Farmer_buy',on_delete=models.CASCADE)
-#     image = models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
-#     description = models.TextField(blank=True)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
-#     available = models.BooleanField(default=True)
-#     created = models.DateTimeField(auto_now_add=True)
-#     updated = models.DateTimeField(auto_now=True)
-#     class Meta:
-#     	ordering = ('name',)
-#     	index_together = (('id', 'slug'),)
-
-#     def _str_(self):
-#     	return self.name
-
 
 
 '''Farmer selling models start'''
@@ -139,37 +108,30 @@ class Crops(models.Model):
 
 
 class CropSeeds(models.Model):
+    p_id = models.CharField(max_length = 100, primary_key = True)
     name=models.CharField(max_length=100)
     s_type=models.CharField(max_length=100)
     price=models.IntegerField()
     photo=models.ImageField(upload_to='cropImage/',blank=True)
     quality = models.IntegerField()
 
-    def get_absolute_url(self):
-        return reverse('farmer_product_detail', args=[self.id, self.name])
-
 
 class fertilizer(models.Model):
+    p_id = models.CharField(max_length = 100, primary_key = True)
     name = models.CharField(max_length = 100)
     f_type = models.CharField(max_length=100,null=True,blank=True)
     quality = models.IntegerField()
     price =models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
 
-    def get_absolute_url(self):
-        return reverse('farmer_product_detail', args=[self.id, self.name])
-
 
 class pesticide(models.Model):
+    p_id = models.CharField(max_length = 100, primary_key = True)
     name = models.CharField(max_length = 100)
     quality = models.IntegerField()
     p_type=models.CharField(max_length=100,null=True,blank=True)
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
-
-    def get_absolute_url(self):
-        return reverse('farmer_product_detail', args=[self.id, self.name])
-
 
 
 '''ORDER BUYER START'''

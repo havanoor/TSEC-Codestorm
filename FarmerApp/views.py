@@ -15,7 +15,7 @@ from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from .refdata import state_crop_dict
-
+import re
 from .decorators import *
 
 '''Registration,login,logout start'''
@@ -273,7 +273,6 @@ def order_create(request):
             order = form.save()
             print(order.email)
             for item in cart:
-                print(item['product'].name)
                 OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
             sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
@@ -291,7 +290,6 @@ def order_create(request):
 
 '''Farmer E-commerce Start'''
 
-'''
 def farm_product_list(request):
     userr = request.user
     seeds = CropSeeds.objects.all()
@@ -300,58 +298,75 @@ def farm_product_list(request):
     #products = fertilizer.objects + CropSeeds.objects +pesticide.objects
     return render(request, 'FarmerApp/FarmerShop2.html', {'user':userr,'cropseeds':seeds, 'ferts':ferts, 'pests':pests})
 
-def farm_product_detail(request, model ,sc_id):
+
+def farm_product_detail(request, sc_id):
     userr = request.user
-    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
-    mod=model
+    if re.match("^cs[0-9]*[0-9]$",sc_id):
+        model = 'cs'
+    elif re.match("^f[0-9]*[0-9]$",sc_id):
+        model = 'f'
+    elif re.match("^p[0-9]*[0-9]$",sc_id):
+        model = 'p'
+    else:
+        model = ''
     ref_dict = {
         'cs':CropSeeds,
         'f':fertilizer,
         'p':pesticide
     }
     try:
-        item = get_object_or_404(tot[model],pk=sc_id)
+        item = get_object_or_404(ref_dict[model],pk=sc_id)
+        print(item.p_id)
     except:
         return HttpResponse("Error")
     #product = get_object_or_404(item, id=sc_id,  available=True)
     cart_product_form = CartAddProductForm()
     return render(request, 'FarmerApp/FarmE/FarmerDetail.html', {'product': item,'user':userr,'cart_product_form': cart_product_form,'model':model})
 
+
+
 @require_POST
-def farm_cart_add(request, model, product_id):
+def farm_cart_add(request, sc_id):
     cart = Cart1(request)
-    mod = model
-    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
+    if re.match("^cs[0-9]*[0-9]$",sc_id):
+        model = 'cs'
+    elif re.match("^f[0-9]*[0-9]$",sc_id):
+        model = 'f'
+    elif re.match("^p[0-9]*[0-9]$",sc_id):
+        model = 'p'
+    else:
+        model = ''
+
     ref_dict = {
         'cs':CropSeeds,
         'f':fertilizer,
         'p':pesticide
     }
-    try:
-        item = get_object_or_404(tot[model],pk=product_id)
-    except:
-        return HttpResponse("Error")
+    item = get_object_or_404(ref_dict[model],pk=sc_id)
     #product = get_object_or_404(item, id=product_id)
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(product=item, quantity=cd['quantity'], update_quantity=cd['update'])
-
     return redirect('farmer_cart_detail')
 
-def farm_cart_remove(request,model, pid):
+def farm_cart_remove(request, pid):
     cart = Cart1(request)
-    mod=model
-    tot = {'f':fertilizer.objects,'cs':CropSeeds.objects,'p':pesticide.objects}
+    if re.match("^cs[0-9]*[0-9]$",sc_id):
+        model = 'cs'
+    elif re.match("^f[0-9]*[0-9]$",sc_id):
+        model = 'f'
+    elif re.match("^p[0-9]*[0-9]$",sc_id):
+        model = 'p'
+    else:
+        model = ''
+
     ref_dict = {
         'cs':CropSeeds,
         'f':fertilizer,
         'p':pesticide
     }
-    try:
-        item = get_object_or_404(tot[model],pk=pid)
-    except:
-        return HttpResponse("Error")
+    item = get_object_or_404(ref_dict[model],pk=sc_id)
     #product = get_object_or_404(tot, id=pid)
     cart.remove(item)
     return redirect('farmer_cart_detail')
@@ -373,8 +388,9 @@ def farm_order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
-            for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            #for item in cart:
+                #OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+            sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
             return render(request, 'FarmerApp/FarmE/FarmerOrderCreated.html',{'order': order})
     else:
@@ -382,7 +398,8 @@ def farm_order_create(request):
     return render(request, 'FarmerApp/FarmE/FarmerOrderCreate.html', {'cart': cart, 'form': form})
 
 
-'''
+
+
 '''Farmer E-commerce End'''
 
 @api_view(('GET',))
@@ -390,11 +407,16 @@ def sugs(request,state):
     crops = state_crop_dict.get(state,{'none':'none'})
     return JsonResponse(crops,safe = False)
 
+
+
 class CropView(generics.ListCreateAPIView):
     search_fields = ['name']
     filter_backends = (filters.SearchFilter,)
     queryset = CropSeeds.objects.all()
     serializer_class = CropSeedSerializer
+
+
+
 
 def individual_product(request,model ,sc_id):
 

@@ -2,6 +2,9 @@ from decimal import Decimal
 from django.conf import settings
 from .models import *
 
+import re
+from django.shortcuts import render, redirect,get_object_or_404
+
 
 class Cart(object):
     def __init__(self, request):
@@ -64,12 +67,11 @@ class Cart1(object):
         self.cart = cart
 
     def add(self, product, quantity=1, update_quantity=False):
-        product_id = str(product.id)
-        self.model=model
+        product_id = str(product.p_id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0,
                                      'price': str(product.price),
-                                     'model':str(self.model)}
+                                     }
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -87,19 +89,32 @@ class Cart1(object):
 
     def __iter__(self):
         product_ids = self.cart.keys()
-        tot = {'f':fertilizer,'cs':CropSeeds,'p':pesticide}
+        print(product_ids)
+        products =[]
+        for i in list(product_ids):
 
-        ref_dict = {
-            'cs':CropSeeds,
-            'f':fertilizer,
-            'p':pesticide
-        }
+            if re.match("^cs[0-9]*[0-9]$",i):
+                model = 'cs'
+            elif re.match("^f[0-9]*[0-9]$",i):
+                model = 'f'
+            elif re.match("^p[0-9]*[0-9]$",i):
+                model = 'p'
+            else:
+                model = ''
+
+            ref_dict = {
+                'cs':CropSeeds,
+                'f':fertilizer,
+                'p':pesticide
+            }
+            item = get_object_or_404(ref_dict[model],pk=i)
+
+            products.append(item)
         #item = get_object_or_404(tot[self.model],pk=product_id)
 
-        products = Crops.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
         for product in products:
-            cart[str(product.id)]['product'] = product
+            cart[str(product.p_id)]['product'] = product
         for item in cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
