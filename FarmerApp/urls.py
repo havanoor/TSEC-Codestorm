@@ -11,7 +11,7 @@ urlpatterns=[
     path('suggestion/',views.suggestion, name = "suggestion"),
     path('order/<str:pref>',views.order,name = "order"),
     path('farmershop/',views.farmersell,name = "FS"),
-    #path('cropseeds/',views.CropView.as_view()),
+    path('cropseeds/',views.CropView.as_view()),
 
     path('farmer',views.farmerHome, name='farmer_home'),
 
@@ -32,7 +32,8 @@ urlpatterns=[
     path('buyer/shop', views.product_list, name='product_list'),
     path('buyer/shop/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
     path('buyer/shop/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
-
+    path('logout',views.logout_view, name = "logout"),
+    path('hin/farmer',views.hin_view, name='farmer_home_hin'),
 
     path('buyer', views.product_list, name='product_list'),
     path('buyer/<slug:category_slug>/', views.product_list, name='product_list_by_category'),

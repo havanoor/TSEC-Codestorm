@@ -145,7 +145,7 @@
       <ul>
           <li class="order-price top"> <i class="fas fa-rupee-sign"></i>Order By price</li>
           <!-- <button type = "button" class = "order-price"> Order by Price </button> <br> -->
-          <li class="order-price top"> <i class="fas fa-stamp"></i>Order By Quality</li>
+          <li class="order-quality top"> <i class="fas fa-stamp"></i>Order By Quality</li>
           
       </ul>
   </div>
@@ -255,11 +255,11 @@
 		seed = data[0];
     fert = data[1];
     pest = data[2];
-    //console.log(typeof(seed));
+    console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
                                                                                                                   
-      var a = '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
@@ -270,7 +270,7 @@
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
               
-      var a = '<a href = "http://localhost:8000/indi/f/' + fert[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + fert[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
       var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
@@ -280,7 +280,7 @@
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
               // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
-      var a = '<a href = "http://localhost:8000/indi/p/' + pest[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
@@ -299,7 +299,7 @@ $('.order-quality').on('click',function() {
 	dataType: 'json',
 	type: 'GET',
 	success: function(data){
-    console.log(data)
+    //console.log(data)
 		$('#cropseeds').empty();
     $('#fertilizer').empty();
     $('#pesticide').empty(); //to clean the div
@@ -308,14 +308,14 @@ $('.order-quality').on('click',function() {
 		//var data = JSON.parse(data);
     arr = ['seeds','ferts','pests'];
 		//loop through data, output on the window
-		seed = data[0];
-    fert = data[1];
-    pest = data[2];
-    //console.log(typeof(seed));
+		seed = data['0'];
+        fert = data['1'];
+        pest = data['2'];
+    console.log(seed);
     output = '';
-    for(i=0; i<Object.keys(seed).length; i++){
+    for(i=0; i< Object.keys(seed).length; i++){
 
-      var a = '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
@@ -325,7 +325,7 @@ $('.order-quality').on('click',function() {
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var a = '<a href = "http://localhost:8000/indi/f/' + fert[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ fert[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + fert[i].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ fert[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
       var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
@@ -334,7 +334,7 @@ $('.order-quality').on('click',function() {
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var a = '<a href = "http://localhost:8000/indi/p/' + pest[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ pest[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ pest[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';

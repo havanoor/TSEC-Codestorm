@@ -1,0 +1,355 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <title>किसान लैंडिंग पेज</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/navbar-static/">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+<meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      /*index.css*/
+
+.grey-jumbo {
+	margin-top: -30px;
+	border-radius: 0px !important;
+	height: 500px;
+	color: #fff;
+	background-size: cover;
+	background-color: #42a5f5;
+}
+
+hr.short {
+	width: 100px;
+	border-bottom: 2px solid #fff;
+}
+hr.below {
+	width: 50px;
+	border-bottom: 1px solid #fff;
+}
+.cityin{
+	color: #000;
+}
+.Cin {
+	color: #000;
+}
+
+.top{
+	background: linear-gradient(145deg, #0d47a1, #42a5f5);
+	color: #fff;
+	border-radius: 0px !important;
+	height: 300px;
+}
+
+#info1,
+#info2 {
+	font-size: 30px;
+}
+#info3{
+	font-size: 60px;
+}
+.nav-item a{
+  color: white;
+
+}
+.my{
+  color:white
+}
+
+
+    </style>
+    <!-- Custom styles for this template -->
+    <!-- <link href="navbar-top.css" rel="stylesheet"> -->
+  </head>
+  <body>
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <a class="navbar-brand" href="#">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">My crops</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'category' %}">Sell Crops</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'FS' %}>Buy Raw Materials</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href='#'>{{ user.username }}</a>
+      </li>
+    </ul>
+    <form class="form-inline mt-2 mt-md-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg" style="background-color: black;">
+  <a class="navbar-brand" href="#">
+    <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+    
+  </a>
+  
+  <ul class="navbar-nav mr-auto ">
+    <li class="nav-item ">
+      <a class="nav-link" href="#"><i class="fas fa-seedling fa-2x"></i>मेरी फसलें</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'category' %}"><i class="fas fa-rupee-sign fa-2x"></i>फसल बेच</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href={% url 'farmer_product_list' %}><i class="fas fa-handshake fa-2x"></i>खेती की सामग्री</a>
+    </li>
+    
+  </ul>
+  <ul class="list-inline">
+
+    <li class="list-inline-item">
+      <a class="nav-link my" href='#'><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+
+      </li>
+    </ul>
+</nav>
+
+
+
+<main role="main">
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1>
+डैशबोर्ड</h1>
+    <p class="lead text-muted">आपका डैशबोर्ड पर स्वागत है</p>
+    <p>
+      <a href="{% url 'suggestion' %}" class="btn btn-secondary my-2">शीर्ष फसलें बेचीं</a>
+    </p>
+  </div>
+</section>
+
+<section class="jumbotron text-center">
+  <div class="container">
+  <div class="container-fluid">
+    <div class = "row">
+          
+      <div class="card float-right" >
+        <h5  id="info10"></h5>
+        <div class="card-body">
+          <h5 class="card-title" id="info3"><div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+          </div></h5>
+          <p class="card-text" id="weather">मौसम का पता लगाना</p>
+          <h3 class="card-text" id="info1">कृपया प्रतीक्षा करें</h3>
+          <p class="card-text" id="info2">खोज रहा हूं</p>
+          <a href="#" id="switch" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      
+      
+      <div class="col-sm-12 text-center jumbotron top">
+          <h1>आज का मौसम</h1>
+          <hr class = "short">
+          <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
+          <button class = "cityin" type="button" onclick="loadForCity() " style="font-color: #000000"> इस शहर पर</button>
+          <hr class = "short">
+          <!-- <h2 id = "weather">Loading....</h2> -->
+        </div>
+    </div>
+      <div class="row" align = "center">
+        <div class="col-sm-12 text-center grey-jumbo">
+          <div class="col-sm-4">
+            <!-- <h3 id = "info1"></h3> -->
+            <hr class = "short">
+            <!-- <h3 id = "info2"></h3> -->
+          </div>
+          <div class="col-sm-4">
+            <!-- <h3 id = "info3"></h3> -->
+            <!-- <button id = "switch" class = 'btn btn-primary'>Show in Farenheite</button> -->
+          </div>
+          <div class="col-sm-4">
+            <h3 id = "info5"></h3>
+            <hr class = "short">
+            <h3 id = "info6"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+</section>
+
+</main>
+
+<footer class="text-muted">
+<div class="container">
+  <p class="float-right">
+    <a href="#">वापस शीर्ष पर</a>
+  </p>
+</div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+    <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script >
+      function loadForCity(){
+  var cit = document.getElementById("city").value
+  var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='
+      $.getJSON(url+cit, function(data){
+        //console.log(data)
+        var data = JSON.stringify(data);
+        var json = JSON.parse(data);
+        var country = json.location.country;
+        var city = json.location.name;
+        var state = json.location.region;
+        var temp = json.current.temperature;
+        var tempf = 1.8*temp + 32;
+        //var last_up = json.current.last_updated.replace("-". " ");
+        var wind = json.current.wind_speed
+        var humid = json.current.humidity;
+        var time = json.location.localtime.split(' ')[1];
+        var cloud = json.current.cloudcover;
+        console.log(data);
+        $('#weather').html(city + ", " + state + ", " + country);
+        $('#info1').html(time);
+        $('#info2').html(wind + "किमी / घंटा");
+        $('#info3').html(temp + '&#8451');
+        var yes = true;
+        $('#switch').on("click",function(){
+          if(yes){
+            $("#info3").html(tempf + '&#8457');
+            yes = false;
+            $("#switch").html("डिग्री Celcuis में दिखाए");
+          }
+          else{
+            $('#info3').html(temp + '&#8451');
+            yes = true;
+            $("#switch").html("डिग्री फ़ारेनहाइट में दिखाएं");
+          }
+
+        });
+        if (cloud <= 30){
+            $('#info5').html('साफ आसमान');
+          }
+          else
+          {
+            $('#info5').html('बादलों भरा आकाश');
+          }
+          $('#info6').html("नमी: " + humid + "%");
+
+      });
+
+}
+
+$(document).ready(function(){
+	$('.short').hide()
+	if (navigator.geolocation)
+	{
+		var currentPosition = '';
+		navigator.geolocation.getCurrentPosition(function(position){
+			currentPosition = position;
+			var lat = currentPosition.coords.latitude
+			var long = currentPosition.coords.longitude
+			// console.log(lat, long);
+			// console.log(currentPosition);
+			var url = 'http://api.weatherstack.com/current?access_key=b3b244a8e42c5297ba0439c97b884029&query='
+			$.getJSON(url+lat+','+long, function(data){
+				$('.short').show();
+				//console.log(data)
+				var data = JSON.stringify(data);
+				var json = JSON.parse(data);
+				var country = json.location.country;
+				var city = json.location.name;
+				var state = json.location.region;
+				var temp = json.current.temperature;
+				var tempf = 1.8*temp + 32;
+				//var last_up = json.current.last_updated.replace("-". " ");
+				var wind = json.current.wind_speed
+				var humid = json.current.humidity;
+				var time = json.location.localtime.split(' ')[1];
+				var cloud = json.current.cloudcover;
+				console.log(data);
+        $('#weather').html(city + ", " + state + ", " + country);
+        $('#info1').html(time);
+        $('#info2').html(wind + "किमी / घंटा");
+        $('#info3').html(temp + '&#8451');
+        var yes = true;
+        $('#switch').on("click",function(){
+          if(yes){
+            $("#info3").html(tempf + '&#8457');
+            yes = false;
+            $("#switch").html("डिग्री Celcuis में दिखाए");
+          }
+          else{
+            $('#info3').html(temp + '&#8451');
+            yes = true;
+            $("#switch").html("डिग्री फ़ारेनहाइट में दिखाएं");
+          }
+
+        });
+        if (cloud <= 30){
+            $('#info5').html('साफ आसमान');
+          }
+          else
+          {
+            $('#info5').html('बादलों भरा आकाश');
+          }
+          $('#info6').html("नमी: " + humid + "%");
+
+      });
+
+		});
+	}
+});
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>

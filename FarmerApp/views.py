@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
-from .refdata import state_crop_dict
+from .refdata import *
 import re
 from .decorators import *
 from django.views import generic
@@ -314,6 +314,21 @@ def order_create(request):
         form = OrderCreateForm()
     return render(request, 'FarmerApp/OrderCreate.html', {'cart': cart, 'form': form})
 
+@api_view(('GET',))
+def sugs(request,state):
+    crops = state_crop_dict.get(state,{'none':'none'})
+    cropcount = state_crop_dict_count.get(state,{'none':'none'})
+    result = {
+        'crops': crops,
+        'counts':cropcount
+    }
+    return JsonResponse(result)
+
+class CropView(generics.ListCreateAPIView):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    queryset = CropSeeds.objects.all()
+    serializer_class = CropSeedSerializer
 
 '''Buyer E-commerce End'''
 
@@ -430,23 +445,17 @@ def farm_order_create(request):
         form = OrderCreateForm()
     return render(request, 'FarmerApp/FarmE/FarmerOrderCreate.html', {'cart': cart, 'form': form})
 
+'''Farmer E-commerce End'''
+def hin_view(request):
+    userr = request.user
+    return render(request,'FarmerApp/FarmerLand Hindi.html',{'user':userr})
 
 
 
 '''Farmer E-commerce End'''
 
-@api_view(('GET',))
-def sugs(request,state):
-    crops = state_crop_dict.get(state,{'none':'none'})
-    return JsonResponse(crops,safe = False)
 
 
-
-class CropView(generics.ListCreateAPIView):
-    search_fields = ['name']
-    filter_backends = (filters.SearchFilter,)
-    queryset = CropSeeds.objects.all()
-    serializer_class = CropSeedSerializer
 
 
 
