@@ -19,7 +19,7 @@
     <!-- Favicons -->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    
+
     <link href="{% static 'css/summary.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -27,11 +27,11 @@
   <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
     <a class="navbar-brand" href="#">
       <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-      
+
     </a>
-    
+
   </nav>
-  
+
 
 
 <div class="container">
@@ -45,7 +45,7 @@
   {% with product=item.product %}
   <ul class="list-inline">
   <div class="row">
-    
+
       <li class="list-inline-item"><a href="{{ product.get_absolute_url }}">
         <img src="{{ product.photo.url }}" style="width: 200px; height: 200px; padding:10px " >
       </a></li>
@@ -68,15 +68,15 @@
             </form>
           </li>
           </ul>
-        
+
 
 
       </li>
       <li >
         ₹{{ item.total_price }}
       </li>
-      
-   
+
+
 
 
   </div>
@@ -97,14 +97,14 @@
         Total=₹{{ cart.get_total_price }}
       </h3>
       <a href="{% url "order_create" %}" class="btn btn-success btn-lg btn-block">Proceed to Checkout</a>
-      
+
       <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg btn-block">Continue shopping</a>
       
     </div>
-  
+
   </div>
   </div>
-    
+
 
 
 

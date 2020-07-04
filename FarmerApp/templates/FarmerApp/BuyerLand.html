@@ -64,8 +64,23 @@
 </header> -->
 <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
   <a class="navbar-brand" href="#">
+<<<<<<< HEAD
+    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+    <li class="nav-item">
+      <a class="nav-link" href='#'>{{ user.username }}</a>
+    </li>
+    <li>
+    <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">LogOut</a>
+      <form id="logout" method="POST" action="{% url 'logout' %}">
+      <a class='navbar-brand' >Log Out</a>
+        {% csrf_token %}
+        <input type="hidden" name="" />
+      </form>
+    </li>
+=======
     <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
     
+>>>>>>> 8dff0283ddc3f9d6994c43ffa5abd9f4c8ef97f2
   </a>
   <ul class="list-inline">
     <!-- <li class="list-inline-item"><i class="fas fa-shopping-cart top"></i></li> -->
@@ -73,7 +88,11 @@
     {% if total_items > 0 %}
     <li class="list-inline-item top">
       <a href="{% url "cart_detail" %}" class="top">
+<<<<<<< HEAD
+        <i class="fas fa-shopping-cart size:7x top"></i>
+=======
         <i class="fas fa-shopping-cart top""></i>
+>>>>>>> 8dff0283ddc3f9d6994c43ffa5abd9f4c8ef97f2
       {{ total_items }} item,
       ₹{{ cart.get_total_price }}
     </a>
@@ -89,11 +108,11 @@
   <div class="sidebar">
       <!-- <h2>Sidebar</h2> -->
       <h2 style="color: white;">Categories</h2>
-               
+
       <ul>
         <li {% if not category %}class="selected"{% endif %}><a href='{% url "product_list" %}'> <i class="fas fa-tractor"></i>All</a></li>
-      
-     
+
+
       </li>
       {% for c in categories %}
       <li {% if category.slug == c.slug %}class="selected" {% endif %}>
@@ -109,24 +128,27 @@
   <div class="main_content">
       <div class="header"> HIIIIIIIIIIIII</div>
       <div class="container" >
-          <h2 style="margin-top: 100px; align-content:center; color: white;">These are all the available 
+          <h2 style="margin-top: 100px; align-content:center; color: white;">These are all the available
           {% if category %}
            {{ category.name }}
             {% else %}
              Crops
             </h2>
              {% endif %}
-          
-          
+
+
           <div class="row">
           {% for product in products %}
           <a href="{{ product.get_absolute_url }}">
           <div class="card m-3" style="width: 20rem;">
-            <img class="card-img-top" src={{product.photo.url}} alternate='Image not supplied'>
+            <img class="card-img-top" src='{% if product.photo %}{{product.photo.url}}{% endif %}' alternate='Image not supplied'>
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">₹{{ product.c_type }}</p>
               <p class="card-text">₹{{ product.price }}</p>
-              <a href="#" class="btn btn-primary">yaha </a>
+
+
+              <a href="#" class="btn btn-primary">BUY</a>
 
             </div>
           </div>
@@ -136,7 +158,7 @@
 
       </div>
   </div>
-</div>  
+</div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
