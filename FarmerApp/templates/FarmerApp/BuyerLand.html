@@ -65,7 +65,17 @@
 <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
   <a class="navbar-brand" href="#">
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-
+    <li class="nav-item">
+      <a class="nav-link" href='#'>{{ user.username }}</a>
+    </li>
+    <li>
+    <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">LogOut</a>
+      <form id="logout" method="POST" action="{% url 'logout' %}">
+      <a class='navbar-brand' >Log Out</a>
+        {% csrf_token %}
+        <input type="hidden" name="" />
+      </form>
+    </li>
   </a>
   <ul class="list-inline">
     <!-- <li class="list-inline-item"><i class="fas fa-shopping-cart top"></i></li> -->
@@ -73,7 +83,7 @@
     {% if total_items > 0 %}
     <li class="list-inline-item top">
       <a href="{% url "cart_detail" %}" class="top">
-        <i class="fas fa-shopping-cart size:7x top""></i>
+        <i class="fas fa-shopping-cart size:7x top"></i>
       {{ total_items }} item,
       ₹{{ cart.get_total_price }}
     </a>
@@ -121,11 +131,14 @@
           {% for product in products %}
           <a href="{{ product.get_absolute_url }}">
           <div class="card m-3" style="width: 20rem;">
-            <img class="card-img-top" src={{product.photo.url}} alternate='Image not supplied'>
+            <img class="card-img-top" src='{% if product.photo %}{{product.photo.url}}{% endif %}' alternate='Image not supplied'>
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">₹{{ product.c_type }}</p>
               <p class="card-text">₹{{ product.price }}</p>
-              <a href="#" class="btn btn-primary">yaha </a>
+
+
+              <a href="#" class="btn btn-primary">BUY</a>
 
             </div>
           </div>

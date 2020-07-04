@@ -16,6 +16,8 @@ from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from .refdata import state_crop_dict
 
+from .decorators import *
+
 '''Registration,login,logout start'''
 
 
@@ -77,7 +79,7 @@ def register(request):
 
 def logout_view(request):
 	logout(request)
-	return redirect('home')
+	return redirect('signup')
 
 '''Registration,login,logout end'''
 
