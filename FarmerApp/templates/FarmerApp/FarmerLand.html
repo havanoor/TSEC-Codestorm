@@ -75,6 +75,10 @@ hr.below {
 	height: 300px;
 }
 
+.topa{
+  color:white
+}
+
 #info1,
 #info2 {
 	font-size: 30px;
@@ -89,6 +93,13 @@ hr.below {
 .my{
   color:white
 }
+.test{
+            display: flex;
+   /* justify-content: center;  */
+   /* align-content: flex-end; */
+   margin-left: auto;
+   margin-right: auto;
+        }
 
 
     </style>
@@ -150,12 +161,22 @@ hr.below {
 
   </ul>
   <ul class="list-inline">
+<<<<<<< HEAD
 
     <li class="list-inline-item">
       <a class="nav-link my" href='#'><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
       <a class='nav-link-my' href='{% url 'logout' %}'>Logout</a>
       </li>
     </ul>
+=======
+    <li class="list-inline-item topa">
+      
+      <a  class="topa" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+      <a  class="topa" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+   </li>
+    
+  </ul>
+>>>>>>> 196a907e87af14371e65fc7b57c8443b75eb22bf
 </nav>
 
 
@@ -167,7 +188,7 @@ hr.below {
     <h1>Dashboard</h1>
     <p class="lead text-muted">Welcome to your Dashboard</p>
     <p>
-      <a href="#" class="btn btn-primary my-2">Grieviances</a>
+      <!-- <a href="#" class="btn btn-primary my-2">Grieviances</a> -->
       <a href="{% url 'suggestion' %}" class="btn btn-secondary my-2">Top Crops Sold</a>
     </p>
   </div>
@@ -176,49 +197,47 @@ hr.below {
 <section class="jumbotron text-center">
   <div class="container">
   <div class="container-fluid">
+    <div class="col-sm-12 text-center jumbotron top">
+      <h1>Today's Weather</h1>
+      <hr class = "short">
+      <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
+      <button class = "cityin" type="button" onclick="loadForCity() " style="font-color: #000000"> Call on this city</button>
+      <hr class = "short">
+      <!-- <h2 id = "weather">Loading....</h2> -->
+    </div>
     <div class = "row">
 
-      <div class="card float-right" >
+      <div class="card container" >
         <h5  id="info10"></h5>
         <div class="card-body">
           <h5 class="card-title" id="info3"><div class="spinner-border text-primary" role="status">
-            <span class="sr-only"></span>
+          <span class="sr-only"></span>
           </div></h5>
           <p class="card-text" id="weather">Finding Weather</p>
           <h3 class="card-text" id="info1">lol</h3>
           <p class="card-text" id="info2">Finding</p>
+          <div class="row test" style="padding-right: 200px;">
+          <h3 class="card-text test" id="info6">Humidity</h3>
+
+          <h3 class="card-text test" id="info7">Description</h3>
+          <h3 class="card-text test" id="info8">Pressure</h3>
+        </div>
+        <p></p>
+        <div class="row test">
+          <h3 class="card-text test " id="info9">Precipitation</h3>
+          <h3 class="card-text test" id="info11">Wind direction</h3>
+          <h3 class="card-text test" id="info12">Cloud Cover</h3>
+        </div>
+          <h3 class="card-text" id="info13">It feels like</h3>
+          <h3 class="card-text" id="info14">Visibility index</h3>
           <a href="#" id="switch" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
 
 
-      <div class="col-sm-12 text-center jumbotron top">
-          <h1>Today's Weather</h1>
-          <hr class = "short">
-          <input class = "Cin" type="text" id="city" placeholder="(Optional) Enter city name, ex New York">
-          <button class = "cityin" type="button" onclick="loadForCity() " style="font-color: #000000"> Call on this city</button>
-          <hr class = "short">
-          <!-- <h2 id = "weather">Loading....</h2> -->
-        </div>
+      
     </div>
-      <div class="row" align = "center">
-        <div class="col-sm-12 text-center grey-jumbo">
-          <div class="col-sm-4">
-            <!-- <h3 id = "info1"></h3> -->
-            <hr class = "short">
-            <!-- <h3 id = "info2"></h3> -->
-          </div>
-          <div class="col-sm-4">
-            <!-- <h3 id = "info3"></h3> -->
-            <!-- <button id = "switch" class = 'btn btn-primary'>Show in Farenheite</button> -->
-          </div>
-          <div class="col-sm-4">
-            <h3 id = "info5"></h3>
-            <hr class = "short">
-            <h3 id = "info6"></h3>
-          </div>
-        </div>
-      </div>
+     
     </div>
   </div>
 
@@ -320,12 +339,27 @@ $(document).ready(function(){
 				var wind = json.current.wind_speed
 				var humid = json.current.humidity;
 				var time = json.location.localtime.split(' ')[1];
-				var cloud = json.current.cloudcover;
+        var cloud = json.current.cloudcover;
+        var description=json.current.weather_descriptions[0];
+        var wdir=json.current.wind_dir;
+        var press= json.current.pressure;
+        var preci=json.current.precip
+        var feels=json.current.feelslike
+        var visi=json.current.visibility
 				console.log(data);
 				$('#weather').html(city + ", " + state + ", " + country);
 				$('#info1').html(time);
 				$('#info2').html(wind + "km/hour");
-				$('#info3').html(temp + '&#8451');
+        $('#info3').html(temp + '&#8451');
+        $('#info12').append(" "+cloud+"%");
+        $('#info7').html(description);
+        $('#info11').append(" "+wdir);
+        $('#info8').append(" "+press);
+        $('#info9').append(" "+preci);
+        $('#info13').append(" "+feels);
+        $('#info14').append(" "+visi);
+
+
 				var yes = true;
 				$('#switch').on("click",function(){
 					if(yes){

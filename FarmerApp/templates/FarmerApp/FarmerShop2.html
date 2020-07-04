@@ -107,7 +107,7 @@
   <body>
 
   <nav class="navbar navbar-expand-lg" style="background-color: black;">
-    <a class="navbar-brand" href="#">
+    <a  href="#">
       <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
     </a>
     <ul class="navbar-nav mr-auto ">
@@ -118,6 +118,7 @@
     </ul>
       <ul class="list-inline">
         <li class="list-inline-item top">
+          
           <a  class="top" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
           <a  class="top" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
        </li>
@@ -146,7 +147,13 @@
           <li class="order-price top"> <i class="fas fa-rupee-sign"></i>Order By price</li>
           <!-- <button type = "button" class = "order-price"> Order by Price </button> <br> -->
           <li class="order-quality top"> <i class="fas fa-stamp"></i>Order By Quality</li>
+<<<<<<< HEAD
 
+=======
+          <li class="top" ><a href="{% url 'suggestion' %}">  <i class="fas fa-question"></i>Confused ?</a></li>
+          
+          
+>>>>>>> 196a907e87af14371e65fc7b57c8443b75eb22bf
       </ul>
   </div>
   <div class="main_content">
@@ -279,7 +286,7 @@
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-              // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
+              
       var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
@@ -314,8 +321,8 @@ $('.order-quality').on('click',function() {
     console.log(seed);
     output = '';
     for(i=0; i< Object.keys(seed).length; i++){
-
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
+              // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
