@@ -306,6 +306,14 @@ def order_create(request):
             order = form.save()
             print(order.email)
             for item in cart:
+                print(item['product'],item['price'],item['quantity'],item['product'].farmer)
+
+                crop = get_object_or_404(Crops, id=item['product'].id)
+
+                if crop.quantity >=item['quantity']:
+                    crop.quantity = crop.quantity- item['quantity']
+                crop.save()                  
+
                 OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
             sendmail(request.user.username,order.email,order.id,cart.get_total_price())
             cart.clear()
