@@ -117,13 +117,17 @@ hr.below {
 <section class="jumbotron text-center">
   <div class="container">
     <h1>Need Help Selecting?</h1>
-    <p class="lead text-muted" id = "state">Lets find the top 10 best selling crops in your state: </p>
+    
+
+    <p class="lead text-muted">Lets find the top 10 best selling crops in your state: </p><p id = "state"></p>
     <input class = "Cin" type="text" id="stateip" placeholder="Somewhere else?">
     <button class = "btn btn-outline-success " id = "searchwiththis" type="button" style="font-color: #000000"> Call on this city</button> 
     <br> <br> 
     <p id = "cropdets">
 
     </p>
+    <h1> Graphically,</h1>
+    <canvas id="myChart" width="400" height="300"></canvas>
   </div>
 </section>
 
@@ -164,14 +168,19 @@ hr.below {
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script >
+
 $(document).ready(function(){
 	if (navigator.geolocation)
 	{
+    
 		var currentPosition = '';
 		navigator.geolocation.getCurrentPosition(function(position){
 			currentPosition = position;
@@ -194,10 +203,11 @@ $(document).ready(function(){
                 var out = ''
                 var miniout=''
                 var miniurl ='http://localhost:8000/cropseeds/?search='
+
                 for (i=0; i<10;i++)
                 {
-                    out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data[i]+"</button>";
-                    var s = data[i]
+                    out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data['crops'][i]+"</button>";
+                    var s = data['crops'][i]
                     $.getJSON(miniurl+s,function(sdata){
                         if (sdata.length>0){
                             console.log(sdata);
@@ -217,14 +227,62 @@ $(document).ready(function(){
 
                 }
                 $('#cropdets').append(out);
+                var ctx = document.getElementById('myChart').getContext('2d');
+                $('#myChart').empty();
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data['crops'],
+                        datasets: [{
+                            label: 'Prodction Rating',
+                            data: data['counts'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
             });
+          });
 
 			});
 
-		});
-	}
+		}
+	});
   $('#searchwiththis').on('click',function(){
     $('#cropdets').empty();
+    $('#state').empty();
     var state = $('#stateip').val();
     console.log()
 				$('#state').append(state);
@@ -235,16 +293,17 @@ $(document).ready(function(){
                 var out = ''
                 var miniout=''
                 var miniurl ='http://localhost:8000/cropseeds/?search='
+
                 for (i=0; i<10;i++)
                 {
-                    out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data[i]+"</button>";
-                    var s = data[i]
+                    out += '<button type="button" class="btn btn-outline-success provide mx-3">'+data['crops'][i]+"</button>";
+                    s = data['crops'][i]
                     $.getJSON(miniurl+s,function(sdata){
                         if (sdata.length>0){
                             console.log(sdata);
                             for(j=0;j<sdata.length;j++)
                             {
-                                var a = '<a href = "http://localhost:8000/indi/cs/' + sdata[j].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
+                                var a = '<a href = "http://localhost:8000/indi/'+ sdata[j].cs_id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ sdata[j].photo +'" alt="Card image cap">';
                                 var b = '<div class="card-body"><h5 class="card-title">'+ sdata[j].name +'</h5>';
                                 var c = '<p class="card-text">'+sdata[j].quality +'/5</p><p class ="card">';
                                 var d = '<a href="#" class="btn btn-primary">Rs'+sdata[j].price + '</a></div></div></div></a>';
@@ -258,14 +317,59 @@ $(document).ready(function(){
 
                 }
                 $('#cropdets').append(out);
+                var ctx = document.getElementById('myChart').getContext('2d');
+                $('#myChart').empty();
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data['crops'],
+                        datasets: [{
+                            label: 'Prodction Rating',
+                            data: data['counts'],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                })
             });
-
-  });
 
 });
 
 
-    </script>
+</script>
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>

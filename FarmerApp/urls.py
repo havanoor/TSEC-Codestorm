@@ -21,6 +21,7 @@ urlpatterns=[
     path('buyer/shop/<slug:category_slug>/', views.product_list, name='product_list_by_category'),
     path('buyer/shop/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
     path('logout',views.logout_view, name = "logout"),
+    path('hin/farmer',views.hin_view, name='farmer_home_hin'),
 
     path('buyer', views.product_list, name='product_list'),
     path('buyer/<slug:category_slug>/', views.product_list, name='product_list_by_category'),

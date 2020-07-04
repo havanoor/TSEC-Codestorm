@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
-from .refdata import state_crop_dict
+from .refdata import *
 import re
 
 '''Registration,login,logout start'''
@@ -286,7 +286,12 @@ def order_create(request):
 @api_view(('GET',))
 def sugs(request,state):
     crops = state_crop_dict.get(state,{'none':'none'})
-    return JsonResponse(crops,safe = False)
+    cropcount = state_crop_dict_count.get(state,{'none':'none'})
+    result = {
+        'crops': crops,
+        'counts':cropcount
+    }
+    return JsonResponse(result)
 
 class CropView(generics.ListCreateAPIView):
     search_fields = ['name']
@@ -430,3 +435,6 @@ def farm_order_create(request):
     return render(request, 'FarmerApp/FarmE/FarmerOrderCreate.html', {'cart': cart, 'form': form})
 
 '''Farmer E-commerce End'''
+def hin_view(request):
+    userr = request.user
+    return render(request,'FarmerApp/FarmerLand Hindi.html',{'user':userr})
