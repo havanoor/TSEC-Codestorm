@@ -9,25 +9,61 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Farmer shopping</title>
-
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
-
-    <!-- Bootstrap core CSS -->
-<link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<!-- CSS only -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
-<meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
-<meta name="theme-color" content="#563d7c">
-
-
     <style>
+
+*{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+
+
+        }
+        .wrapper{
+            display: flex;
+            position: relative;
+
+        }
+        .wrapper .sidebar{
+            position: fixed;
+            width:200px;
+            height:100%;
+            background: black;
+            padding: 30px 0;
+        }
+        .wrapper .sidebar h2{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .wrapper .sidebar ul li{
+            padding:15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(225,225,225,0.05);
+        }
+        .wrapper .sidebar ul li a{
+            color:white;
+            display: block;
+        }
+        .wrapper .sidebar ul li a .fas{
+            width:25px;
+            color:white
+        }
+        .wrapper .main_content{
+            width:100%;
+            margin-left:200px;
+            z-index: 1;
+        }
+        .wrapper .sidebar ul li:hover{
+            background: turquoise
+        }
+        .wrapper .sidebar ul li:hover a{
+            color:#fff
+        }
+
+        
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -42,41 +78,54 @@
           font-size: 3.5rem;
         }
       }
+      .top{
+        color:white
+      }
+    
     </style>
+    <!-- Bootstrap core CSS -->
+<link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Favicons -->
+    <!-- <link href="{% static 'css/ecom.css' %}" rel="stylesheet"> -->
+<link rel="apple-touch-icon" href="/docs/4.5/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/4.5/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+<meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    
     <!-- Custom styles for this template -->
     <link href="pricing.css" rel="stylesheet">
     <link href="navbar-top.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">Top navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url "farmer_home" %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="#" tabindex="-1" >{{ user.username }}</a>
-      </li>
+    
+  <nav class="navbar navbar-expand-lg" style="background-color: black;">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
+    </a>
+    <ul class="navbar-nav mr-auto ">
       <li>
-      <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">LogOut</a>
-        <form id="logout" method="POST" action="{% url 'logout' %}">
-        <a class='navbar-brand' >Log Out</a>
-          {% csrf_token %}
-          <input type="hidden" name="" />
-        </form>
-      </li>
+        <!-- <a class="nav-link" href="#"><i class="fas fa-seedling fa-2x"></i>My crops</a> -->
+        <a class="top" href="{% url "farmer_home" %}"><i class="fas fa-home fa-2x"></i>Home </a>
+      </li>    
     </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-<div>
+      <ul class="list-inline">
+        <li class="list-inline-item top">
+          <a  class="top" style="margin-right: 10px;" href='#' ><i class="fas fa-users fa-2x"></i>{{ user.username }}</a>
+          <a  class="top" href="{% url 'logout' %}">LogOut <i class="fas fa-sign-out-alt fa-2x"></i></a>
+       </li>
+        
+      </ul>
+  </nav>
+  
+<!-- <div>
   {% with total_items=cart1|length %}
   {% if total_items > 0 %}
   Your cart:
@@ -88,75 +137,102 @@
   Your cart is empty.
   {% endif %}
   {% endwith %}
-</div>
+</div> -->
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1 class="display-4">Pricing</h1>
-  <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
-</div>
-<button type = "button" class = "order-price"> Order by Price </button> <br>
-<button type = "button" class = "order-quality"> Order by Quality </button> <br>
-<h2>Crop Seeds</h2>
-<hr \>
-<div id = "cropseeds">
-{% for c in cropseeds %}
-<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
-<div class="card" style="width:100% ;">
-<div class = "col">
-<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
-<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
-<p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
-      </a>
-    </div>
+<div class="wrapper">
+  <div class="sidebar">
+      <h2 class="top">Categories</h2>
+      <ul>
+          <li class="order-price top"> <i class="fas fa-rupee-sign"></i>Order By price</li>
+          <!-- <button type = "button" class = "order-price"> Order by Price </button> <br> -->
+          <li class="order-price top"> <i class="fas fa-stamp"></i>Order By Quality</li>
+          
+      </ul>
   </div>
-</div>
-  </a>
+  <div class="main_content">
+      
+      <div class="container" >
+                   <h2>Cropseeds</h2>
+          <div class="row" id = "cropseeds">
+            {% for c in cropseeds %}
+          <a href="{{ product.get_absolute_url }}">
+          <div class="card m-3" style="width: 20rem;">
+            <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+            <div class="card-body">
+              <h5 class="card-title">{{c.name}}</h5>
+              <p class="card-text">₹{{c.price}}</p>
+              <a href="#" class="btn btn-primary">yaha </a>
 
-{% endfor %}
- </div>
-<h2>Fertilizer</h2>
-<hr \>
-<div id = "fertilizer">
-{% for c in ferts %}
-<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
-<div class="card" style="width:100% ;">
-<div class = "col">
-<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
-<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
-<p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
-      </a>
-    </div>
+            </div>
+          </div>
+        </a>
+
+          {% endfor %}
+            </div>
+
+            <h2>Fertilizers</h2>
+            <div class="row" id = "fertilizer">
+              
+              {% for c in ferts %}
+            <a href="{{ product.get_absolute_url }}">
+            <div class="card m-3" style="width: 20rem;">
+              <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+              <div class="card-body">
+                <h5 class="card-title">{{c.name}}</h5>
+                <p class="card-text">₹{{c.price}}</p>
+                <a href="#" class="btn btn-primary">yaha </a>
+  
+              </div>
+            </div>
+          </a>
+            {% endfor %}
+              </div>
+              <h2>Pesticides</h2>
+              <div class="row" id = "pesticide">
+                
+                {% for c in pests %}
+              <a href="{{ product.get_absolute_url }}">
+              <div class="card m-3" style="width: 20rem;">
+                <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+                <div class="card-body">
+                  <h5 class="card-title">{{c.name}}</h5>
+                  <p class="card-text">₹{{c.price}}</p>
+                  <a href="#" class="btn btn-primary">yaha </a>
+    
+                </div>
+              </div>
+            </a>
+              {% endfor %}
+                </div>
+    
+  
+
+      </div>
   </div>
-</div>
-  </a>
-  {% endfor %}
-
- </div>
- <h2>Pesticide</h2>
-<hr \>
-
-<div id = "pesticide">
+</div>  
 
 
-{% for c in pests %}
-<a href ="http://localhost:8000/farmer/shop/{{c.p_id}}">
-<div class="card" style="width:100% ;">
-<div class = "col">
-<img class="bd-placeholder-img card-img-top" width="100%" height="225" src={{c.photo}} alt="Card image cap">
-<div class="card-body"><h5 class="card-title">{{c.name}}</h5>
-<p class="card-text">{{c.quality}}/5</p><p class ="card">
-      <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹ {{c.price}}
-      </a>
-    </div>
-  </div>
-</div>
-  </a>
-{% endfor %}
- </div>
-</div>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
     $(document).ready(function(){
       var output = '';
@@ -182,8 +258,8 @@
     //console.log(typeof(seed));
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
-
-      var a = '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ seed[i].photo +'" alt="Card image cap">';
+                                                                                                                  
+      var a = '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
@@ -193,7 +269,8 @@
 	$('#cropseeds').append(output);
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
-      var a = '<a href = "http://localhost:8000/indi/f/' + fert[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ fert[i].photo +'" alt="Card image cap">';
+              
+      var a = '<a href = "http://localhost:8000/indi/f/' + fert[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
       var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
@@ -202,7 +279,8 @@
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
-      var a = '<a href = "http://localhost:8000/indi/p/' + pest[i].id +'"><div class="card" style="width:100% ;"><div class = "col"><img class="bd-placeholder-img card-img-top" width="100%" height="225" src="'+ pest[i].photo +'" alt="Card image cap">';
+              // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/indi/p/' + pest[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
@@ -270,6 +348,9 @@ $('.order-quality').on('click',function() {
 });
     });
     </script>
+
+
+
 
     <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
     <script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
