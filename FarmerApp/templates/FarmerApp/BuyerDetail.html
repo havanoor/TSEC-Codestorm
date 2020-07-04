@@ -28,18 +28,18 @@
 
     <div class="container shadow p-3 mb-5 bg-white rounded">
         <div class="row">
-            <div class="col-md-5">
-              <div class="product-detail">
-                <img src="{% if product.image %}{{ product.image.url }}{% endif %}">
+            <div class="col">
+              
+                <img src={{ product.photo.url }}>
                 <h1>{{ product.name }}</h1>
 
                 <p class="price"> </p>
                 {{ product.description|linebreaks }}
-              </div>
+              
 
             </div>
-            <div class="col-md-7">
-                <span class="badge badge-primary">NEw </span>
+            <div class="col">
+                <span class="badge badge-primary">NEW </span>
                 <h1 class="display-4"><a href="{{ product.category.get_absolute_url }}"> {{ product.category.name }} </a></h1>
                 <h4>Price <b style="color: red;">₹{{ product.price }}</b> </h4>
 
