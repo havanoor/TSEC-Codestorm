@@ -72,8 +72,8 @@ hr.below {
 	background: linear-gradient(145deg, #0d47a1, #42a5f5);
 	color: #fff;
 	border-radius: 0px !important;
-	height: 300px; 
-}  
+	height: 300px;
+}
 
 #info1,
 #info2 {
@@ -119,13 +119,13 @@ hr.below {
     <h1>Need Help Selecting?</h1>
     <p class="lead text-muted" id = "state">Lets find the top 10 best selling crops in your state: </p>
     <p id = "cropdets">
-        
+
     </p>
   </div>
 </section>
 
 
-    
+
   </div>
 </section>
 
@@ -133,17 +133,17 @@ hr.below {
 <div class="container">
       <div class="row">
         <div class="col">
-          <div class="card-deck content"> 
+          <div class="card-deck content">
           <h2> Out of these, we have the following available: </h2>
           <div class = "row"  id = "cards">
-            
-            
 
 
-        
 
 
-            
+
+
+
+
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@ $(document).ready(function(){
 				//console.log(data)
 				var data = JSON.stringify(data);
 				var json = JSON.parse(data);
-				
+
 				//console.log(json);
                 var state = json['location']['region']
 				$('#state').append(state);
@@ -213,7 +213,7 @@ $(document).ready(function(){
                     });
 
                 }
-                $('#cropdets').append(out); 
+                $('#cropdets').append(out);
             });
 
 			});

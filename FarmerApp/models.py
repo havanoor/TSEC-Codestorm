@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager,PermissionsMixin
 from django.urls import reverse
 
-
+'''AUTH START'''
 class AccountManager(BaseUserManager):
     def create_user(self,username,password=None,**extra_fields):
         if not username:
@@ -68,7 +68,7 @@ class Buyer(Account):
     aadhar_no = models.IntegerField(blank=True, null=True)
     pan_no = models.CharField(max_length= 10,blank=True, null=True)
 
-
+'''AUTH MODELS END'''
 
 class Category(models.Model):
 	name = models.CharField(max_length=200,
@@ -103,6 +103,8 @@ class Product(models.Model):
 
 
 
+'''Farmer selling models start'''
+
 class CropFilter(models.Model):
     name = models.CharField(max_length=200,db_index=True)
     slug = models.SlugField(max_length=200,unique=True)
@@ -118,8 +120,6 @@ class CropFilter(models.Model):
         return reverse('product_list_by_category', args=[self.slug])
 
 
-
-
 class Crops(models.Model):
     name=models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -133,6 +133,9 @@ class Crops(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.id, self.slug])
+'''farmer selling models end'''
+
+
 
 
 class CropSeeds(models.Model):
@@ -158,6 +161,9 @@ class pesticide(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='cropImage/',blank=True)
 
+
+
+'''ORDER BUYER START'''
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -188,3 +194,4 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+'''ORDER BUYER END'''
