@@ -7,12 +7,14 @@
     <title>
       {{ product.name }}
     </title>
+    <link rel = "icon" href ="{% static 'kisaan.png' %}"
+        type = "logo/x-icon">
     <style>
         .container{
             margin-top: 100px;
         }
 
-        
+
     </style>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
 
@@ -57,22 +59,22 @@
     </div>
  -->
 
-    
+
 
 
     <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
         <a class="navbar-brand" href="#">
           <img src="{% static 'kisaan.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-          
+
         </a>
-        
+
       </nav>
-      
+
     <div class="container shadow p-3 mb-5  rounded mycont">
         <div class="row">
             <div class="col">
               <div class="product-detail">
-                <img src="{% if product.photo %}{{ product.photo.url }}{% endif %}" style="width:300px ; height:300px">
+                <img src="{{ product.image.url }}" style="width:300px ; height:300px">
                 <h1>{{ product.name }}</h1>
 
                 <p class="price"> </p>

@@ -5,7 +5,9 @@
   {% load crispy_forms_tags %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kisaan Seva</title>
+    <link rel = "icon" href ="{% static 'kisaan.png' %}"
+        type = "logo/x-icon">
     <style>
 
     </style>
@@ -29,7 +31,7 @@
                 <div class="myform container">
 
                     <div class='container'>
-                      <h3 style="text-align: center;">Welcome to <br>Farmers Portal</h3>
+                      <h3 style="text-align: center;">Welcome to <br><img src="{% static 'kisaan.png' %}" width="50" height="50" class="d-inline-block align-top" alt="Kisaan Seva"><strong>  <br>Kisaan Seva</strong></h3>
                       <form method="POST">
                         {% if form.errors %}
                         <!-- Error messaging -->

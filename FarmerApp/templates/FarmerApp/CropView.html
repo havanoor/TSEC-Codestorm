@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>View Your Crops</title>
+  <link rel = "icon" href ="{% static 'kisaan.png' %}"
+      type = "logo/x-icon">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link href="{% static 'custom.css' %}" rel="stylesheet">
   <link rel="shortcut icon" type="image/png" href="{% static 'logo.png' %}" />
@@ -37,8 +39,8 @@
         <p> {{ crop.price }} </p>
         <p> ₹{{ crop.quantity }} </p>
         <img  src={% if crop.photo %}{{ crop.photo.url }}{% endif %} alt="Card image cap">
-        <a href="{% url 'delete_crop' crop.id %}" class="btn btn-danger">Delete Hall of fame</a>
-        <a href="{% url 'update_crop' crop.id %}" class="btn btn-primary">Edit Hall of fame</a>
+        <a href="{% url 'delete_crop' crop.id %}" class="btn btn-danger">Delete Crop</a>
+        <a href="{% url 'update_crop' crop.id %}" class="btn btn-primary">Edit Crop</a>
       </div>
       {% endfor %}
     </div>
