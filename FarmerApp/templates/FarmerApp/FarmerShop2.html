@@ -9,6 +9,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Farmer shopping</title>
+    <link rel = "icon" href ="{% static 'kisaan.png' %}"
+        type = "logo/x-icon">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
     <style>
@@ -160,11 +162,11 @@
             {% for c in cropseeds %}
           <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
           <div class="card m-3" style="width: 20rem;">
-            <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+            <img class="card-img-top" src={{c.photo.url}} alternate='Image not supplied'>
             <div class="card-body">
               <h5 class="card-title">{{c.name}}</h5>
-              <p class="card-text">₹{{c.price}}</p>
-              <a href="#" class="btn btn-primary">yaha </a>
+              <p class="card-text">Quality:{{c.quality}}</p>
+              <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹{{c.price}}</a>
 
             </div>
           </div>
@@ -179,11 +181,11 @@
               {% for c in ferts %}
             <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
             <div class="card m-3" style="width: 20rem;">
-              <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+              <img class="card-img-top" src={{c.image.url}} alternate='Image not supplied'>
               <div class="card-body">
                 <h5 class="card-title">{{c.name}}</h5>
-                <p class="card-text">₹{{c.price}}</p>
-                <a href="#" class="btn btn-primary">yaha </a>
+                <p class="card-text">Quality:{{c.quality}}</p>
+                <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹{{c.price}}</a>
 
               </div>
             </div>
@@ -196,11 +198,11 @@
                 {% for c in pests %}
               <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
               <div class="card m-3" style="width: 20rem;">
-                <img class="card-img-top" src={{c.photo}} alternate='Image not supplied'>
+                <img class="card-img-top" src='{{c.image.url}}' alternate='Image not supplied'>
                 <div class="card-body">
                   <h5 class="card-title">{{c.name}}</h5>
-                  <p class="card-text">₹{{c.price}}</p>
-                  <a href="#" class="btn btn-primary">yaha </a>
+                  <p class="card-text">Quality:{{c.quality}}</p>
+                  <a href="http://localhost:8000/farmer/shop/{{c.p_id}}" class="btn btn-primary">₹{{c.price}}</a>
 
                 </div>
               </div>
@@ -262,10 +264,10 @@
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
 
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo.url +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
-      var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
+      var d = '<a href="http://localhost:8000/farmer/shop/"+ seed[i].p_id class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
       output += a+b+c+d;
 
     }
@@ -273,20 +275,20 @@
   output = '';
     for(i=0; i<Object.keys(fert).length; i++){
 
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + fert[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + fert[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ fert[i].image.url +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ fert[i].name +'</h5>';
       var c = '<p class="card-text">'+fert[i].quality +'/5</p><p class ="card">';
-      var d = '<a href="#" class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
+      var d = '<a href="http://localhost:8000/farmer/shop/"'+ fert[i].p_id +' class="btn btn-primary">Rs'+fert[i].price + '</a></div></div></div></a>';
       output += a+b+c+d;
     }
 	$('#fertilizer').append(output);
   output = '';
     for(i=0; i<Object.keys(pest).length; i++){
 
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + pest[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="'+ pest[i].image.url +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ pest[i].name +'</h5>';
       var c = '<p class="card-text">'+pest[i].quality +'/5</p><p class ="card">';
-      var d = '<a href="#" class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
+      var d = '<a href="http://localhost:8000/farmer/shop/"+ pest[i].p_id class="btn btn-primary">Rs'+pest[i].price + '</a></div></div></div></a>';
       output += a+b+c+d;
     }
 	$('#pesticide').append(output);

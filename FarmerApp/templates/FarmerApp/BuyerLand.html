@@ -13,6 +13,8 @@
       Products
       {% endif %}
     </title>
+    <link rel = "icon" href ="{% static 'kisaan.png' %}"
+        type = "logo/x-icon">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/navbar-static/">
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -125,9 +127,10 @@
           <i class="fas fa-shopping-cart top fa-2x"></i>
         {{ total_items }} item,
         ₹{{ cart.get_total_price }}
-      </a>
+      </a >
       {% else %}
-      Your cart is empty.
+      <h5 class='top'>
+      Your cart is empty.</h5>
       {% endif %}
       {% endwith %}</li>
 
@@ -178,7 +181,7 @@
               <p class="card-text">₹{{ product.price }}</p>
 
 
-              <a href="#" class="btn btn-primary">BUY</a>
+              <a href="{{ product.get_absolute_url }}" class="btn btn-primary">BUY</a>
 
             </div>
           </div>

@@ -5,58 +5,60 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Your shopping cart</title>
+      <link rel = "icon" href ="{% static 'kisaan.png' %}"
+          type = "logo/x-icon">
       <style>
           .container{
               margin-top: 100px;
           }
       </style>
       <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
-  
+
       <!-- Bootstrap core CSS -->
       <link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
       <!-- CSS only -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
       <!-- Favicons -->
-  
+
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-      
+
       <link href="{% static 'css/summary.css' %}" rel="stylesheet">
   </head>
   <body>
-  
+
     <nav class="navbar fixed-top navbar-dark" style="background-color: black;">
       <a class="navbar-brand" href="#">
         <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Kya yaar ek logo toh daal">
-        
+
       </a>
-      
+
     </nav>
-    
-  
-  
+
+
+
   <div class="container">
     <div class="row">
     <div class="col-9">
     <h3 style="background-color:orangered; border-radius: 10px; padding:10px;">
       Your Cart
     </h3>
-  
+
     {% for item in cart %}
     {% with product=item.product %}
     <ul class="list-inline">
     <div class="row">
-      
+
         <li class="list-inline-item"><a href="{{ product.get_absolute_url }}">
           <img src="{% if product.image %}{{ product.image.url }} {% endif %}" style="width: 200px; height: 200px; padding:10px " >
         </a></li>
-  
-        <li> 
+
+        <li>
           <ul>
             <li>
               <h3><b>{{ product.name }}</b></h3>
             </li>
             <li>₹{{ item.price }}
-  
+
             </li>
             <li>
               <form action="{% url 'farmer_cart_add' product.p_id %}" method="post">
@@ -68,56 +70,56 @@
               </form>
             </li>
             </ul>
-          
-  
-  
+
+
+
         </li>
         <li >
           ₹{{ item.total_price }}
         </li>
-        
-     
-  
-  
+
+
+
+
     </div>
     </ul>
     {% endwith %}
         {% endfor %}
-  
-  
-  
+
+
+
       </div>
       <div class="col-3">
-  
+
         <h3 style="background-color:yellowgreen; border-radius: 10px; padding:10px;">
           Summary
         </h3>
-  
+
         <h3>
           Total=₹{{ cart.get_total_price }}
         </h3>
         <a href="{% url 'farmer_order_create' %}" class="btn btn-success btn-lg btn-block">Proceed to Checkout</a>
-        
+
         <a href="{% url 'farmer_product_list' %}" class="btn btn-primary btn-lg btn-block">Continue shopping</a>
-        
+
       </div>
-    
+
     </div>
     </div>
-      
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
           <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
           <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
@@ -128,4 +130,3 @@
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
   </html>
-  

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your shopping cart</title>
+    <link rel = "icon" href ="{% static 'kisaan.png' %}"
+        type = "logo/x-icon">
     <style>
         .container{
             margin-top: 100px;
@@ -19,7 +21,7 @@
     <!-- Favicons -->
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    
+
     <link href="{% static 'css/checkout.css' %}" rel="stylesheet">
 </head>
 <body>
@@ -29,57 +31,57 @@
     <h3 style="background-color:orangered; border-radius: 10px; padding:10px;">
       Your Cart
     </h3>
-  
+
     {% for item in cart %}
     {% with product=item.product %}
     <ul class="list-inline">
     <div class="row">
-      
+
         <li class="list-inline-item"><a href="{{ product.get_absolute_url }}">
           <img src="{% if product.image %}{{ product.image.url }} {% endif %}" style="width: 200px; height: 200px; padding:10px " >
         </a></li>
-  
+
         <li>
           <ul>
             <li>
               <h3><b>{{ product.name }}</b></h3>
             </li>
             <li>₹{{ item.price }}
-  
+
             </li>
             <li>
-             
+
             </li>
             </ul>
-          
-  
-  
+
+
+
         </li>
         <li >
           ₹{{ item.total_price }}
         </li>
-        
-     
-  
-  
+
+
+
+
     </div>
     </ul>
     {% endwith %}
         {% endfor %}
-  
-  
-  
+
+
+
       </div>
       <div class="col-3 myform" style="padding: 10px;">
-  
+
         <h3 style="background-color:yellowgreen; border-radius: 10px; padding:10px;">
           Summary
         </h3>
-  
+
         <h3>
           Total=₹{{ cart.get_total_price }}
         </h3>
-       
+
         <form method="post" class="order-form">
           {{form.first_name}}
           <div class="alert alert-danger" role="alert">
@@ -105,22 +107,22 @@
           <div class="alert alert-danger" role="alert">
             {{form.city.errors|striptags}}
           </div>
-          
-          
-          
-          
-          
-          
+
+
+
+
+
+
           <!-- {{ form.as_p }} -->
           <p><input type="submit" value="Place order" class="btn btn-success btn-lg btn-block"></p>
           {% csrf_token %}
         </form>
-        
+
       </div>
-    
+
     </div>
     </div>
-  
+
 
 
 
@@ -137,7 +139,3 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
-
