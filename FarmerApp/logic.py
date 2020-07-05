@@ -4,8 +4,8 @@ from email.mime.image import MIMEImage
 import smtplib
 def sendmail(name,email,id,tot):
     msg = MIMEMultipart()
-    msg['From'] = "psycho.saiyan20@gmail.com"
-    password='mzvmwencqnpmjczv'
+    msg['From'] = "kisaanseva20@gmail.com"
+    password='minions@123'
     greet = "Hey {}!".format(name)
     msg['To']= email
     msg['Subject'] = "Confirmation of your order (id {})".format(id)
