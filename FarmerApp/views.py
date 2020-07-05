@@ -414,11 +414,11 @@ def farm_cart_add(request, sc_id):
 
 def farm_cart_remove(request, pid):
     cart = Cart1(request)
-    if re.match("^cs[0-9]*[0-9]$",sc_id):
+    if re.match("^cs[0-9]*[0-9]$",pid):
         model = 'cs'
-    elif re.match("^f[0-9]*[0-9]$",sc_id):
+    elif re.match("^f[0-9]*[0-9]$",pid):
         model = 'f'
-    elif re.match("^p[0-9]*[0-9]$",sc_id):
+    elif re.match("^p[0-9]*[0-9]$",pid):
         model = 'p'
     else:
         model = ''
@@ -428,7 +428,7 @@ def farm_cart_remove(request, pid):
         'f':fertilizer,
         'p':pesticide
     }
-    item = get_object_or_404(ref_dict[model],pk=sc_id)
+    item = get_object_or_404(ref_dict[model],pk=pid)
     #product = get_object_or_404(tot, id=pid)
     cart.remove(item)
     return redirect('farmer_cart_detail')
