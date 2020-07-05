@@ -137,7 +137,7 @@ def order(request, pref):
             a.pop('_state')
             d[i]=a
         ordered[2] = d
-
+        print(ordered)
         return JsonResponse(ordered)
         return HttpResponse("YO")
     if pref =="quality":
@@ -169,6 +169,7 @@ def order(request, pref):
             d[i]=a
         ordered[2] = d
 
+        print(ordered)
         return JsonResponse(ordered)
     else:
         return HttpResponse(pref)
