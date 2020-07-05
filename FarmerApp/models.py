@@ -112,7 +112,7 @@ class CropSeeds(models.Model):
     name=models.CharField(max_length=100)
     s_type=models.CharField(max_length=100)
     price=models.IntegerField()
-    photo=models.ImageField(upload_to='cropImage/',blank=True)
+    image=models.ImageField(upload_to='cropImage/',blank=True)
     quality = models.IntegerField()
 
 
