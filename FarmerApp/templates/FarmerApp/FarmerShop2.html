@@ -126,6 +126,24 @@
        </li>
 
       </ul>
+      <ul class="list-inline">
+
+        {% with total_items=cart|length %}
+        {% if total_items > 0 %}
+        <li class="list-inline-item top" >
+          <a href="{% url "farmer_cart_detail" %}" class="top">
+
+            <i class="fas fa-shopping-cart top fa-2x"></i>
+          {{ total_items }} item,
+          ₹{{ cart.get_total_price }}
+        </a >
+        {% else %}
+        <h5 class='top'>
+        Your cart is empty.</h5>
+        {% endif %}
+        {% endwith %}</li>
+
+      </ul>
   </nav>
 
 <!-- <div>
@@ -162,7 +180,7 @@
             {% for c in cropseeds %}
           <a href="http://localhost:8000/farmer/shop/{{c.p_id}}">
           <div class="card m-3" style="width: 20rem;">
-            <img class="card-img-top" src={{c.photo.url}} alternate='Image not supplied'>
+            <img class="card-img-top" src={{c.image.url}} alternate='Image not supplied'>
             <div class="card-body">
               <h5 class="card-title">{{c.name}}</h5>
               <p class="card-text">Quality:{{c.quality}}</p>
@@ -264,7 +282,7 @@
     output = '';
     for(i=0; i<Object.keys(seed).length; i++){
 
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="http://localhost:8000/media/'+ seed[i].photo +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="http://localhost:8000/media/'+ seed[i].image +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="http://localhost:8000/farmer/shop/"+ seed[i].p_id class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
@@ -319,8 +337,8 @@ $('.order-quality').on('click',function() {
     console.log(seed);
     output = '';
     for(i=0; i< Object.keys(seed).length; i++){
-              // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].photo +'" alt="Card image cap">';
-      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="http://localhost:8000/media/'+ seed[i].photo +'" alt="Card image cap">';
+              // '<a href = "http://localhost:8000/indi/cs/' + seed[i].id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top" " src="'+ seed[i].image +'" alt="Card image cap">';
+      var a = '<a href = "http://localhost:8000/farmer/shop/' + seed[i].p_id +'"><div class="card m-3" style="width: 20rem;"><div class = "col"><img class="card-img-top"  src="http://localhost:8000/media/'+ seed[i].image +'" alt="Card image cap">';
       var b = '<div class="card-body"><h5 class="card-title">'+ seed[i].name +'</h5>';
       var c = '<p class="card-text">'+seed[i].quality +'/5</p><p class ="card">';
       var d = '<a href="#" class="btn btn-primary">Rs'+seed[i].price + '</a></div></div></div></a>';
