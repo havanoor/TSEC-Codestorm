@@ -68,6 +68,7 @@
                 <input type="submit" value="Update" class="form-control" style="margin-top: 10px;">
                 {% csrf_token %}
               </form>
+              <a href= "{% url 'farmer_cart_remove'  product.id %}" class='btn btn-danger'>Remove</a>
             </li>
             </ul>
 
